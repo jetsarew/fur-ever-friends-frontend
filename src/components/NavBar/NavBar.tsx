@@ -7,7 +7,7 @@ export default function NavBar(){
             <div className="flex flex-row justify-between gap-[102px]">
                 <div className="flex flex-row gap-6 color text-button text-medium-gray">
                     <button>Activities</button>
-                    <button>My Pets</button>
+                    <button>My pets</button>
                 </div>
                 <Image 
                     src={"/profile.jpg"}
