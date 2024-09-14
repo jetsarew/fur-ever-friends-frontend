@@ -90,3 +90,6 @@ body {
   font-size: 14px;
   font-weight: 300;
 }
+.pop-up-shadow {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
