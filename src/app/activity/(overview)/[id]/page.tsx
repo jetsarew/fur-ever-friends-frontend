@@ -1,6 +1,7 @@
+import ActivityStateBar from "@/components/Card/ActivityStateBar"
 import PetActivityCard from "@/components/Card/PetActivityCard"
-import PetCard from "@/components/Card/PetCard"
-import PetSitterCard from "@/components/Card/PetSitterCard"
+//import PetCard from "@/components/Card/PetCard"
+//import PetSitterCard from "@/components/Card/PetSitterCard"
 import { CalendarIcon, CalendarWithCheckIcon, LocationIcon } from "@/shared/Icon"
 
 export default function ActivityDetailPage({ params }: {
@@ -12,7 +13,7 @@ export default function ActivityDetailPage({ params }: {
             <h1 className="text-header text-bright-blue">Whiskers & Buddy Outing {params.id}</h1>
             <div className="flex flex-row justify-between items-start">
                 <div className="w-[561px] flex flex-col gap-8">
-                    <PetSitterCard />
+                    {/* <PetSitterCard /> */}
                     <div className="py-6 px-4 flex flex-col gap-4 border border-bd-gray rounded-lg">
                         <h3 className="text-subheading text-dark-blue">Duration</h3>
                         <div>
@@ -45,16 +46,13 @@ export default function ActivityDetailPage({ params }: {
                         </div>
                     </div>
                 </div>
-                <div>
-                    Bar
-                </div>
+                <ActivityStateBar />
             </div>
             <div className="py-6 px-4 flex flex-col gap-4 border border-bd-gray rounded-lg">
                 <h3 className="text-subheading text-dark-blue">Pet Activities</h3>
                 <div className="flex flex-row justify-between items-center flex-wrap gap-8">
                     <PetActivityCard />
                     <PetActivityCard />
-                    <PetCard width={"w-[443px]"} border={"border border-bd-gray rounded-lg"} padding={"px-6 py-3"}/>
                 </div>
             </div>
         </div>
