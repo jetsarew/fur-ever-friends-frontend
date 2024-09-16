@@ -1,5 +1,6 @@
 import ActivityStateBar from "@/components/Card/ActivityStateBar"
 import PetActivityCard from "@/components/Card/PetActivityCard"
+import PetOwnerCard from "@/components/Card/PetOwnerCard"
 //import PetCard from "@/components/Card/PetCard"
 //import PetSitterCard from "@/components/Card/PetSitterCard"
 import { CalendarIcon, CalendarWithCheckIcon, LocationIcon } from "@/shared/Icon"
@@ -14,6 +15,7 @@ export default function ActivityDetailPage({ params }: {
             <div className="w-full flex flex-row justify-between items-start">
                 <div className="w-[561px] flex flex-col gap-8">
                     {/* <PetSitterCard /> */}
+                    <PetOwnerCard />
                     <div className="py-6 px-4 flex flex-col gap-4 border border-bd-gray rounded-lg">
                         <h3 className="text-subheading text-dark-blue">Duration</h3>
                         <div>
