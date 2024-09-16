@@ -1,5 +1,6 @@
 import PetActivityCard from "@/components/Card/PetActivityCard"
 import PetCard from "@/components/Card/PetCard"
+import PetSitterCard from "@/components/Card/PetSitterCard"
 import { CalendarIcon, CalendarWithCheckIcon, LocationIcon } from "@/shared/Icon"
 
 export default function ActivityDetailPage({ params }: {
@@ -11,6 +12,7 @@ export default function ActivityDetailPage({ params }: {
             <h1 className="text-header text-bright-blue">Whiskers & Buddy Outing {params.id}</h1>
             <div className="flex flex-row justify-between items-start">
                 <div className="w-[561px] flex flex-col gap-8">
+                    <PetSitterCard />
                     <div className="py-6 px-4 flex flex-col gap-4 border border-bd-gray rounded-lg">
                         <h3 className="text-subheading text-dark-blue">Duration</h3>
                         <div>
