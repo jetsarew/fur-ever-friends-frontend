@@ -1,6 +1,7 @@
-import ActivityStateBar from "@/components/Card/ActivityStateBar"
+//import ActivityStateBar from "@/components/Card/ActivityStateBar"
 import PetActivityCard from "@/components/Card/PetActivityCard"
-import PetOwnerCard from "@/components/Card/PetOwnerCard"
+//import PetOwnerCard from "@/components/Card/PetOwnerCard"
+//import RequestForm from "@/components/Form/RequestForm"
 //import PetCard from "@/components/Card/PetCard"
 //import PetSitterCard from "@/components/Card/PetSitterCard"
 import { CalendarIcon, CalendarWithCheckIcon, LocationIcon } from "@/shared/Icon"
@@ -15,7 +16,7 @@ export default function ActivityDetailPage({ params }: {
             <div className="w-full flex flex-row justify-between items-start">
                 <div className="w-[561px] flex flex-col gap-8">
                     {/* <PetSitterCard /> */}
-                    <PetOwnerCard />
+                    {/* <PetOwnerCard /> */}
                     <div className="py-6 px-4 flex flex-col gap-4 border border-bd-gray rounded-lg">
                         <h3 className="text-subheading text-dark-blue">Duration</h3>
                         <div>
@@ -48,7 +49,8 @@ export default function ActivityDetailPage({ params }: {
                         </div>
                     </div>
                 </div>
-                <ActivityStateBar />
+                {/* <ActivityStateBar /> */}
+                {/* <RequestForm /> */}
             </div>
             <div className="py-6 px-4 flex flex-col gap-4 border border-bd-gray rounded-lg">
                 <h3 className="text-subheading text-dark-blue">Pet Activities</h3>
@@ -60,7 +62,7 @@ export default function ActivityDetailPage({ params }: {
                     <button className="px-6 py-2 flex flex-row justify-center items-center rounded-lg bg-bright-blue text-button text-white">See progress</button>
                 </div> */}
             </div>
-            <button className="px-6 py-4 flex flex-row justify-center items-center rounded-lg border-[2px] border-bright-red text-body-bold text-bright-red">Delete this activity</button>
+            {/* <button className="px-6 py-4 flex flex-row justify-center items-center rounded-lg border-[2px] border-bright-red text-body-bold text-bright-red">Delete this activity</button> */}
         </div>
     )
 }
