@@ -57,7 +57,7 @@ export default function ActivityStateBar(){
             <div className="flex flex-col items-end gap-1">
                 <p className="text-end text-body-paragraph">Have all your pets been returned to you yet?</p> 
                 <button className="px-6 py-2 rounded-lg bg-bright-green text-button text-white">I have received my pets</button>
-                <button className="h-8 px-6 py-2 rounded-lg border-[2px] border-bright-red text-body-bold text-bright-red">Report an issue</button>
+                <button className="h-8 px-6 py-2 flex flex-row justify-center items-center rounded-lg border-[2px] border-bright-red text-body-bold text-bright-red">Report an issue</button>
             </div>
         </div>
     );

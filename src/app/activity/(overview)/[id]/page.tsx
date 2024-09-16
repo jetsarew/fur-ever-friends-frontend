@@ -9,9 +9,9 @@ export default function ActivityDetailPage({ params }: {
 }
 ){
     return (
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col items-start gap-8">
             <h1 className="text-header text-bright-blue">Whiskers & Buddy Outing {params.id}</h1>
-            <div className="flex flex-row justify-between items-start">
+            <div className="w-full flex flex-row justify-between items-start">
                 <div className="w-[561px] flex flex-col gap-8">
                     {/* <PetSitterCard /> */}
                     <div className="py-6 px-4 flex flex-col gap-4 border border-bd-gray rounded-lg">
@@ -54,7 +54,11 @@ export default function ActivityDetailPage({ params }: {
                     <PetActivityCard />
                     <PetActivityCard />
                 </div>
+                {/* <div className="pt-4 border-t border-bd-gray ">
+                    <button className="px-6 py-2 flex flex-row justify-center items-center rounded-lg bg-bright-blue text-button text-white">See progress</button>
+                </div> */}
             </div>
+            <button className="px-6 py-4 flex flex-row justify-center items-center rounded-lg border-[2px] border-bright-red text-body-bold text-bright-red">Delete this activity</button>
         </div>
     )
 }
