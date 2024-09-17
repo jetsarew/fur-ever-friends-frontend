@@ -2,7 +2,7 @@
 import { useState } from 'react';
 
 interface TextAreaProps {
-    label: string;
+    label?: string;
     labelStyle?: string;
     placeholder?: string;
     value?: string;
@@ -13,7 +13,7 @@ interface TextAreaProps {
 }
 
 export default function TextArea({
-    label,
+    label = "",
     labelStyle = "text-body-bold",
     placeholder = "",
     value = "",
@@ -31,15 +31,17 @@ export default function TextArea({
     };
 
     return (
-        <div className="flex flex-col gap-3">
-            <label className={labelStyle}>{label}</label>
+        <div className={`${width} flex flex-col gap-3`}>
+            {
+                label != "" && <label className={labelStyle}>{label}</label>
+            }    
             <div className="flex flex-row items-center gap-2">
                 {icon}
                 <textarea
                     placeholder={placeholder}
                     value={inputValue}
                     onChange={handleInputChange}
-                    className={`${width} ${height} p-3 border border-bd-gray rounded-lg text-body-paragraph focus:outline-none focus:border-bright-blue resize-none`}
+                    className={`w-full ${height} p-3 border border-bd-gray rounded-lg text-body-paragraph focus:outline-none focus:border-bright-blue resize-none`}
                 />
             </div>
         </div>

@@ -33,7 +33,7 @@ export default function InputField({
     };
 
     return (
-        <div className="flex flex-col gap-3">
+        <div className={`${width} flex flex-col gap-3`}>
             <label className={labelStyle}>{label}</label>
             <div className="flex flex-row items-center gap-2">
                 {icon}
@@ -42,7 +42,7 @@ export default function InputField({
                     placeholder={placeholder}
                     value={inputValue}
                     onChange={handleInputChange}
-                    className={`${width} ${height} p-3 border border-bd-gray rounded-lg text-body-paragraph focus:outline-none focus:border-bright-blue`}
+                    className={`w-full ${height} p-3 border border-bd-gray rounded-lg text-body-paragraph focus:outline-none focus:border-bright-blue`}
                 />
             </div>
         </div>
