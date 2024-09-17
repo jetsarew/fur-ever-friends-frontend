@@ -14,7 +14,7 @@ export default function ActivityReviewPage({ params }: {
     console.log(params.id);
 
     return (
-        <div className="w-[680px] mx-auto flex flex-col items-center gap-8">
+        <form className="w-[680px] mx-auto flex flex-col items-center gap-8">
             <div className="w-full flex flex-col items-start gap-8">
                 <div className="flex flex-row items-center gap-4">
                     <Image 
@@ -28,26 +28,31 @@ export default function ActivityReviewPage({ params }: {
                 </div>
                 <div className="w-full flex flex-row justify-center gap-5">
                     <button
+                        type="button"
                         onClick={() => setRating(1)}
                     >
                         <StarIcon className="w-[60px] h-[60px] text-golden-yellow"/>
                     </button>
                     <button
+                        type="button"
                         onClick={() => setRating(2)}
                     >
                         <StarIcon className={`w-[60px] h-[60px] ${rating >= 2 ? "text-golden-yellow" : "text-light-gray2"}`}/>
                     </button>
                     <button
+                        type="button"
                         onClick={() => setRating(3)}
                     >
                         <StarIcon className={`w-[60px] h-[60px] ${rating >= 3 ? "text-golden-yellow" : "text-light-gray2"}`}/>
                     </button>
                     <button
+                        type="button"
                         onClick={() => setRating(4)}
                     >
                         <StarIcon className={`w-[60px] h-[60px] ${rating >= 4 ? "text-golden-yellow" : "text-light-gray2"}`}/>
                     </button>
                     <button
+                        type="button"
                         onClick={() => setRating(5)}
                     >
                         <StarIcon className={`w-[60px] h-[60px] ${rating >= 5 ? "text-golden-yellow" : "text-light-gray2"}`}/>
@@ -61,6 +66,6 @@ export default function ActivityReviewPage({ params }: {
                 onChange={() => {}}
             />
             <button className="px-6 py-4 flex flex-row justify-between items-center rounded-lg text-button text-white bg-golden-yellow">Post review</button>
-        </div>
-    )
+        </form>
+    );
 }
