@@ -55,8 +55,14 @@ export default function ActivityDetailPage({ params }: {
             <div className="py-6 px-4 flex flex-col gap-4 border border-bd-gray rounded-lg">
                 <h3 className="text-subheading text-dark-blue">Pet Activities</h3>
                 <div className="flex flex-row justify-between items-center flex-wrap gap-8">
-                    <PetActivityCard />
-                    <PetActivityCard />
+                    <PetActivityCard 
+                        showCheckBox={false}
+                        showProgressBar={false}
+                    />
+                    <PetActivityCard 
+                        showCheckBox={false}
+                        showProgressBar={false}
+                    />
                 </div>
                 {/* <div className="pt-4 border-t border-bd-gray ">
                     <button className="px-6 py-2 flex flex-row justify-center items-center rounded-lg bg-bright-blue text-button text-white">See progress</button>

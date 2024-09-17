@@ -2,7 +2,7 @@
 import { useState } from 'react';
 
 interface TextAreaProps {
-    label: string;
+    label?: string;
     labelStyle?: string;
     placeholder?: string;
     value?: string;
@@ -13,7 +13,7 @@ interface TextAreaProps {
 }
 
 export default function TextArea({
-    label,
+    label = "",
     labelStyle = "text-body-bold",
     placeholder = "",
     value = "",
@@ -32,7 +32,9 @@ export default function TextArea({
 
     return (
         <div className={`${width} flex flex-col gap-3`}>
-            <label className={labelStyle}>{label}</label>
+            {
+                label != "" && <label className={labelStyle}>{label}</label>
+            }    
             <div className="flex flex-row items-center gap-2">
                 {icon}
                 <textarea
