@@ -158,7 +158,7 @@ const AccountForm = () => {
         <button type="submit" className='confirm-btn'>Create Account</button>
       </div>
 
-      <style jsx>{`
+      <style >{`
         h2 {
           margin-bottom: 20px;
           font-weight: bold;

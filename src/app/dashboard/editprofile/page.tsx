@@ -1,7 +1,7 @@
 "use client"; 
 
 import { FormEvent } from "react";
-import NavBar from "@/app/component/navbar";
+
 
 export default function ProfilePage() {
     const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,7 +33,7 @@ export default function ProfilePage() {
 
     return (
         <>
-            <NavBar />
+            
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "20px" }}>
                 
                 <form onSubmit={handleSave} style={{ width: "300px", textAlign: "center" }}>
