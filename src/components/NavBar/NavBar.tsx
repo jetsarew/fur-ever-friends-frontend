@@ -1,13 +1,18 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function NavBar(){
     return (
         <div className="fixed top-0 left-0 right-0 w-full h-16 px-[111px] flex flex-row justify-between items-center border-b border-bd-gray bg-white">
             <button className="text-header text-bright-blue">FUR-EVER FRIENDS</button>
             <div className="flex flex-row justify-between gap-[102px]">
-                <div className="flex flex-row gap-6 color text-button text-medium-gray">
-                    <button>Activities</button>
-                    <button>My pets</button>
+                <div className="flex flex-row items-center gap-6 color text-button text-medium-gray">
+                    <Link
+                        href="/activity"
+                    >Activities</Link>
+                    <Link
+                        href="/pet"
+                    >My pets</Link>
                 </div>
                 <Image 
                     src={"/profile.jpg"}
