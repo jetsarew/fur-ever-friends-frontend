@@ -1,7 +1,7 @@
+import { redirect } from "next/navigation";
+
 export default function ActivityPage(){
-    return (
-        <div>
-            My Activity
-        </div>
-    )
+    redirect("/activity/unassigned");
+    
+    return null;
 }
