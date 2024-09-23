@@ -29,6 +29,9 @@ const config: Config = {
         "golden-yellow": "#FFC107",
         "dark-blue": "#FFC107"
       },
+      boxShadow: {
+        custom: '0px 8px 24px 0px rgba(149, 157, 165, 0.2)',
+      },
     },
   },
   plugins: [],
