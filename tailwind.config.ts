@@ -27,7 +27,7 @@ const config: Config = {
           "red": "#E54D4D"
         },
         "golden-yellow": "#FFC107",
-        "dark-blue": "#FFC107"
+        "dark-blue": "#1C7DBB"
       },
       boxShadow: {
         custom: '0px 8px 24px 0px rgba(149, 157, 165, 0.2)',
