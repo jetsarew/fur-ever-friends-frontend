@@ -27,7 +27,7 @@ const VerificationPage: React.FC = () => {
         </p>
 
         {/* Back to homepage link */}
-        <a href="/" style={{ color: 'grey', fontWeight: 'bold',fontSize: '10px', marginTop: '2px', display: 'inline-block' }}>
+        <a href="/dashboard/home" style={{ color: 'grey', fontWeight: 'bold',fontSize: '10px', marginTop: '2px', display: 'inline-block' }}>
           Back to homepage
         </a>
       </div>
