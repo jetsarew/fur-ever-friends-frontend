@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { DropdownArrowIcon } from "../../../../shared/Icon";
+import { DropdownArrowIcon } from "@/shared/Icon";
 
 export function Dropdown({ width, options, defaultOption }: {
     width: number;

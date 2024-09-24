@@ -6,7 +6,8 @@ import { ManageUsersContent, ViewReportsContent, ViewApplicationsContent } from 
 import { DefaultAction, BlockedAction, ReportAction, ApplicationAction } from "@/components/Admin/Button/UserAction";
 import { UsersFilter, ReportsFilter } from "@/components/Admin/Button/Filter";
 import { UserStatusDropdown, UserRoleDropdown } from "@/components/Admin/Button/Dropdown";
-import { OptionIcon } from "../../../shared/Icon";
+import { OptionIcon } from "@/shared/Icon";
+import { CalendarIcon, CalendarWithCheckIcon } from "@/shared/Icon";
 import SearchBar from "@/components/Admin/Input/SearchBar";
 
 export default function Test() {
@@ -64,6 +65,11 @@ export default function Test() {
         <br /><br />
 
         <SearchBar />
+        <br /><br />
+
+        <CalendarIcon />
+        <br /><br />
+        <CalendarWithCheckIcon />
         <br /><br />
 
         <ManageUsersHeader />

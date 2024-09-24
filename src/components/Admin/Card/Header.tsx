@@ -13,7 +13,7 @@ export function ManageUsersHeader() {
 export function ViewReportsHeader() {
     return (<div className="w-fit h-[72px] border border-bd-gray grid grid-cols-[174px_270px_270px_140px_220px_80px]">
         <div className="flex text-body-bold text-dark pl-[16px] pr-[16px] justify-between items-center">ID</div>
-        <div className="flex text-body-bold text-dark pl-[16px] pr-[16px] justify-between items-center">Reported User</div>
+        <div className="flex text-body-bold text-dark pl-[16px] pr-[16px] justify-between items-center">Reported user</div>
         <div className="flex text-body-bold text-dark pl-[16px] pr-[16px] justify-between items-center">Reporter</div>
         <div className="flex text-body-bold text-dark pt-[1px] pl-[16px] pr-[16px] justify-between items-center">Created at</div>
         <div className="flex text-body-bold text-dark pl-[16px] pr-[16px] justify-center items-center">Report type</div>

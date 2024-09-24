@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { CheckboxIcon, NullCheckboxIcon } from '../../../../shared/Icon';
+import { CheckboxIcon, NullCheckboxIcon } from '@/shared/Icon';
 import { UserStatusDropdown, UserRoleDropdown } from './Dropdown';
 
 export function UsersFilter() {
