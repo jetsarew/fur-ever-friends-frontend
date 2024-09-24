@@ -9,8 +9,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  compose
 }: Readonly<{
   children: React.ReactNode;
+  compose: React.ReactNode;
 }>) {
   return (
     <html lang="en">
@@ -28,7 +30,10 @@ export default function RootLayout({
       </head>
       <body className="antialiased">
         <NavBar />
-        <main className="w-[1154px] mx-auto mt-16 pt-12">{children}</main>
+        <main className="w-[1154px] mx-auto mt-16 pt-12">
+          {children}
+          {compose}
+        </main>
       </body>
     </html>
   );

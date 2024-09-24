@@ -6,7 +6,6 @@ import { links } from "@/shared/ActivityNavLink";
 
 export default function ActivityNavBar() {
     const pathname = usePathname();
-    console.log(pathname);
     return (
         <div className="pt-12 flex flex-row border-b border-bd-gray sticky top-[64px] bg-white">
             {
