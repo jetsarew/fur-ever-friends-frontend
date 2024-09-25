@@ -17,6 +17,7 @@ const config: Config = {
         "soft-gray": "#B3B3B3",
         "medium-gray": "#999999",
         "standard-gray": "#808080",
+        "paragraph-gray": "#868889",
         "dark-gray": "#666666",
         "darker-gray": "#4D4D4D",
         "dark": "#333333",

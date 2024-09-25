@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function UserCard({ src, firstname, lastname }: {
+export default function TableUserCard({ src, firstname, lastname }: {
     src?: string;
     firstname: string;
     lastname: string;
