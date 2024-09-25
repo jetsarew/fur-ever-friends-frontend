@@ -5,6 +5,7 @@ import PetActivityCard from "@/components/Card/PetActivityCard"
 //import PetCard from "@/components/Card/PetCard"
 //import PetSitterCard from "@/components/Card/PetSitterCard"
 import { CalendarIcon, CalendarWithCheckIcon, LocationIcon } from "@/shared/Icon"
+import Link from "next/link"
 
 export default function ActivityDetailPage({ params }: {
     params: { id: string }
@@ -68,7 +69,10 @@ export default function ActivityDetailPage({ params }: {
                     <button className="px-6 py-2 flex flex-row justify-center items-center rounded-lg bg-bright-blue text-button text-white">See progress</button>
                 </div> */}
             </div>
-            {/* <button className="px-6 py-4 flex flex-row justify-center items-center rounded-lg border-[2px] border-bright-red text-body-bold text-bright-red">Delete this activity</button> */}
+            <Link
+                href={"/compose/delete-activity/1234"}
+                className="px-6 py-4 flex flex-row justify-center items-center rounded-lg border-[2px] border-bright-red text-body-bold text-bright-red"
+            >Delete this activity</Link>
         </div>
     )
 }
