@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { CheckboxIcon, NullCheckboxIcon } from '@/shared/Icon';
 import { UserStatusDropdown, UserRoleDropdown } from './Dropdown';
+import CalendarCard from '../Card/CalendarCard';
 
 export function UsersFilter() {
     const [isStatusChecked, setIsStatusChecked] = useState(false);
@@ -97,12 +98,18 @@ export function ReportsFilter() {
                         Date
                     </div>
                     {isDateChecked &&
-                        <div className='flex flex-col'>
-                            <div className='text-body text-dark'>
-                                from
+                        <div className='flex flex-col w-[196px] gap-[8px]'>
+                            <div className='flex justify-between items-center'>
+                                <div className='text-body text-dark'>
+                                    from
+                                </div>
+                                <CalendarCard date="10/10/2024" />
                             </div>
-                            <div className='text-body text-dark'>
-                                to
+                            <div className='flex justify-between items-center'>
+                                <div className='text-body text-dark'>
+                                    to
+                                </div>
+                                <CalendarCard date="10/10/2024" />
                             </div>
                         </div>
                     }

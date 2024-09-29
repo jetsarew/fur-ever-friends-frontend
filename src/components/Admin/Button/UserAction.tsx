@@ -2,7 +2,7 @@ import { BlockIcon, UnblockIcon, PersonIcon, MoreIcon, BinIcon, AcceptIcon, Reje
 
 export function DefaultAction() {
     return (
-        <div className="border border-light-gray2 w-fit h-[80px] pr-[18px] pl-[18px] rounded-[16px] grid grid-rows-[40px_40px] shadow-custom cursor-pointer">
+        <div className="border border-light-gray2 w-max h-[80px] pr-[18px] pl-[18px] rounded-[16px] grid grid-rows-[40px_40px] shadow-custom cursor-pointer select-none">
             <div className="w-fit flex items-center">
                 <div className="w-[16px] h-[16px]">
                     <BlockIcon />
@@ -26,7 +26,7 @@ export function DefaultAction() {
 
 export function BlockedAction() {
     return (
-        <div className="border border-light-gray2 w-fit h-[80px] pr-[18px] pl-[18px] rounded-[16px] grid grid-rows-[40px_40px] shadow-custom cursor-pointer">
+        <div className="border border-light-gray2 w-max h-[80px] pr-[18px] pl-[18px] rounded-[16px] grid grid-rows-[40px_40px] shadow-custom cursor-pointer select-none">
             <div className="w-fit flex items-center">
                 <div className="w-[16px] h-[16px]">
                     <UnblockIcon />
@@ -50,7 +50,7 @@ export function BlockedAction() {
 
 export function ReportAction() {
     return (
-        <div className="border border-light-gray2 w-fit h-[80px] pr-[18px] pl-[18px] rounded-[16px] grid grid-rows-[40px_40px] shadow-custom cursor-pointer">
+        <div className="border border-light-gray2 w-max h-[80px] pr-[18px] pl-[18px] rounded-[16px] grid grid-rows-[40px_40px] shadow-custom cursor-pointer select-none">
             <div className="w-fit flex items-center">
                 <div className="w-[16px] h-[16px] pt-[2px]">
                     <MoreIcon />
@@ -74,7 +74,7 @@ export function ReportAction() {
 
 export function ApplicationAction() {
     return (
-        <div className="border border-light-gray2 w-fit h-[120px] pr-[18px] pl-[18px] rounded-[16px] grid grid-rows-[40px_40px_40px] shadow-custom cursor-pointer">
+        <div className="border border-light-gray2 w-max h-[120px] pr-[18px] pl-[18px] rounded-[16px] grid grid-rows-[40px_40px_40px] shadow-custom cursor-pointer select-none">
             <div className="w-fit flex items-center">
                 <div className="w-[16px] h-[16px] pt-[2px]">
                     <MoreIcon />

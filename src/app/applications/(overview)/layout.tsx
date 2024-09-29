@@ -7,10 +7,10 @@ export default function Layout({
 }>) {
   return (
     <div>
-        <BackButton />
-        <div className="pt-9">
-            {children}
-        </div>
+      <BackButton />
+      <div className="pt-9 flex justify-center">
+        {children}
+      </div>
     </div>
   );
 }

@@ -1,11 +1,11 @@
 import { StarIcon } from "@heroicons/react/16/solid";
 import Image from "next/image";
 
-export default function RequestCard(){
+export default function RequestCard() {
     return (
         <div className="px-4 py-6 flex flex-col gap-4 border border-bd-gray rounded-lg">
             <div className="flex flex-row gap-4">
-                <Image 
+                <Image
                     src="/pet-sitter.jpg"
                     width={250}
                     height={250}
@@ -21,7 +21,7 @@ export default function RequestCard(){
                         <p className="text-small-paragraph text-standard-gray">Hi Anntonia, I’d love to make Buddy Playtime a great experience! Let’s make this happen and ensure Buddy has a blast!</p>
                         <div className="flex flex-col gap-1">
                             <div className="flex flex-row items-end gap-1">
-                                <StarIcon className="w-5 h-5 text-golden-yellow"/>
+                                <StarIcon className="w-5 h-5 text-golden-yellow" />
                                 <div className="flex flex-row items-baseline ap-[2px]">
                                     <p className="text-subheading2 text-golden-yellow">4.5</p>
                                     <p className="text-body text-soft-gray">{"(99)"}</p>
