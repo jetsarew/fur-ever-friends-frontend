@@ -11,7 +11,7 @@ export default function NavBar(){
     role = "pet owner";
 
     return (
-        <div className="fixed top-0 left-0 right-0 w-full h-16 px-[111px] flex flex-row justify-between items-center border-b border-bd-gray bg-white">
+        <div className="fixed top-0 left-0 right-0 w-full h-16 px-[111px] flex flex-row justify-between items-center border-b border-bd-gray bg-white z-10">
             <Link href={"/"} className="text-header text-bright-blue">FUR-EVER FRIENDS</Link>
             {
                 state == "users" ?
@@ -19,6 +19,9 @@ export default function NavBar(){
                     {
                         role == "pet owner" &&
                         <div className="flex flex-row items-center gap-6 color text-button text-medium-gray">
+                            <Link
+                                href="/search"
+                            >Find a pet sitter</Link>
                             <Link
                                 href="/activity"
                             >Activities</Link>
