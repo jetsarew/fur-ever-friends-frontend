@@ -1,7 +1,7 @@
 import { ManageUsersHeader } from "@/components/Admin/Card/Header"
 import { ManageUsersContent } from "@/components/Admin/Card/Content"
 import SearchBar from "@/components/Admin/Input/SearchBar"
-import { FilterIcon } from "@/shared/Icon"
+import { UsersFilter } from "@/components/Admin/Button/Filter"
 
 export default function UsersPage() {
     const users = {
@@ -33,7 +33,7 @@ export default function UsersPage() {
             <div className="flex gap-[16px] items-center">
                 <SearchBar />
                 <div>
-                    <FilterIcon />
+                    <UsersFilter />
                 </div>
             </div>
             <div>

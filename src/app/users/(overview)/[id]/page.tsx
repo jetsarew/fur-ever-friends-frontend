@@ -1,10 +1,11 @@
 import { AdminPetOwnerCard, AdminPetSitterCard } from "@/components/Admin/Card/AccountUserCard"
-
+import CalendarCard from "@/components/Admin/Card/CalendarCard"
 export default function UserPage({ params }: {
     params: { id: string }
 }) {
     return (
         <div className="w-[918px]">
+            <CalendarCard />
             <div className="grid gap-[32px]">
                 {params.id == "petowner" ?
                     <>
@@ -41,7 +42,7 @@ export default function UserPage({ params }: {
                                         Hi, I’m Kirana, a passionate pet lover with 5 years of experience in pet sitting. Caring for animals has always been a joy for me, and I’m dedicated to providing your pets with the same love and attention they get at home. Whether it’s a fun walk in the park, playtime, or some quiet cuddles, I’m here to make sure your furry friends are happy, healthy, and well-cared for. I’m reliable, responsible, and always go the extra mile to ensure peace of mind for pet owners.                                    </div>
                                 </div>
 
-                                <div className="grid gap-[8px] border-b border-bd-gray py-[16px]">
+                                <div className="grid gap-[8px] border-b border-bd-gray pt-[16px]">
                                     <div className="text-body-bold text-black">
                                         Experience
                                     </div>
