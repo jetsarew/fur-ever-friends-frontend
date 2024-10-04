@@ -17,6 +17,7 @@ const config: Config = {
         "soft-gray": "#B3B3B3",
         "medium-gray": "#999999",
         "standard-gray": "#808080",
+        "paragraph-gray": "#868889",
         "dark-gray": "#666666",
         "darker-gray": "#4D4D4D",
         "dark": "#333333",
@@ -27,10 +28,15 @@ const config: Config = {
           "red": "#E54D4D"
         },
         "golden-yellow": "#FFC107",
-        "dark-blue": "#FFC107"
+        "dark-blue": "#1C7DBB"
+      },
+      boxShadow: {
+        custom: '0px 8px 24px 0px rgba(149, 157, 165, 0.2)',
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('daisyui'),
+  ],
 };
 export default config;

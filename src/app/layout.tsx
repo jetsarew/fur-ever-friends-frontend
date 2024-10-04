@@ -1,18 +1,6 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
 import NavBar from "@/components/NavBar/NavBar";
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,16 +9,31 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  compose
 }: Readonly<{
   children: React.ReactNode;
+  compose: React.ReactNode;
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body className="antialiased">
         <NavBar />
-        <div className="px-[143px]">{children}</div>
+        <main className="w-[1154px] mx-auto mt-16 pt-12">
+          {children}
+          {compose}
+        </main>
       </body>
     </html>
   );

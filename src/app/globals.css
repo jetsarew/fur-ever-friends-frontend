@@ -14,11 +14,14 @@
   }
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: "Poppins", sans-serif;
-  /* font-family: Arial, Helvetica, sans-serif; */
 }
 
 @layer utilities {
@@ -68,6 +71,7 @@ body {
   font-weight: 300;
   line-height: 100%;
 }
+
 .text-small-bold {
   font-size: 14px;
   font-weight: 400;
@@ -89,4 +93,20 @@ body {
 .text-small-paragraph {
   font-size: 14px;
   font-weight: 300;
+}
+
+.pop-up-shadow {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  z-index: 50;
 }
