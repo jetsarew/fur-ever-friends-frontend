@@ -1,7 +1,17 @@
 import { BlockIcon, UnblockIcon, PersonIcon, MoreIcon, BinIcon, AcceptIcon, RejectIcon } from "@/shared/Icon";
+import { useRouter } from "next/navigation";
+import { useContext } from "react";
+import { UsersContext, ReportsContext, ApplicationsContext } from "../Card/Content";
 
 export function DefaultAction() {
-    return (
+    const router = useRouter();
+    const context = useContext(UsersContext);
+
+    const handleUserClick = (user_id: string, role_id: number) => {
+        router.push(`/users/${user_id}?role_id=${role_id}`);
+    };
+
+    return (context &&
         <div className="border border-light-gray2 w-max h-[80px] pr-[18px] pl-[18px] rounded-[16px] grid grid-rows-[40px_40px] shadow-custom cursor-pointer select-none">
             <div className="w-fit flex items-center">
                 <div className="w-[16px] h-[16px]">
@@ -12,7 +22,7 @@ export function DefaultAction() {
                 </div>
             </div>
 
-            <div className="w-fit flex items-center">
+            <div onClick={() => handleUserClick(context.user_id, context.role_id)} className="w-fit flex items-center">
                 <div className="w-[16px] h-[16px]">
                     <PersonIcon />
                 </div>
@@ -25,7 +35,14 @@ export function DefaultAction() {
 }
 
 export function BlockedAction() {
-    return (
+    const router = useRouter();
+    const context = useContext(UsersContext);
+
+    const handleUserClick = (user_id: string, role_id: number) => {
+        router.push(`/users/${user_id}?role_id=${role_id}`);
+    };
+
+    return (context &&
         <div className="border border-light-gray2 w-max h-[80px] pr-[18px] pl-[18px] rounded-[16px] grid grid-rows-[40px_40px] shadow-custom cursor-pointer select-none">
             <div className="w-fit flex items-center">
                 <div className="w-[16px] h-[16px]">
@@ -36,7 +53,7 @@ export function BlockedAction() {
                 </div>
             </div>
 
-            <div className="w-fit flex items-center">
+            <div onClick={() => handleUserClick(context.user_id, context.role_id)} className="w-fit flex items-center">
                 <div className="w-[16px] h-[16px]">
                     <PersonIcon />
                 </div>
@@ -49,9 +66,12 @@ export function BlockedAction() {
 }
 
 export function ReportAction() {
+    const router = useRouter();
+    const id = useContext(ReportsContext);
+
     return (
         <div className="border border-light-gray2 w-max h-[80px] pr-[18px] pl-[18px] rounded-[16px] grid grid-rows-[40px_40px] shadow-custom cursor-pointer select-none">
-            <div className="w-fit flex items-center">
+            <div onClick={() => router.push(`/reports/${id}`)} className="w-fit flex items-center">
                 <div className="w-[16px] h-[16px] pt-[2px]">
                     <MoreIcon />
                 </div>
@@ -73,9 +93,12 @@ export function ReportAction() {
 }
 
 export function ApplicationAction() {
+    const router = useRouter();
+    const id = useContext(ApplicationsContext);
+
     return (
         <div className="border border-light-gray2 w-max h-[120px] pr-[18px] pl-[18px] rounded-[16px] grid grid-rows-[40px_40px_40px] shadow-custom cursor-pointer select-none">
-            <div className="w-fit flex items-center">
+            <div onClick={() => router.push(`/applications/${id}`)} className="w-fit flex items-center">
                 <div className="w-[16px] h-[16px] pt-[2px]">
                     <MoreIcon />
                 </div>

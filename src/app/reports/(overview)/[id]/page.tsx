@@ -1,6 +1,7 @@
 export default function ReportPage({ params }: {
     params: { id: string }
 }) {
+    console.log(params.id)
     return (
         <div className="w-[1154px] grid gap-[32px]">
             <div className="text-header text-bright-blue">Whiskers & Buddy Outing</div>
@@ -39,7 +40,7 @@ export default function ReportPage({ params }: {
 
                             </div>
                             <div className="text-body text-dark">
-                                Anntonia Porsild {params.id}
+                                Anntonia Porsild
                             </div>
                         </div>
                     </div>

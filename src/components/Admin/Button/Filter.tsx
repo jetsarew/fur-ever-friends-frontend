@@ -28,7 +28,7 @@ export function UsersFilter() {
                 <FilterIcon />
             </div>
             {!isClosed &&
-                <div className='flex w-max gap-[20px]'>
+                <div className='flex w-max gap-[20px] relative top-9'>
                     <div className='flex w-[245px] gap-[8px] select-none'>
                         <div onClick={handleStatusChange}>
                             {isStatusChecked ? (
