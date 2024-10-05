@@ -1,0 +1,37 @@
+"use client";
+
+import Image from "next/image";
+
+interface TaskCardProps {
+  taskId: number;
+  removeTask: (taskId: number) => void; // Function to remove task
+}
+
+export default function TaskCard({ taskId, removeTask }: TaskCardProps) {
+  return (
+    <div>
+      <div className="flex justify-between">
+        <p className="font-medium">Task</p>
+        <Image
+          src="/cross.svg"
+          width={24}
+          height={24}
+          alt="Delete task"
+          className="rounded-full cursor-pointer"
+          onClick={() => removeTask(taskId)} // Call removeTask with taskId when clicked
+        />
+      </div>
+
+      <select className="w-[241px] border rounded-[8px] px-[18px] py-[15px]">
+        <option value="feeding">Feeding</option>
+      </select>
+
+      <div className="mt-4">
+        <p className="font-medium">Detail</p>
+        <textarea className="w-full border rounded-[8px] resize-none px-[18px] py-[15px]" />
+      </div>
+
+      <hr className="my-2" />
+    </div>
+  );
+}
