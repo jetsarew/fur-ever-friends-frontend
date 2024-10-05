@@ -1,5 +1,9 @@
+import FavoriteButton from "@/components/Button/FavoriteButton";
+import InviteButton from "@/components/Button/InviteButton";
 import ReviewCard from "@/components/Card/ReviewCard";
 import SlideImage from "@/components/Card/SlideImage";
+import Tag from "@/components/Tag/Tag";
+import { BirdIcon, CatIcon, DogIcon, ExerciseIcon, FeedingIcon, FishIcon, GroomingIcon, MedicationIcon, RabbitIcon, RelaxationIcon, ReptileIcon, RodentIcon, TrainingIcon } from "@/shared/Icon";
 import { StarIcon } from "@heroicons/react/16/solid";
 import Image from "next/image";
 
@@ -11,6 +15,86 @@ export default function ProfilePage({ params }: {
         <div className="w-[918px] mx-auto flex flex-row items-start gap-8">
             <div className="w-[562px] flex flex-col gap-8">
                 <SlideImage />
+                <div className="pb-8 flex flex-row flex-wrap gap-x-6 gap-y-2 border-b border-bd-gray">
+                    <Tag 
+                        icon={<DogIcon />}
+                        text="Dogs"
+                        quantity={25}
+                        type="animal"
+                    />
+                    <Tag 
+                        icon={<CatIcon />}
+                        text="Cats"
+                        quantity={20}
+                        type="animal"
+                    />
+                    <Tag 
+                        icon={<RabbitIcon />}
+                        text="Rabbits"
+                        quantity={10}
+                        type="animal"
+                    />
+                    <Tag 
+                        icon={<RodentIcon />}
+                        text="Rodents"
+                        quantity={10}
+                        type="animal"
+                    />
+                    <Tag 
+                        icon={<BirdIcon />}
+                        text="Birds"
+                        quantity={8}
+                        type="animal"
+                    />
+                    <Tag 
+                        icon={<ReptileIcon />}
+                        text="Reptiles"
+                        quantity={5}
+                        type="animal"
+                    />
+                    <Tag 
+                        icon={<FishIcon />}
+                        text="Fish"
+                        quantity={3}
+                        type="animal"
+                    />
+                    <Tag 
+                        icon={<FeedingIcon />}
+                        text="Feeding"
+                        quantity={25}
+                        type="service"
+                    />
+                    <Tag 
+                        icon={<ExerciseIcon />}
+                        text="Exercise"
+                        quantity={20}
+                        type="service"
+                    />
+                    <Tag 
+                        icon={<GroomingIcon />}
+                        text="Grooming"
+                        quantity={10}
+                        type="service"
+                    />
+                    <Tag 
+                        icon={<TrainingIcon />}
+                        text="Training"
+                        quantity={10}
+                        type="service"
+                    />
+                    <Tag 
+                        icon={<RelaxationIcon />}
+                        text="Relaxation"
+                        quantity={5}
+                        type="service"
+                    />
+                    <Tag 
+                        icon={<MedicationIcon />}
+                        text="Administering Medication"
+                        quantity={8}
+                        type="service"
+                    />
+                </div>
                 <div className="flex flex-col gap-8">
                     <div className="flex flex-col gap-4">
                         <h2 className="text-subheading text-dark-blue">About</h2>
@@ -63,11 +147,15 @@ export default function ProfilePage({ params }: {
                         </div>
                     </div>
                 </div>
-                <div className="px-6 pt-4 pb-8 flex flex-col gap-4">
+                <div className="px-6 pb-8 flex flex-col gap-4">
                     <h1 className="text-header text-dark-blue">Kirana Jasmine Chewter</h1>
                     <div className="flex flex-col gap-4">
                         <p className="text-body-paragraph">Your pet’s happiness is my top priority, and I treat them like family every time.</p>
                         <p className="text-body text-medium-gray">Bangkok, Thailand</p>
+                    </div>
+                    <div className="pt-4 flex flex-row justify-between gap-5">
+                        <InviteButton />
+                        <FavoriteButton />
                     </div>
                 </div>
             </div>
