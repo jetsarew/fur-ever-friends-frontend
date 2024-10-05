@@ -20,7 +20,7 @@ export default function NavBar(){
                         role == "pet owner" &&
                         <div className="flex flex-row items-center gap-6 color text-button text-medium-gray">
                             <Link
-                                href="/search"
+                                href="/find-pet-sitter"
                             >Find a pet sitter</Link>
                             <Link
                                 href="/activity"

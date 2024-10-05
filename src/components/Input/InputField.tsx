@@ -2,7 +2,7 @@
 import { useState } from 'react';
 
 interface InputFieldProps {
-    label: string;
+    label?: string;
     labelStyle?: string;
     type?: string;
     placeholder?: string;
@@ -34,7 +34,7 @@ export default function InputField({
 
     return (
         <div className={`${width} flex flex-col gap-3`}>
-            <label className={labelStyle}>{label}</label>
+            {label && <label className={labelStyle}>{label}</label>}
             <div className="flex flex-row items-center gap-2">
                 {icon}
                 <input

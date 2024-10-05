@@ -30,7 +30,7 @@ export default function RootLayout({
       </head>
       <body className="antialiased">
         <NavBar />
-        <main className="w-[1154px] mx-auto mt-16 pt-12">
+        <main className="w-[1154px] mx-auto mt-16 pt-9">
           {children}
           {compose}
         </main>

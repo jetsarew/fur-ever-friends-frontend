@@ -17,7 +17,7 @@ export default function ActivityInvitation(){
                 type="button"
                 onClick={onButtonClicked}
                 className={`px-6 py-2 flex flex-row justify-center items-center rounded-lg ${invited ? "text-body-bold text-soft-gray" : "text-button text-white bg-bright-blue"}`}
-            >Invite</button>
+            >{invited ? "Invited" : "Invite"}</button>
         </div>
     );
 }

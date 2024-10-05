@@ -45,7 +45,7 @@ export default function ProfileImage(){
                         onClick={() => setShow(false)}
                     >Edit profile</Link>
                     <Link
-                        href="/profile/edit"
+                        href="/favorite"
                         className="w-full px-6 py-3 hover:bg-[#F8F8F8]"
                         onClick={() => setShow(false)}
                     >Favorite pet sitter</Link> 
