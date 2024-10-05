@@ -1,23 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { DefaultAction, BlockedAction, ReportAction, ApplicationAction } from "./UserAction";
 import { OptionIcon } from "@/shared/Icon";
+import useOutSideClick from "@/hooks/useOutsideClick";
 
 export function DefaultOption() {
-    const [isClosed, setIsClosed] = useState(true);
+    const [show, setShow] = useState<boolean>(false);
+    const buttonRef = useRef<HTMLDivElement>(null);
+    const popUpRef = useRef<HTMLDivElement>(null);
 
-    const handleOptionButtonChange = () => {
-        setIsClosed(!isClosed);
-    };
+    useOutSideClick(buttonRef, popUpRef, setShow);
+
+    const onButtonClicked = () => {
+        setShow(!show);
+    }
 
     return (
         <div className="relative flex items-center">
-            <div onClick={handleOptionButtonChange} className="flex justify-center items-center p-2 cursor-pointer">
+            <div ref={buttonRef} onClick={onButtonClicked} className="flex justify-center items-center p-2 cursor-pointer">
                 <OptionIcon />
             </div>
-            {!isClosed && (
-                <div className="w-fit absolute left-[calc(100%+30px)]">
+            {show && (
+                <div ref={popUpRef} className="w-fit absolute left-[calc(100%+30px)]">
                     <DefaultAction />
                 </div>
             )}
@@ -26,19 +31,23 @@ export function DefaultOption() {
 }
 
 export function BlockedOption() {
-    const [isClosed, setIsClosed] = useState(true);
+    const [show, setShow] = useState<boolean>(false);
+    const buttonRef = useRef<HTMLDivElement>(null);
+    const popUpRef = useRef<HTMLDivElement>(null);
 
-    const handleOptionButtonChange = () => {
-        setIsClosed(!isClosed);
-    };
+    useOutSideClick(buttonRef, popUpRef, setShow);
+
+    const onButtonClicked = () => {
+        setShow(!show);
+    }
 
     return (
         <div className="relative flex items-center">
-            <div onClick={handleOptionButtonChange} className="flex justify-center items-center p-2 cursor-pointer">
+            <div ref={buttonRef} onClick={onButtonClicked} className="flex justify-center items-center p-2 cursor-pointer">
                 <OptionIcon />
             </div>
-            {!isClosed && (
-                <div className="w-fit absolute left-[calc(100%+30px)]">
+            {show && (
+                <div ref={popUpRef} className="w-fit absolute left-[calc(100%+30px)]">
                     <BlockedAction />
                 </div>
             )}
@@ -47,19 +56,23 @@ export function BlockedOption() {
 }
 
 export function ReportOption() {
-    const [isClosed, setIsClosed] = useState(true);
+    const [show, setShow] = useState<boolean>(false);
+    const buttonRef = useRef<HTMLDivElement>(null);
+    const popUpRef = useRef<HTMLDivElement>(null);
 
-    const handleOptionButtonChange = () => {
-        setIsClosed(!isClosed);
-    };
+    useOutSideClick(buttonRef, popUpRef, setShow);
+
+    const onButtonClicked = () => {
+        setShow(!show);
+    }
 
     return (
         <div className="relative flex items-center">
-            <div onClick={handleOptionButtonChange} className="flex justify-center items-center p-2 cursor-pointer">
+            <div ref={buttonRef} onClick={onButtonClicked} className="flex justify-center items-center p-2 cursor-pointer">
                 <OptionIcon />
             </div>
-            {!isClosed && (
-                <div className="w-fit absolute left-[calc(100%+30px)]">
+            {show && (
+                <div ref={popUpRef} className="w-fit absolute left-[calc(100%+30px)]">
                     <ReportAction />
                 </div>
             )}
@@ -68,19 +81,23 @@ export function ReportOption() {
 }
 
 export function ApplicationOption() {
-    const [isClosed, setIsClosed] = useState(true);
+    const [show, setShow] = useState<boolean>(false);
+    const buttonRef = useRef<HTMLDivElement>(null);
+    const popUpRef = useRef<HTMLDivElement>(null);
 
-    const handleOptionButtonChange = () => {
-        setIsClosed(!isClosed);
-    };
+    useOutSideClick(buttonRef, popUpRef, setShow);
+
+    const onButtonClicked = () => {
+        setShow(!show);
+    }
 
     return (
         <div className="relative flex items-center">
-            <div onClick={handleOptionButtonChange} className="flex justify-center items-center p-2 cursor-pointer">
+            <div ref={buttonRef} onClick={onButtonClicked} className="flex justify-center items-center p-2 cursor-pointer">
                 <OptionIcon />
             </div>
-            {!isClosed && (
-                <div className="w-fit absolute left-[calc(100%+30px)]">
+            {show && (
+                <div ref={popUpRef} className="w-fit absolute left-[calc(100%+30px)]">
                     <ApplicationAction />
                 </div>
             )}
