@@ -6,7 +6,7 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="w-[681px] mx-auto -mt-[48px] flex flex-col gap-6 bg-white">
+    <div className="w-[681px] mx-auto -mt-[36px] flex flex-col gap-6 bg-white">
         <ActivityNavBar />
         {children}
     </div>

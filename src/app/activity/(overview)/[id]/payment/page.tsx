@@ -3,19 +3,19 @@ export default function PaymentPage({ params }: {
 }
 ){
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <div className="flex flex-col min-h-screen flex items-center justify-center bg-gray-100">
             <div className="flex flex-col items-center gap-12 w-[680px]">
             <div className="flex flex-col items-start gap-12 self-stretch">
                 <div className="flex flex-col items-start gap-4 self-stretch p-6 px-4 rounded-lg border-2 border-bd-gray">
                 <div className='flex justify-between items-end self-stretch'>
                     <div className='flex items-end' style={{ gap: 'var(--Space-200, 8px)' }}>
                     <img src="/pet-sitter.jpg" alt="Pet Sitter" className="w-10 h-10 rounded-[40px] border-[3px] border-bright-blue object-cover object-center"/>
-                    <p className='text-dark-blue font-poppins text-2xl font-semibold leading-[24px]'>Kirana Jasmine Chewter</p>
+                    <p className='text-dark-blue text-subheading'>Kirana Jasmine Chewter</p>
                     </div>
-                    <p className='text-bright-green font-poppins text-2xl font-semibold leading-[20.4px]'>$99</p>
+                    <p className='text-bright-green text-subheading'>$99</p>
                 </div>
                 <div className="flex items-center gap-4">
-                    <p className='text-bright-blue font-poppins text-xl font-semibold leading-[20px]'>Whiskers & Buddy Outing</p>
+                    <p className='text-bright-blue text-subheading2'>Whiskers & Buddy Outing</p>
                     <div className="flex items-center gap-1">
                     <img src="/Whiskers.jpg" alt="Whiskers" className='w-8 h-8 rounded-[40px] border-[2px] border-bright-blue object-cover object-center' />
                     <img src="/meme-dog.jpg" alt="Meme Dog" className='w-8 h-8 rounded-[40px] border-[2px] border-bright-blue object-cover object-center' />
@@ -24,18 +24,18 @@ export default function PaymentPage({ params }: {
                 <div className="flex flex-col items-start self-strFetch">
                     <div className="flex items-end gap-8 pb-4 self-stretch border-b border-gray-200">
                     <div className="flex flex-col items-start gap-2 w-[308px]">
-                        <p className="text-dark font-poppins text-base font-medium leading-[16px]">Start</p>
-                        <p className="text-dark font-poppins text-base font-normal leading-[16px]">December 31, 2024 at 07:00 am</p>
+                        <p className="text-dark text-body-bold">Start</p>
+                        <p className="text-dark text-body">December 31, 2024 at 07:00 am</p>
                     </div>
                     <div className="flex flex-col items-start gap-2 w-[308px]">
-                        <p className="text-dark font-poppins text-base font-medium leading-[16px]">End</p>
-                        <p className="text-dark font-poppins text-base font-normal leading-[16px]">December 31, 2024 at 06:00 pm</p>
+                        <p className="text-dark text-body-bold">End</p>
+                        <p className="text-dark text-body">December 31, 2024 at 06:00 pm</p>
                     </div>
                     </div>
                     <div className="flex items-end gap-8 pt-4 self-stretch">
                     <div className="flex items-end gap-2 w-[308px]">
                         <img src="/location.svg" alt="Meme Dog" className='w-6 h-6 rounded-full' />
-                        <p className="text-dark font-poppins text-base font-normal leading-[16px]">KMITL ECC Building</p>
+                        <p className="text-dark text-body">KMITL ECC Building</p>
                     </div>
                     </div>
                 </div>
@@ -43,10 +43,10 @@ export default function PaymentPage({ params }: {
 
                 <div className="flex flex-col items-start gap-8 self-stretch">
                 <div className="flex flex-col items-start gap-8 self-stretch">
-                    <h2 className="text-dark-blue font-poppins text-xl font-semibold leading-[20px]">Payment Detail</h2>
+                    <h2 className="text-dark-blue text-subheading2">Payment Detail</h2>
                     <div className="flex flex-col items-start gap-4 self-stretch">
                     <div className="flex flex-col items-start gap-3 self-stretch">
-                        <label className="text-dark font-poppins text-base font-medium leading-[16px]">Name on Card</label>
+                        <label className="text-dark text-body-bold">Name on Card</label>
                         <input
                         type="text"
                         className="flex items-start gap-3 self-stretch p-[15px_18px] rounded-lg border border-light-gray2 bg-transparent"
@@ -54,7 +54,7 @@ export default function PaymentPage({ params }: {
                         />
                     </div>
                     <div className="flex flex-col items-start gap-3 self-stretch">
-                        <label className="text-dark font-poppins text-base font-medium leading-[16px]">Card Number</label>
+                        <label className="text-dark text-body-bold">Card Number</label>
                         <input
                         type="text"
                         className="flex items-start gap-3 self-stretch p-[15px_18px] rounded-lg border border-light-gray2 bg-transparent"
@@ -63,7 +63,7 @@ export default function PaymentPage({ params }: {
                     </div>
                     <div className="flex items-start gap-8 self-stretch">
                         <div className="flex flex-col items-start gap-3 flex-1">
-                        <label className="text-dark font-poppins text-base font-medium leading-[16px]">Expiration</label>
+                        <label className="text-dark text-body-bold">Expiration</label>
                         <input
                             type="text"
                             className="flex items-start gap-3 self-stretch p-[15px_18px] rounded-lg border border-light-gray2 bg-transparent"
@@ -71,7 +71,7 @@ export default function PaymentPage({ params }: {
                         />
                         </div>
                         <div className="flex flex-col items-start gap-3 flex-[1_0_0]">
-                        <label className="text-dark font-poppins text-base font-medium leading-[16px]">CVC</label>
+                        <label className="text-dark text-body-bold">CVC</label>
                         <input
                             type="text"
                             className="flex items-start gap-3 self-stretch p-[15px_18px] rounded-lg border border-light-gray2 bg-transparent"
@@ -83,14 +83,17 @@ export default function PaymentPage({ params }: {
                 </div>   
                 </div>
             </div>
-
                 <button
                 type="submit"
-                className="flex justify-center items-center gap-3 py-4 px-6 rounded-lg bg-bright-blue font-poppins text-white"
+                className="flex justify-center items-center gap-3 py-4 px-6 rounded-lg bg-bright-blue text-body text-white"
                 >
                 Confirm
                 </button>
             </div>
+
+            <div>
+                Payment for activity id{params.id}
+            </div>
         </div>
-    );
+    )
 }
