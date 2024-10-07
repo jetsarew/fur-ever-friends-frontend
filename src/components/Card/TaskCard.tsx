@@ -10,8 +10,8 @@ interface TaskCardProps {
 export default function TaskCard({ taskId, removeTask }: TaskCardProps) {
   return (
     <div>
-      <div className="flex justify-between">
-        <p className="font-medium">Task</p>
+      <div className="flex justify-between font-poppins">
+        <p className="font-medium mb-2">Task</p>
         <Image
           src="/cross.svg"
           width={24}
@@ -27,11 +27,11 @@ export default function TaskCard({ taskId, removeTask }: TaskCardProps) {
       </select>
 
       <div className="mt-4">
-        <p className="font-medium">Detail</p>
+        <p className="font-medium mb-2">Detail</p>
         <textarea className="w-full border rounded-[8px] resize-none px-[18px] py-[15px]" />
       </div>
 
-      <hr className="my-2" />
+      <hr className="mt-6" />
     </div>
   );
 }

@@ -68,15 +68,15 @@ export default function Create_activity() {
   };
 
   return (
-    <div>
-      <div className="bg-white w-[100%] h-full flex justify-center">
+    <div className="flex justify-center font-poppins">
+      <div className="bg-white w-[680px] h-full flex justify-center">
         
 
-        <form onSubmit={handleSave} className="justify-center pb-24 w-[65%] bg-white">
-          <div className="grid grid-row text-black gap-6  bg-white">
+        <form onSubmit={handleSave} className="justify-center pb-24 w-full bg-white">
+          <div className="grid grid-row text-black gap-8  bg-white">
             {/* Activity Name */}
             <div>
-              <label className="text-[#1C7DBB] block text-xl font-semibold pb-2">
+              <label className="text-bright-blue block text-xl font-semibold pb-4">
                 Activity Name
               </label>
               <input
@@ -91,12 +91,12 @@ export default function Create_activity() {
 
             {/* Duration */}
             <div>
-              <label className="text-[#1C7DBB] block text-xl font-semibold pb-2">
+              <label className="text-bright-blue block text-xl font-semibold pb-4">
                 Duration
               </label>
               
               {/* Start */}
-              <p className="font-medium">Start</p>
+              <p className="font-medium mb-2">Start</p>
               <div className="flex flex-row w-[65%] gap-8 mb-4">
                 <input
                   type="date"
@@ -117,7 +117,7 @@ export default function Create_activity() {
               </div>
 
               {/* End */}
-              <p className="font-medium">End</p>
+              <p className="font-medium mb-2">End</p>
               <div className="flex flex-row w-[65%] gap-8">
                 <input
                   type="date"
@@ -140,10 +140,10 @@ export default function Create_activity() {
 
             {/* Location */}
             <div>
-              <label className="text-[#1C7DBB] block text-xl font-semibold pb-2">
+              <label className="text-bright-blue block text-xl font-semibold pb-4">
                 Location
               </label>
-              <p className="font-medium">Place</p>
+              <p className="font-medium mb-2">Place</p>
               <input
                 type="text"
                 name="place"
@@ -152,7 +152,7 @@ export default function Create_activity() {
                 className="w-full border rounded-[8px] py-[15px] px-[18px] mb-6"
                 required  // Make this field required
               />
-              <p className="font-medium">Detail</p>
+              <p className="font-medium mb-2">Detail</p>
               <input
                 type="text"
                 name="detail"
@@ -165,20 +165,20 @@ export default function Create_activity() {
 
             {/* Pet Activities */}
             <div>
-              <div className="flex justify-between pb-6">
-                <label className="text-[#1C7DBB] block text-xl font-semibold pb-2">
+              <div className="flex justify-between pb-8">
+                <label className="text-bright-blue block text-xl font-semibold">
                   Pet Activities
                 </label>
                 <button
                   type="button"
                   onClick={addNewPetActivity} // Trigger adding new pet activity
-                  className="bg-[#05CE78] round-[8px] w-fit h-fit py-1 px-6 rounded-[8px] text-white font-semibold"
+                  className="bg-bright-green round-[8px] w-fit h-fit py-1 px-6 rounded-[8px] text-white font-semibold"
                 >
                   + Add another pet
                 </button>
               </div>
 
-              <div className="grid gap-4">
+              <div className="grid gap-6">
               
               {formData.petActivities.map((activity, index) => (
                 <AddPetActivityCard key={index} />
@@ -190,9 +190,9 @@ export default function Create_activity() {
             {/* Save Button */}
             <button
               type="submit"
-              className="bg-[#05CE78] round-[8px] w-fit h-fit justify-self-center py-3 px-6 rounded-[8px] text-white font-semibold"
+              className="bg-bright-green round-[8px] w-fit h-fit justify-self-center py-3 px-6 rounded-[8px] text-white font-semibold"
             >
-              Save
+              Create
             </button>
           </div>
         </form>

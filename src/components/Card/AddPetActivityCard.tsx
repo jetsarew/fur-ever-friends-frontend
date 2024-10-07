@@ -16,7 +16,7 @@ export default function AddPetActivityCard() {
   };
 
   return (
-    <div className="border px-6 rounded-[8px]">
+    <div className="border px-6 rounded-[8px] font-poppins">
       <div className="flex m-6 gap-4">
         <Image
           src="/Whiskers.jpg"
@@ -27,13 +27,13 @@ export default function AddPetActivityCard() {
         />
         <div className="grid h-fit mt-4 content-end">
           <p className="justify-self-center text-xl font-semibold">Buddy</p>
-          <p className="text-[#757575] font-light">Golden Retriever</p>
+          <p className="text-soft-gray font-light">Golden Retriever</p>
         </div>
       </div>
 
       <hr className="pb-6" />
 
-      <div className="grid gap-2">
+      <div className="grid gap-6">
         {/* Render a TaskCard for each task in the array */}
         {tasks.map((task, index) => (
           <TaskCard key={index} taskId={task} removeTask={removeTask} /> // Pass removeTask and taskId as props
@@ -42,7 +42,7 @@ export default function AddPetActivityCard() {
 
       <button
         onClick={addNewTask} // Add new task when button is clicked
-        className="bg-white round-[8px] w-fit h-fit mt-2 mb-6 py-1 px-6 rounded-[8px] text-[#05CE78] border-2 border-[#05CE78] font-semibold"
+        className="bg-white round-[8px] w-fit h-fit my-6 py-1 px-6 rounded-[8px] text-bright-green border-2 border-bright-green font-semibold"
       >
         + Add a task
       </button>
