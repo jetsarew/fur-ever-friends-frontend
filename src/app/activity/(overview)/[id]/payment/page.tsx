@@ -18,7 +18,7 @@ export default function PaymentPage({ params }: {
                     <p className='text-bright-blue text-subheading2'>Whiskers & Buddy Outing</p>
                     <div className="flex items-center gap-1">
                     <img src="/Whiskers.jpg" alt="Whiskers" className='w-8 h-8 rounded-[40px] border-[2px] border-bright-blue object-cover object-center' />
-                    <img src="/meme-dog.jpg" alt="Meme Dog" className='w-8 h-8 rounded-[40px] border-[2px] border-bright-blue object-cover object-center' />
+                    <img src="/Whiskers.jpg" alt="Whiskers" className='w-8 h-8 rounded-[40px] border-[2px] border-bright-blue object-cover object-center' />
                     </div>
                 </div>
                 <div className="flex flex-col items-start self-strFetch">
