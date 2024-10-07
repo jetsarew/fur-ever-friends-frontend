@@ -19,7 +19,7 @@ export default function FeedPage() {
   return (
     <div>
      
-      <div className="min-h-screen bg-gray-100 p-6 w-full">
+      <div className="min-h-screen bg-gray-100 p-6 w-full font-poppins">
         <div className="flex justify-center">
           <div className="items-center"></div>
 
@@ -35,7 +35,7 @@ export default function FeedPage() {
                 />
                 <input
                   type="text"
-                  className="w-full p-3 rounded-md focus:outline-none text-black bg-white"
+                  className="w-full p-3 rounded-md focus:outline-none text-black bg-white font-poppins"
                   placeholder="Search"
                   value={searchQuery}
                   onChange={handleSearch} // Capture user input
@@ -51,7 +51,7 @@ export default function FeedPage() {
               </button>
             </div>
 
-            <div className="mt-4 grid gap-4">
+            <div className="mt-8 grid gap-8">
               
               {filteredFeed.map((item, index) => (
                 <FeedCard key={index}/>
