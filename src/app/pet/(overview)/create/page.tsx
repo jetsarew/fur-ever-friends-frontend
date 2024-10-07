@@ -80,12 +80,10 @@ export default function Add_pet() {
     };
 
     return (
-        <>
-        <div className="bg-white w-[100%] h-full flex justify-center">
-            <p className="inline-block text-[#1D9BF0] font-semibold font-base p-4 pt-14 justify-self-start">
-                &lt; Back
-            </p>
-            <form className="justify-center p-24" onSubmit={handleSubmit}>
+        <div className="flex justify-center bg-white">
+        <div className=" flex justify-center font-poppins max-w-fit">
+            
+            <form className="justify-center " onSubmit={handleSubmit}>
                 <div className="mb-6 grid justify-center">
                     {formData.imageUrl ? (
                         <Image
@@ -93,7 +91,7 @@ export default function Add_pet() {
                             width={150}
                             height={150}
                             alt="Uploaded pet image"
-                            className="rounded-full border-[3px] border-[#1D9BF0] justify-self-center"
+                            className="rounded-full border-[3px] border-bright-blue justify-self-center"
                         />
                     ) : (
                         <Image
@@ -101,12 +99,12 @@ export default function Add_pet() {
                             width={150}
                             height={150}
                             alt="Placeholder image"
-                            className="rounded-full border-[3px] border-[#1D9BF0] justify-self-center"
+                            className="rounded-full border-[3px] border-bright-blue justify-self-center"
                         />
                     )}
                     <label
                         htmlFor="upload-button"
-                        className="text-white bg-[#1D9BF0] rounded-[8px] w-[163px] h-[32px] justify-self-center px-6 my-2 text-base flex items-center justify-center cursor-pointer"
+                        className="text-white bg-bright-blue rounded-[8px] w-[163px] h-[32px] justify-self-center px-6 my-2 text-base flex items-center justify-center cursor-pointer"
                     >
                         Upload Image
                     </label>
@@ -123,12 +121,12 @@ export default function Add_pet() {
                 <div className="grid grid-row text-black gap-6">
                     <div className="flex flex-col-2 gap-8">
                         <div>
-                            <label className="text-[#1C7DBB] block text-xl font-semibold" htmlFor="type">
+                            <label className="text-bright-blue block text-xl font-semibold" htmlFor="type">
                                 Type
                             </label>
                             <select
                                 name="type"
-                                className="border rounded-[8px] px-[18px] py-[15px]"
+                                className="border rounded-[8px] px-[18px] py-[15px] mt-3"
                                 onChange={handleChange}
                                 value={formData.type}
                                 required  // Ensure this field is required
@@ -140,12 +138,12 @@ export default function Add_pet() {
                         </div>
 
                         <div className="w-fit">
-                            <label className="text-[#1C7DBB] block text-xl font-semibold" htmlFor="size">
+                            <label className="text-bright-blue block text-xl font-semibold" htmlFor="size">
                                 Size
                             </label>
                             <select
                                 name="size"
-                                className="border rounded-[8px] px-[18px] py-[15px]"
+                                className="border rounded-[8px] px-[18px] py-[15px] mt-3"
                                 onChange={handleChange}
                                 value={formData.size}
                                 required
@@ -160,13 +158,13 @@ export default function Add_pet() {
 
                     <div className="flex flex-col-4 gap-8">
                         <div>
-                            <label className="text-[#1C7DBB] block text-xl font-semibold" htmlFor="name">
+                            <label className="text-bright-blue block text-xl font-semibold" htmlFor="name">
                                 Name
                             </label>
                             <input
                                 type="text"
                                 name="name"
-                                className="border rounded-[8px] px-[18px] py-[15px]"
+                                className="border rounded-[8px] px-[18px] py-[15px] mt-3"
                                 onChange={handleChange}
                                 value={formData.name}
                                 required
@@ -174,12 +172,12 @@ export default function Add_pet() {
                         </div>
 
                         <div>
-                            <label className="text-[#1C7DBB] block text-xl font-semibold" htmlFor="sex">
+                            <label className="text-bright-blue block text-xl font-semibold" htmlFor="sex">
                                 Sex
                             </label>
                             <select
                                 name="sex"
-                                className="rounded-[8px] border px-[18px] py-[15px]"
+                                className="rounded-[8px] border px-[18px] py-[15px] mt-3"
                                 onChange={handleChange}
                                 value={formData.sex}
                                 required
@@ -191,13 +189,13 @@ export default function Add_pet() {
                         </div>
 
                         <div>
-                            <label className="text-[#1C7DBB] block text-xl font-semibold" htmlFor="age">
+                            <label className="text-bright-blue block text-xl font-semibold" htmlFor="age">
                                 Age (year)
                             </label>
                             <input
                                 type="text"
                                 name="age"
-                                className="rounded-[8px] border px-[18px] py-[15px]"
+                                className="rounded-[8px] border px-[18px] py-[15px] mt-3"
                                 onChange={handleChange}
                                 value={formData.age}
                                 required
@@ -205,13 +203,13 @@ export default function Add_pet() {
                         </div>
 
                         <div>
-                            <label className="text-[#1C7DBB] block text-xl font-semibold" htmlFor="weight">
+                            <label className="text-bright-blue block text-xl font-semibold" htmlFor="weight">
                                 Weight (kg)
                             </label>
                             <input
                                 type="text"
                                 name="weight"
-                                className="rounded-[8px] border px-[18px] py-[15px]"
+                                className="rounded-[8px] border px-[18px] py-[15px] mt-3"
                                 onChange={handleChange}
                                 value={formData.weight}
                                 required
@@ -220,12 +218,12 @@ export default function Add_pet() {
                     </div>
 
                     <div>
-                        <label className="text-[#1C7DBB] block text-xl font-semibold" htmlFor="personality">
+                        <label className="text-bright-blue block text-xl font-semibold " htmlFor="personality">
                             Personality
                         </label>
                         <textarea
                             name="personality"
-                            className="w-full border rounded-[8px] resize-none"
+                            className="w-full border rounded-[8px] resize-none mt-3"
                             onChange={handleChange}
                             value={formData.personality}
                             required
@@ -233,12 +231,12 @@ export default function Add_pet() {
                     </div>
 
                     <div>
-                        <label className="text-[#1C7DBB] block text-xl font-semibold" htmlFor="allergies">
+                        <label className="text-bright-blue block text-xl font-semibold" htmlFor="allergies">
                             Allergies
                         </label>
                         <textarea
                             name="allergies"
-                            className="w-full border rounded-[8px] resize-none px-[18px] py-[15px]"
+                            className="w-full border rounded-[8px] resize-none px-[18px] py-[15px] mt-3"
                             onChange={handleChange}
                             value={formData.allergies}
                             required
@@ -246,12 +244,12 @@ export default function Add_pet() {
                     </div>
 
                     <div>
-                        <label className="text-[#1C7DBB] block text-xl font-semibold" htmlFor="otherDetails">
+                        <label className="text-bright-blue block text-xl font-semibold" htmlFor="otherDetails">
                             Other Details
                         </label>
                         <textarea
                             name="otherDetails"
-                            className="w-full border rounded-[8px] resize-none px-[18px] py-[15px]"
+                            className="w-full border rounded-[8px] resize-none px-[18px] py-[15px] mt-3"
                             onChange={handleChange}
                             value={formData.otherDetails}
                             required
@@ -260,13 +258,13 @@ export default function Add_pet() {
 
                     <button
                         type="submit"
-                        className="bg-[#05CE78] round-[8px] w-fit h-fit justify-self-center py-3 px-6 rounded-[8px] text-white font-semibold"
+                        className="bg-bright-green round-[8px] w-fit h-fit justify-self-center py-3 px-6 rounded-[8px] text-white font-semibold"
                     >
                         Save
                     </button>
                 </div>
             </form>
         </div>
-        </>
+        </div>
     );
 }
