@@ -24,11 +24,16 @@ export default function TaskCard({ taskId, removeTask }: TaskCardProps) {
 
       <select className="w-[241px] border rounded-[8px] px-[18px] py-[15px]">
         <option value="feeding">Feeding</option>
+        <option value="exercise">Exercise</option>
+        <option value="grooming">Grooming</option>
+        <option value="training">Training</option>
+        <option value="administering medication">Administering Medication</option>
+        <option value="relaxation">Relaxation</option>
       </select>
 
       <div className="mt-4">
         <p className="font-medium mb-2">Detail</p>
-        <textarea className="w-full border rounded-[8px] resize-none px-[18px] py-[15px]" />
+        <textarea className="w-full border rounded-[8px] resize-none px-[18px] py-[15px] flex flex-col" />
       </div>
 
       <hr className="mt-6" />
