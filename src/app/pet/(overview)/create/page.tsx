@@ -134,24 +134,31 @@ export default function Add_pet() {
                                 <option value="">Select Type</option>
                                 <option value="dog">Dog</option>
                                 <option value="cat">Cat</option>
+                                <option value="rabbit">Rabbit</option>
+                                <option value="rodent">Rodent</option>
+                                <option value="bird">Bird</option>
+                                <option value="reptile">Reptile</option>
+                                <option value="fish">Fish</option>
                             </select>
                         </div>
 
                         <div className="w-fit">
                             <label className="text-bright-blue block text-xl font-semibold" htmlFor="size">
-                                Size
+                                Breed
                             </label>
                             <select
-                                name="size"
+                                name="breed"
                                 className="border rounded-[8px] px-[18px] py-[15px] mt-3"
                                 onChange={handleChange}
                                 value={formData.size}
                                 required
                             >
-                                <option value="">Select Size</option>
-                                <option value="small">Small</option>
-                                <option value="medium">Medium</option>
-                                <option value="large">Large</option>
+                                <option value="">Select Breed</option>
+                                <option value="golden retriever">Golden Retriever</option>
+                                <option value="shiba inu">Shiba Inu</option>
+                                <option value="shih tzu">Shih Tzu</option>
+                                <option value="saint bernard">Saint Bernard</option>
+                                <option value="german shepherd">German Shepherd</option>
                             </select>
                         </div>
                     </div>
