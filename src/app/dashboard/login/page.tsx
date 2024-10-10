@@ -1,34 +1,46 @@
+import Link from "next/link";
 
+export default function Login() {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-export default function Login(){
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-    
-        const form = e.currentTarget;
-        const email = (form.elements.namedItem('email') as HTMLInputElement).value;
-        const password = (form.elements.namedItem('password') as HTMLInputElement).value;
-    
-        console.log("Email:", email);
-        console.log("Password:", password);
-    }
-    return(
-        <>
-          <div className="login-container">
-          <h2>Welcome to Fur-ever Friends</h2>
-          
-            <div className="input-group">
-            <label htmlFor="email">Email</label>
-            <input type="email"
-                    id="email"
-                    name="email"
-                    placeholder="Enter your email"
-                    required />
-            </div>
+    const form = e.currentTarget;
+    const email = (form.elements.namedItem("email") as HTMLInputElement).value;
+    const password = (form.elements.namedItem("password") as HTMLInputElement)
+      .value;
 
+    console.log("Email:", email);
+    console.log("Password:", password);
+  };
+  return (
+    <>
+      <div className=" flex flex-col gap-[64px] mx-auto w-[506px] items-center">
+        <h2 className="text-header">Welcome to Fur-ever Friends</h2>
 
-          <div className="input-group">
-            <label htmlFor="password">Password</label>
+        <div className="flex flex-col gap-[32px] w-[442px]">
+          <div className="text-subheading2 flex flex-col gap-[12px] ">
+            <label htmlFor="email" className="text-suheading2 text-dark-blue">
+              Email
+            </label>
             <input
+              className="text-body py-[15px] px-[18px] border border-[#D9D9D9] rounded-lg"
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+
+          <div className="text-subheading2 flex flex-col gap-[12px] ">
+            <label
+              htmlFor="password"
+              className="text-suheading2 text-dark-blue"
+            >
+              Password
+            </label>
+            <input
+              className="text-body py-[15px] px-[18px] border border-[#D9D9D9] rounded-lg"
               type="password"
               id="password"
               name="password"
@@ -36,65 +48,25 @@ export default function Login(){
               required
             />
           </div>
-          <button type="submit" className="login-btn">
-            Log In
-          </button>
-          <p>Don’t have an account yet? <a href="/signup">Sign up</a></p>
+          <div className="flex flex-col items-center gap-8">
+            <button
+              type="submit"
+              className=" px-6 py-4 text-button text-white bg-bright-blue rounded-lg"
+            >
+              Log In
+            </button>
+            <p className="text-small text-soft-gray flex flex-row gap-2 items-baseline">
+              Don’t have an account yet?{" "}
+              <Link
+                href="/dashboard/signup"
+                className="text-body-bold underline text-bright-blue "
+              >
+                Sign up
+              </Link>
+            </p>
           </div>
-
-          <style >{`
-        .login-container {
-          max-width: 400px;
-          margin: 100px auto;
-          padding: 20px;
-          text-align: center;
-          background-color: transparent;
-          border-radius: 10px;
-          
-        }
-        h2 {
-          margin-bottom: 20px;
-          font-weight: bold;
-          font-size: 20px;
-        }
-        .input-group {
-          margin-bottom: 15px;
-          text-align: left;
-          color: #1C7DBB;
-          font-weight: bold;
-        }
-        
-        input {
-          width: 100%;
-          padding: 10px;
-          font-size: 16px;
-          border: 1px solid #ccc;
-          border-radius: 5px;
-        }
-        .login-btn {
-          width: 30%;
-          padding: 10px;
-          font-size: 16px;
-          background-color: #0070f3;
-          color: white;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
-        }
-        .login-btn:hover {
-          background-color: #005bb5;
-        }
-        p {
-          margin-top: 10px;
-        }
-        a {
-          color: #0070f3;
-          text-decoration: underline;
-          
-        }
-      `}</style>
-        </>
-        
-        
-    )
+        </div>
+      </div>
+    </>
+  );
 }

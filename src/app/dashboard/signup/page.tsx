@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
 interface FormData {
   username: string;
@@ -8,17 +8,17 @@ interface FormData {
   password: string;
   confirmPassword: string;
   phoneNumber: string;
-  accountType: 'petOwner' | 'petSitter';
+  accountType: "petOwner" | "petSitter";
 }
 
 const AccountForm = () => {
   const [formData, setFormData] = useState<FormData>({
-    username: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    phoneNumber: '',
-    accountType: 'petOwner',
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    phoneNumber: "",
+    accountType: "petOwner",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,14 +28,14 @@ const AccountForm = () => {
     });
   };
 
-  const handleAccountTypeChange = (accountType: 'petOwner' | 'petSitter') => {
+  const handleAccountTypeChange = (accountType: "petOwner" | "petSitter") => {
     setFormData({ ...formData, accountType });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
-      alert('Passwords do not match!');
+      alert("Passwords do not match!");
       return;
     }
 
@@ -45,30 +45,44 @@ const AccountForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="signup-container">
-        <h2>Create your Account</h2>
-        <div>
+      <div className="flex flex-col w-[506px] gap-[32px] items-center mx-auto">
+        <h2 className="text-header text-center">Create your Account</h2>
+        <div className="flex px-[16px] justify-center items-center gap-[20px]">
           <button
             type="button"
-            onClick={() => handleAccountTypeChange('petOwner')}
-            className={formData.accountType === 'petOwner' ? 'active' : ''}
+            onClick={() => handleAccountTypeChange("petOwner")}
+            className={`text-button text-lg ${
+              formData.accountType === "petOwner"
+                ? "text-dark-blue underline font-semibold"
+                : "text-gray-400"
+            }`}
           >
             I am a pet owner
           </button>
           <button
             type="button"
-            onClick={() => handleAccountTypeChange('petSitter')}
-            className={formData.accountType === 'petSitter' ? 'active' : ''}
+            onClick={() => handleAccountTypeChange("petSitter")}
+            className={`text-button text-lg ${
+              formData.accountType === "petSitter"
+                ? "text-dark-blue underline"
+                : "text-gray-400"
+            }`}
           >
             I am a pet sitter
           </button>
         </div>
 
         {/* Conditionally render based on account type */}
-        {formData.accountType === 'petSitter' && (
-          <div className='petsitter'>
-            <label htmlFor="username" className='input-group'>Username</label>
+        {formData.accountType === "petSitter" && (
+          <div className="flex flex-col  gap-[10px] w-[442px]">
+            <label
+              htmlFor="username"
+              className="text-subheading2 text-dark-blue"
+            >
+              Username
+            </label>
             <input
+              className="text-body py-[15px] px-[18px] border border-[#D9D9D9] rounded-lg"
               type="text"
               id="username"
               name="username"
@@ -77,8 +91,11 @@ const AccountForm = () => {
               onChange={handleChange}
               required
             />
-            <label htmlFor="email" className='input-group'>Email</label>
+            <label htmlFor="email" className="text-subheading2 text-dark-blue">
+              Email
+            </label>
             <input
+              className="text-body py-[15px] px-[18px] border border-[#D9D9D9] rounded-lg"
               type="email"
               id="email"
               name="email"
@@ -87,8 +104,14 @@ const AccountForm = () => {
               onChange={handleChange}
               required
             />
-            <label htmlFor="phoneNumber" className='input-group'>Phone Number</label>
+            <label
+              htmlFor="phoneNumber"
+              className="text-subheading2 text-dark-blue"
+            >
+              Phone Number
+            </label>
             <input
+              className="text-body py-[15px] px-[18px] border border-[#D9D9D9] rounded-lg"
               type="tel"
               id="phoneNumber"
               name="phoneNumber"
@@ -100,10 +123,16 @@ const AccountForm = () => {
           </div>
         )}
 
-        {formData.accountType === 'petOwner' && (
-          <div className='customer'>
-            <label htmlFor="username" className='input-group'>Username</label>
+        {formData.accountType === "petOwner" && (
+          <div className="flex flex-col  gap-[10px] w-[442px]">
+            <label
+              htmlFor="username"
+              className="text-subheading2 text-dark-blue"
+            >
+              Username
+            </label>
             <input
+              className="text-body py-[15px] px-[18px] border border-[#D9D9D9] rounded-lg"
               type="text"
               id="username"
               name="username"
@@ -112,8 +141,11 @@ const AccountForm = () => {
               onChange={handleChange}
               required
             />
-            <label htmlFor="email" className='input-group'>Email</label>
+            <label htmlFor="email" className="text-subheading2 text-dark-blue">
+              Email
+            </label>
             <input
+              className="text-body py-[15px] px-[18px] border border-[#D9D9D9] rounded-lg"
               type="email"
               id="email"
               name="email"
@@ -122,8 +154,14 @@ const AccountForm = () => {
               onChange={handleChange}
               required
             />
-            <label htmlFor="password" className='input-group'>Password</label>
+            <label
+              htmlFor="password"
+              className="text-subheading2 text-dark-blue"
+            >
+              Password
+            </label>
             <input
+              className="text-body py-[15px] px-[18px] border border-[#D9D9D9] rounded-lg"
               type="password"
               id="password"
               name="password"
@@ -132,8 +170,14 @@ const AccountForm = () => {
               onChange={handleChange}
               required
             />
-            <label htmlFor="confirmPassword" className='input-group'>Confirm Password</label>
+            <label
+              htmlFor="confirmPassword"
+              className="text-subheading2 text-dark-blue"
+            >
+              Confirm Password
+            </label>
             <input
+              className="text-body py-[15px] px-[18px] border border-[#D9D9D9] rounded-lg"
               type="password"
               id="confirmPassword"
               name="confirmPassword"
@@ -142,8 +186,14 @@ const AccountForm = () => {
               onChange={handleChange}
               required
             />
-            <label htmlFor="phoneNumber" className='input-group'>Phone Number</label>
+            <label
+              htmlFor="phoneNumber"
+              className="text-subheading2 text-dark-blue"
+            >
+              Phone Number
+            </label>
             <input
+              className="text-body py-[15px] px-[18px] border border-[#D9D9D9] rounded-lg"
               type="tel"
               id="phoneNumber"
               name="phoneNumber"
@@ -155,76 +205,17 @@ const AccountForm = () => {
           </div>
         )}
 
-        <button type="submit" className='confirm-btn'>Create Account</button>
+        <div className="flex flex-col items-center gap-8">
+          <button
+            type="submit"
+            className="px-6 py-4 text-button text-white bg-bright-blue rounded-lg"
+          >
+            {formData.accountType === "petOwner"
+              ? "Create Account"
+              : "Continue"}
+          </button>
+        </div>
       </div>
-
-      <style >{`
-        h2 {
-          margin-bottom: 20px;
-          font-weight: bold;
-          font-size: 20px;
-        }
-
-        .signup-container {
-          max-width: 400px;
-          margin: 100px auto;
-          padding: 20px;
-          text-align: center;
-          background-color: transparent;
-          border-radius: 10px;
-        }
-
-        button {
-          margin: 10px;
-          padding: 10px 20px;
-          background-color: white;
-          border: none;
-          cursor: pointer;
-        }
-
-        button.active {
-          color: #0070f3;
-          text-decoration: underline;
-          font-weight: bold;
-        }
-
-        label {
-          display: block;
-          margin-bottom: 5px;
-          font-size: 14px;
-        }
-
-        input {
-          display: block;
-          margin: 10px 0;
-          padding: 8px;
-          width: 100%;
-          box-sizing: border-box;
-        }
-
-        .input-group {
-          margin-bottom: 15px;
-          text-align: left;
-          color: #1C7DBB;
-          font-weight: bold;
-        }
-
-        .confirm-btn {
-          width: 50%;
-          padding: 10px;
-          font-size: 16px;
-          background-color: #0070f3;
-          color: white;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
-          text-align: center;
-        }
-
-        .confirm-btn:hover {
-          background-color: #005bb5;
-        }
-      `}</style>
     </form>
   );
 };

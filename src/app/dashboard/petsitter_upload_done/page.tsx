@@ -1,20 +1,22 @@
-import React from 'react';
-import Image from 'next/image'; // For optimized image loading in Next.js
+import React from "react";
+import Image from "next/image"; // For optimized image loading in Next.js
+import Link from "next/link";
 
 const VerificationPage: React.FC = () => {
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
+    <div className="flex flex-col gap-[64px] mx-auto w-[918px] items-center">
       {/* Main container */}
-      <div style={{ border: '1px solid #e5e7eb', padding: '20px', borderRadius: '10px', maxWidth: '600px', margin: '0 auto' }}>
+      <div className="flex flex-col items-center gap-[64px] w-[918px]">
         {/* Title */}
-        <h1 style={{ fontSize: '20px', marginBottom: '20px', fontWeight: 'bold' }}>
-          We’ve received your request and are currently verifying the authenticity of your documents
+        <h1 className="text-header text-center">
+          We’ve received your request and are currently verifying the
+          authenticity of your documents
         </h1>
 
         {/* Image container - Flexbox for centering */}
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+        <div>
           <Image
-            src="/Check your inbox.png" // Make sure the path is correct
+            src="/Check your inbox.svg" // Make sure the path is correct
             alt="Document Verification"
             width={180}
             height={180}
@@ -22,14 +24,14 @@ const VerificationPage: React.FC = () => {
         </div>
 
         {/* Message */}
-        <p style={{ fontSize: '15px', color: '#1C7DBB', fontWeight: 'bold' }}>
+        <p className="text-subheading2 text-dark-blue">
           You will hear back from us within 7 days
         </p>
 
         {/* Back to homepage link */}
-        <a href="/dashboard/home" style={{ color: 'grey', fontWeight: 'bold',fontSize: '10px', marginTop: '2px', display: 'inline-block' }}>
+        <Link href="/dashboard/home" className="text-button text-soft-gray">
           Back to homepage
-        </a>
+        </Link>
       </div>
     </div>
   );

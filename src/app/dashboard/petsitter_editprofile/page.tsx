@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
 import { useState } from "react";
-import Link from 'next/link'; // Import Link from next/link
+import Link from "next/link"; // Import Link from next/link
 
 const Profile = () => {
   const [profileImage, setProfileImage] = useState<File | null>(null);
@@ -21,7 +21,9 @@ const Profile = () => {
   };
 
   // Handle additional image change
-  const handleAdditionalImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAdditionalImageChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     if (e.target.files && e.target.files.length > 0) {
       setAdditionalImage(e.target.files[0]);
     }
@@ -67,16 +69,32 @@ const Profile = () => {
     <div className="container mx-auto p-6 max-w-4xl">
       {/* Back Button */}
       <div className="mb-6">
-      <Link href="/dashboard/home" style={{color:'#1C7DBB'}} className="flex items-center text-blue-600 hover:text-blue-800 font-semibold mb-1">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-6 h-6 mr-2">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-    </svg>
-    Back
-  </Link>
-</div>
+        <Link
+          href="/dashboard/home"
+          className="text-button flex items-center text-bright-blue hover:text-dark-blue mb-1"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="2"
+            stroke="currentColor"
+            className="w-6 h-6 mr-2"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+          Back
+        </Link>
+      </div>
 
-
-      <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+      <form
+        onSubmit={handleSubmit}
+        className="grid grid-cols-1 sm:grid-cols-3 gap-8"
+      >
         {/* Left Side - Profile Picture & Basic Info */}
         <div className="space-y-4">
           <div className="flex items-center justify-center">
@@ -89,20 +107,25 @@ const Profile = () => {
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-500">
+                  <div className=" text-body w-full h-full bg-gray-200 flex items-center justify-center text-gray-500">
                     No Image
                   </div>
                 )}
               </div>
               <div className="mt-2 text-center">
-                <label className="cursor-pointer text-blue-600">
-                  <input type="file" accept="image/*" className="hidden" onChange={handleProfileImageChange} />
+                <label className=" text-button cursor-pointer text-dark-blue mb-[10px">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleProfileImageChange}
+                  />
                   Upload Profile Image
                 </label>
                 {profileImage && (
                   <button
                     type="button"
-                    className="block text-red-500 mt-1"
+                    className=" text-button block text-red-500 mt-1"
                     onClick={() => setProfileImage(null)}
                   >
                     Delete Image
@@ -114,7 +137,9 @@ const Profile = () => {
 
           {/* Display Name */}
           <div>
-            <label style={{ color: '#1C7DBB' }} className="block text-gray-700 text-sm font-semibold mb-1">Display Name</label>
+            <label className=" text-body-bold block text-dark-blue mb-1 ">
+              Display Name
+            </label>
             <input
               type="text"
               value={displayName}
@@ -125,7 +150,9 @@ const Profile = () => {
 
           {/* Phone Number */}
           <div>
-            <label style={{ color: '#1C7DBB' }} className="block text-gray-700 text-sm font-semibold mb-1">Phone Number</label>
+            <label className=" text-body-bold block text-dark-blue mb-1 ">
+              Phone Number
+            </label>
             <input
               type="tel"
               value={phoneNumber}
@@ -136,7 +163,9 @@ const Profile = () => {
 
           {/* Address */}
           <div>
-            <label style={{ color: '#1C7DBB' }} className="block text-gray-700 text-sm font-semibold mb-1 ">Address</label>
+            <label className=" text-body-bold block text-dark-blue mb-1 ">
+              Address
+            </label>
             <input
               type="text"
               value={address}
@@ -150,7 +179,9 @@ const Profile = () => {
         <div className="col-span-2 space-y-4">
           {/* About */}
           <div>
-            <label style={{ color: '#1C7DBB' }} className="block text-gray-700 text-sm font-semibold mb-1">About</label>
+            <label className=" text-body-bold block text-dark-blue mb-1 ">
+              About
+            </label>
             <textarea
               value={about}
               onChange={(e) => setAbout(e.target.value)}
@@ -161,7 +192,9 @@ const Profile = () => {
 
           {/* Experience */}
           <div>
-            <label style={{ color: '#1C7DBB' }} className="block text-gray-700 text-sm font-semibold mb-1">My Experience</label>
+            <label className=" text-body-bold block text-dark-blue mb-1 ">
+              My Experience
+            </label>
             <textarea
               value={experience}
               onChange={(e) => setExperience(e.target.value)}
@@ -172,7 +205,9 @@ const Profile = () => {
 
           {/* Quote */}
           <div>
-            <label style={{ color: '#1C7DBB' }} className="block text-gray-700 text-sm font-semibold mb-1">Quote</label>
+            <label className=" text-body-bold block text-dark-blue mb-1 ">
+              Quote
+            </label>
             <textarea
               value={quote}
               onChange={(e) => setQuote(e.target.value)}
@@ -185,9 +220,7 @@ const Profile = () => {
         {/* Bottom Image Upload */}
         <div className="col-span-3 flex justify-center mt-6">
           <div className="w-full max-w-xs text-center">
-            <label className="block text-gray-700 text-sm font-semibold mb-2">
-              
-            </label>
+            <label className="block text-gray-700 text-sm font-semibold mb-2"></label>
             <div className="border-2 border-dashed border-gray-300 p-6 rounded-lg relative">
               <input
                 type="file"
@@ -206,7 +239,11 @@ const Profile = () => {
                   <span className="text-2xl">+</span>
                 )}
               </div>
-              {!additionalImage && <div className="mt-2 text-blue-600">Upload Image</div>}
+              {!additionalImage && (
+                <div className="text-button mt-2 text-dark-blue">
+                  Upload Image
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -215,7 +252,7 @@ const Profile = () => {
         <div className="col-span-3 flex justify-center mt-8">
           <button
             type="submit"
-            className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="text-button bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"
           >
             Save
           </button>
