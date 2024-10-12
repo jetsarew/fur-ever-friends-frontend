@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import NavBar from "@/components/NavBar/NavBar";
+import TanstackProvider from "@/provider/tanstack.provider";
+import StoreProvider from "@/provider/store.provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -29,11 +31,15 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased">
-        <NavBar />
-        <main className="w-[1154px] mx-auto mt-16 pt-9">
-          {children}
-          {compose}
-        </main>
+        <TanstackProvider>
+          <StoreProvider>
+            <NavBar />
+            <main className="w-[1154px] mx-auto mt-16 pt-9">
+              {children}
+              {compose}
+            </main>
+          </StoreProvider>
+        </TanstackProvider>
       </body>
     </html>
   );
