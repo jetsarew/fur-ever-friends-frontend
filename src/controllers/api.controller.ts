@@ -13,7 +13,9 @@ export async function apiController<T>(
 ): Promise<T> {
   try {
     const response = await axiosInstance.request({ url, method, data });
-    if(url == "/qualifications"){
+    if((method == "get" && (url == "/qualifications" || url.startsWith("/pets"))) || 
+  (method == "patch" && (url.startsWith("/pets"))) || 
+  (method == "post" && (url.startsWith("/pets")))){
       return response.data;
     }
     return response.data.data;
