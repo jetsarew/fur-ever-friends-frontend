@@ -3,6 +3,7 @@ import { UpdatePetDto } from "@/dto/pet.dto";
 import { useAuth } from "@/hooks/useAuth";
 import { useUser } from "@/hooks/useUser";
 import { authService } from "@/services/auth.service";
+import { customerService } from "@/services/customer.service";
 import { petService } from "@/services/pet.service";
 import { qualificationService } from "@/services/qualification.service";
 import { userService } from "@/services/user.service";
@@ -188,9 +189,18 @@ export default function Home() {
     console.log(response);
   };
 
+  const onCustomerButtonClicked = async () => {
+    const response = await customerService.getAllCustomer();
+    console.log(response);
+
+    const response2 = await customerService.getCustomer("95d3ccd2-07e9-4ca7-8833-0914ed99bb15");
+    console.log(response2);
+  }
+
   return (
     <div className="flex flex-col gap-10">
       <div className="px-8 py-8 flex flex-col gap-8 items-start border-[2px] border-bright-green">
+        <p className="text-header text-bright-green">Auth Service</p>
         <button
           className="px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green"
           type="button"
@@ -214,6 +224,7 @@ export default function Home() {
         </button>
       </div>
       <div className="px-8 py-8 flex flex-col gap-8 items-start border-[2px] border-golden-yellow">
+      <p className="text-header text-golden-yellow">User Service</p>
         <input type="file" onChange={onFileUploaded}></input>
         <button
           className="px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green"
@@ -259,6 +270,7 @@ export default function Home() {
         </button>
       </div>
       <div className="px-8 py-8 flex flex-col gap-8 items-start border-[2px] border-bright-blue">
+        <p className="text-header text-bright-blue">Pet Service</p>
         <input type="file" onChange={onPetFileUploaded}></input>
         <button
           className="px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green"
@@ -282,6 +294,16 @@ export default function Home() {
           Update pet
         </button>
       </div>
+      <div className="px-8 py-8 flex flex-col gap-8 items-start border-[2px] border-orange-500">
+        <p className="text-header text-orange-500">Customer Service</p>
+        <button
+          className="px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green"
+          type="button"
+          onClick={onCustomerButtonClicked}
+        >
+          Get customer
+        </button>
+    </div>
     </div>
   );
 }

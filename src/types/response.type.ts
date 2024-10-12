@@ -37,6 +37,12 @@ export type PetModelResponse = {
     owner: Owner;
 }
 
+export type CustomerModelResponse = {
+    id: string;
+    userId: string;
+    user: UserModelResponse;
+}
+
 export type Gender = "MALE" | "FEMALE";
 
 export type Breed = {
@@ -53,4 +59,16 @@ export type AnimalType = {
 export type Owner = {
     id: string;
     userId: string;
+}
+
+export type UserModelResponse = {
+    id: string;
+    email: string;
+    password: string;
+    firstname: string;
+    lastname: string;
+    phone: string;
+    refreshToken: string | null;
+    role: Role;
+    accountStatus: AccountStatus;
 }
