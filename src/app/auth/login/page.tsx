@@ -1,24 +1,24 @@
 import Link from "next/link";
 
 export default function Login() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
 
-    const form = e.currentTarget;
-    const email = (form.elements.namedItem("email") as HTMLInputElement).value;
-    const password = (form.elements.namedItem("password") as HTMLInputElement)
-      .value;
+  //   const form = e.currentTarget;
+  //   const email = (form.elements.namedItem("email") as HTMLInputElement).value;
+  //   const password = (form.elements.namedItem("password") as HTMLInputElement)
+  //     .value;
 
-    console.log("Email:", email);
-    console.log("Password:", password);
-  };
+  //   console.log("Email:", email);
+  //   console.log("Password:", password);
+  // };
   return (
     <>
       <div className=" flex flex-col gap-[64px] mx-auto w-[506px] items-center">
         <h2 className="text-header">Welcome to Fur-ever Friends</h2>
 
-        <div className="flex flex-col gap-[32px] w-[442px]">
-          <div className="text-subheading2 flex flex-col gap-[12px] ">
+        <div className="flex flex-col gap-6 w-[442px]">
+          <div className="text-subheading2 flex flex-col gap-2 ">
             <label htmlFor="email" className="text-suheading2 text-dark-blue">
               Email
             </label>
@@ -32,7 +32,7 @@ export default function Login() {
             />
           </div>
 
-          <div className="text-subheading2 flex flex-col gap-[12px] ">
+          <div className="text-subheading2 flex flex-col gap-2 ">
             <label
               htmlFor="password"
               className="text-suheading2 text-dark-blue"
@@ -48,17 +48,17 @@ export default function Login() {
               required
             />
           </div>
-          <div className="flex flex-col items-center gap-8">
+          <div className="mt-2 flex flex-col items-center gap-8">
             <button
               type="submit"
-              className=" px-6 py-4 text-button text-white bg-bright-blue rounded-lg"
+              className="w-full px-6 py-4 text-button text-white bg-bright-blue rounded-lg"
             >
-              Log In
+              Log in
             </button>
             <p className="text-small text-soft-gray flex flex-row gap-2 items-baseline">
               Don’t have an account yet?{" "}
               <Link
-                href="/dashboard/signup"
+                href="/auth/signup"
                 className="text-body-bold underline text-bright-blue "
               >
                 Sign up

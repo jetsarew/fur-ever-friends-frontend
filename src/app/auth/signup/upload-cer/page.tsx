@@ -34,16 +34,16 @@ const UploadCertificate = () => {
         </p>
       </div>
 
-      <div className="flex flex-col pt-12 px-6 pb-8 items-start gap-8">
+      <div className="w-[454px] flex flex-col pt-12 px-6 pb-8 items-start gap-8 rounded-lg shadow-custom">
         <label
           htmlFor="file-upload"
-          className="border-dashed border-2 border-light-gry rounded-lg cursor-pointer"
+          className="mx-[56px] border-dashed border-2 border-bd-gray rounded-lg cursor-pointer"
         >
           <div className="flex flex-col w-[304px] py-[24px] items-center gap-[16px]">
             <Image
               src="/Upload file.svg"
-              width={150}
-              height={150}
+              width={194}
+              height={121}
               alt="Upload file"
               className="icon"
             />
@@ -56,7 +56,7 @@ const UploadCertificate = () => {
         <input
           id="file-upload"
           type="file"
-          accept="application/pdf"
+          accept="application/png"
           onChange={handleFileChange}
           className="file-input"
           style={{ display: "none" }}
@@ -70,7 +70,7 @@ const UploadCertificate = () => {
                 {selectedFile ? selectedFile.name : "No file added"}
               </h4>
             </div>
-            <h5 className="text-small text-soft-gray">Supports: pdf</h5>
+            <h5 className="text-small text-soft-gray">Supports: png, jpg</h5>
           </div>
         </div>
       </div>
@@ -78,7 +78,7 @@ const UploadCertificate = () => {
       <div className="flex w-[454px] items-center gap-[146px]">
         <button
           onClick={handleBack}
-          className="text-button text-soft-gray items-center"
+          className="text-body-bold text-soft-gray items-center"
         >
           Back
         </button>
