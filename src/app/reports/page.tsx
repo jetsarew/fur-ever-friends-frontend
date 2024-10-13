@@ -1,7 +1,7 @@
 import { ViewReportsHeader } from "@/components/Admin/Card/Header"
 import { ViewReportsContent } from "@/components/Admin/Card/Content"
 import SearchBar from "@/components/Admin/Input/SearchBar"
-import { FilterIcon } from "@/shared/Icon"
+import { ReportsFilter } from "@/components/Admin/Button/Filter"
 
 export default function ReportsPage() {
     const users = {
@@ -32,7 +32,7 @@ export default function ReportsPage() {
             <div className="flex gap-[16px] items-center">
                 <SearchBar />
                 <div>
-                    <FilterIcon />
+                    <ReportsFilter />
                 </div>
             </div>
             <div>
