@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 export default function FeedCard() {
   return (
-    <div className="text-black border rounded-[8px] px-4 py-6 flex flex-col-2 gap-2 w-[680px] h-[232px] font-poppins">
+    <div className="text-black border rounded-[8px] px-4 py-6 flex flex-col-2 gap-2 w-[680px] h-[232px]">
 
 
       <div>
@@ -17,13 +17,13 @@ export default function FeedCard() {
       </div>
       <div className="grid grid-row-4 gap-2 w-[580px] h-[184px]">
         <div className="flex">
-          <p className="font-bold">Anntonia Porsid</p>
+          <p className="text-body-bold">Anntonia Porsid</p>
           <p className="text-soft-gray">&nbsp;&#x2022;&nbsp;3 Day left</p>
         </div>
 
         <div className="flex gap-2 items-center">
 
-          <p className="text-bright-blue text-xl font-bold">
+          <p className="text-bright-blue text-subheading2">
             Whisker & Buddy outing
           </p>
           
@@ -53,12 +53,12 @@ export default function FeedCard() {
 
         <div className="flex clex-col-2 gap-8">
           <div>
-            <p className="font-bold">Start</p>
+            <p className="text-body-bold">Start</p>
             <p>December 31, 2024 at 7:00 am</p>
           </div>
 
           <div>
-            <p className="font-bold">End</p>
+            <p className="text-body-bold">End</p>
             <p>December 31, 2024 at 6:00 pm</p>
           </div>
         </div>

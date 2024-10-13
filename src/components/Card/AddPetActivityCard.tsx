@@ -16,7 +16,7 @@ export default function AddPetActivityCard() {
   };
 
   return (
-    <div className="border px-6 rounded-[8px] font-poppins">
+    <div className="border px-6 rounded-[8px]">
       <div className="flex m-6 gap-4">
         <Image
           src="/Whiskers.jpg"
@@ -26,8 +26,8 @@ export default function AddPetActivityCard() {
           className="rounded-full w-[93px] h-[93px] object-cover"
         />
         <div className="grid h-fit mt-4 content-end">
-          <p className="justify-self-center text-xl font-semibold">Buddy</p>
-          <p className="text-soft-gray font-light">Golden Retriever</p>
+          <p className="justify-self-center text-subheading2">Buddy</p>
+          <p className="text-soft-gray text-small-paragraph">Golden Retriever</p>
         </div>
       </div>
 
@@ -42,7 +42,7 @@ export default function AddPetActivityCard() {
 
       <button
         onClick={addNewTask} // Add new task when button is clicked
-        className="bg-white round-[8px] w-fit h-fit my-6 py-1 px-6 rounded-[8px] text-bright-green border-2 border-bright-green font-semibold"
+        className="bg-white round-[8px] w-fit h-fit my-6 py-1 px-6 rounded-[8px] text-bright-green border-2 border-bright-green text-button"
       >
         + Add a task
       </button>

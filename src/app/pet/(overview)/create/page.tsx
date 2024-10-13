@@ -121,7 +121,7 @@ export default function Add_pet() {
                 <div className="grid grid-row text-black gap-6">
                     <div className="flex flex-col-2 gap-8">
                         <div>
-                            <label className="text-bright-blue block text-xl font-semibold" htmlFor="type">
+                            <label className="text-bright-blue block text-subheading2" htmlFor="type">
                                 Type
                             </label>
                             <select
@@ -143,7 +143,7 @@ export default function Add_pet() {
                         </div>
 
                         <div className="w-fit">
-                            <label className="text-bright-blue block text-xl font-semibold" htmlFor="size">
+                            <label className="text-bright-blue block text-subheading2" htmlFor="size">
                                 Breed
                             </label>
                             <select
@@ -165,7 +165,7 @@ export default function Add_pet() {
 
                     <div className="flex flex-col-4 gap-8">
                         <div>
-                            <label className="text-bright-blue block text-xl font-semibold" htmlFor="name">
+                            <label className="text-bright-blue block text-subheading2" htmlFor="name">
                                 Name
                             </label>
                             <input
@@ -179,7 +179,7 @@ export default function Add_pet() {
                         </div>
 
                         <div>
-                            <label className="text-bright-blue block text-xl font-semibold" htmlFor="sex">
+                            <label className="text-bright-blue block text-subheading2" htmlFor="sex">
                                 Sex
                             </label>
                             <select
@@ -196,7 +196,7 @@ export default function Add_pet() {
                         </div>
 
                         <div>
-                            <label className="text-bright-blue block text-xl font-semibold" htmlFor="age">
+                            <label className="text-bright-blue block text-subheading2" htmlFor="age">
                                 Age (year)
                             </label>
                             <input
@@ -210,7 +210,7 @@ export default function Add_pet() {
                         </div>
 
                         <div>
-                            <label className="text-bright-blue block text-xl font-semibold" htmlFor="weight">
+                            <label className="text-bright-blue block text-subheading2" htmlFor="weight">
                                 Weight (kg)
                             </label>
                             <input
@@ -225,7 +225,7 @@ export default function Add_pet() {
                     </div>
 
                     <div>
-                        <label className="text-bright-blue block text-xl font-semibold " htmlFor="personality">
+                        <label className="text-bright-blue block text-subheading2" htmlFor="personality">
                             Personality
                         </label>
                         <textarea
@@ -238,7 +238,7 @@ export default function Add_pet() {
                     </div>
 
                     <div>
-                        <label className="text-bright-blue block text-xl font-semibold" htmlFor="allergies">
+                        <label className="text-bright-blue block text-subheading2" htmlFor="allergies">
                             Allergies
                         </label>
                         <textarea
@@ -251,7 +251,7 @@ export default function Add_pet() {
                     </div>
 
                     <div>
-                        <label className="text-bright-blue block text-xl font-semibold" htmlFor="otherDetails">
+                        <label className="text-bright-blue block text-subheading2" htmlFor="otherDetails">
                             Other Details
                         </label>
                         <textarea
