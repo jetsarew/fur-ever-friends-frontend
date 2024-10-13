@@ -81,7 +81,7 @@ export default function Add_pet() {
 
     return (
         <div className="flex justify-center bg-white">
-        <div className=" flex justify-center font-poppins max-w-fit">
+        <div className=" flex justify-center max-w-fit">
             
             <form className="justify-center " onSubmit={handleSubmit}>
                 <div className="mb-6 grid justify-center">
@@ -104,7 +104,7 @@ export default function Add_pet() {
                     )}
                     <label
                         htmlFor="upload-button"
-                        className="text-white bg-bright-blue rounded-[8px] w-[163px] h-[32px] justify-self-center px-6 my-2 text-base flex items-center justify-center cursor-pointer"
+                        className="text-white bg-bright-blue rounded-[8px] w-[163px] h-[32px] justify-self-center px-6 my-2 text-button flex items-center justify-center cursor-pointer"
                     >
                         Upload Image
                     </label>
@@ -132,13 +132,13 @@ export default function Add_pet() {
                                 required  // Ensure this field is required
                             >
                                 <option value="">Select Type</option>
-                                <option value="dog">Dog</option>
-                                <option value="cat">Cat</option>
-                                <option value="rabbit">Rabbit</option>
-                                <option value="rodent">Rodent</option>
-                                <option value="bird">Bird</option>
-                                <option value="reptile">Reptile</option>
-                                <option value="fish">Fish</option>
+                                <option value="Dogs">Dogs</option>
+                                <option value="Cats">Cats</option>
+                                <option value="Rabbits">Rabbits</option>
+                                <option value="Rodents">Rodents</option>
+                                <option value="Birds">Birds</option>
+                                <option value="Reptile">Reptiles</option>
+                                <option value="Fish">Fish</option>
                             </select>
                         </div>
 
@@ -265,7 +265,7 @@ export default function Add_pet() {
 
                     <button
                         type="submit"
-                        className="bg-bright-green round-[8px] w-fit h-fit justify-self-center py-3 px-6 rounded-[8px] text-white font-semibold"
+                        className="bg-bright-green round-[8px] w-fit h-fit justify-self-center py-3 px-6 rounded-[8px] text-white text-button"
                     >
                         Save
                     </button>
