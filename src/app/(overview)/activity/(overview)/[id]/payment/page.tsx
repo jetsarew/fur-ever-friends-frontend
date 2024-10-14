@@ -1,3 +1,5 @@
+import Image from "next/image"
+
 export default function PaymentPage({ params }: {
     params: { id: string }
 }
@@ -9,7 +11,7 @@ export default function PaymentPage({ params }: {
                 <div className="flex flex-col items-start gap-4 self-stretch p-6 px-4 rounded-lg border-2 border-bd-gray">
                 <div className='flex justify-between items-end self-stretch'>
                     <div className='flex items-end' style={{ gap: 'var(--Space-200, 8px)' }}>
-                    <img src="/pet-sitter.jpg" alt="Pet Sitter" className="w-10 h-10 rounded-[40px] border-[3px] border-bright-blue object-cover object-center"/>
+                    <Image src="/pet-sitter.jpg" width={80} height={80} alt="Pet Sitter" className="w-10 h-10 rounded-[40px] border-[3px] border-bright-blue object-cover object-center"/>
                     <p className='text-dark-blue text-subheading'>Kirana Jasmine Chewter</p>
                     </div>
                     <p className='text-bright-green text-subheading'>$99</p>
@@ -17,8 +19,8 @@ export default function PaymentPage({ params }: {
                 <div className="flex items-center gap-4">
                     <p className='text-bright-blue text-subheading2'>Whiskers & Buddy Outing</p>
                     <div className="flex items-center gap-1">
-                    <img src="/Whiskers.jpg" alt="Whiskers" className='w-8 h-8 rounded-[40px] border-[2px] border-bright-blue object-cover object-center' />
-                    <img src="/Whiskers.jpg" alt="Whiskers" className='w-8 h-8 rounded-[40px] border-[2px] border-bright-blue object-cover object-center' />
+                    <Image src="/Whiskers.jpg" width={64} height={64} alt="Whiskers" className='w-8 h-8 rounded-[40px] border-[2px] border-bright-blue object-cover object-center' />
+                    <Image src="/Whiskers.jpg" width={64} height={64} alt="Whiskers" className='w-8 h-8 rounded-[40px] border-[2px] border-bright-blue object-cover object-center' />
                     </div>
                 </div>
                 <div className="flex flex-col items-start self-strFetch">
@@ -34,7 +36,7 @@ export default function PaymentPage({ params }: {
                     </div>
                     <div className="flex items-end gap-8 pt-4 self-stretch">
                     <div className="flex items-end gap-2 w-[308px]">
-                        <img src="/location.svg" alt="Meme Dog" className='w-6 h-6 rounded-full' />
+                        <Image src="/location.svg" width={48} height={48} alt="Meme Dog" className='w-6 h-6 rounded-full' />
                         <p className="text-dark text-body">KMITL ECC Building</p>
                     </div>
                     </div>

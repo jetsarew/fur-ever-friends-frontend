@@ -2,8 +2,8 @@ export type CommonUserModel = {
     id: string;
     email: string;
     password: string;
-    firstName: string;
-    lastName: string;
+    firstname: string;
+    lastname: string;
     phone: string;
     refreshToken: string;
     role: Role;

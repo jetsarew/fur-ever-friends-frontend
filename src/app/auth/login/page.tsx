@@ -1,53 +1,77 @@
+"use client";
+
+import { useFormik } from "formik";
+import {
+  LoginValues,
+  emptyLoginValues,
+  loginValidationSchema,
+} from "@/app/constants/formik/login.formik";
 import Link from "next/link";
+import { useAppDispatch } from "@/store/hooks";
+import { setAuthUser } from "@/store/auth/auth.slice";
+import { authService } from "@/services/auth.service";
+import Cookies from "js-cookie";
+import { Toast } from "@/components/Toast/Toast";
+import { useRouter } from "next/navigation";
+import { getFieldProps } from "@/utils/getFieldProps";
+import ValidatedInput from "@/components/Input/ValidatedInput";
 
 export default function Login() {
-  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
+  const dispatch = useAppDispatch();
+  const router = useRouter();
 
-  //   const form = e.currentTarget;
-  //   const email = (form.elements.namedItem("email") as HTMLInputElement).value;
-  //   const password = (form.elements.namedItem("password") as HTMLInputElement)
-  //     .value;
+  const handleLogin = async () => {
+    try {
+      const response = await authService.login(formik.values);
+      console.log(response);
+      dispatch(setAuthUser(response.user));
+      Cookies.set("token", response.token.accessToken);
+      router.push("/");
+    } catch (error) {
+      Toast("Login failed.", "error");
+    }
+  };
 
-  //   console.log("Email:", email);
-  //   console.log("Password:", password);
-  // };
+  const formik = useFormik<LoginValues>({
+    initialValues: {
+      ...emptyLoginValues,
+    },
+    validateOnChange: false,
+    enableReinitialize: true,
+    validationSchema: loginValidationSchema,
+    onSubmit: handleLogin,
+  });
+
+  const emailInputProps = getFieldProps(formik, "email");
+  const passwordInputProps = getFieldProps(formik, "password");
+
   return (
     <>
       <div className=" flex flex-col gap-[64px] mx-auto w-[506px] items-center">
         <h2 className="text-header">Welcome to Fur-ever Friends</h2>
-
-        <div className="flex flex-col gap-6 w-[442px]">
-          <div className="text-subheading2 flex flex-col gap-2 ">
-            <label htmlFor="email" className="text-suheading2 text-dark-blue">
-              Email
-            </label>
-            <input
-              className="text-body py-[15px] px-[18px] border border-[#D9D9D9] rounded-lg"
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Enter your email"
-              required
-            />
-          </div>
-
-          <div className="text-subheading2 flex flex-col gap-2 ">
-            <label
-              htmlFor="password"
-              className="text-suheading2 text-dark-blue"
-            >
-              Password
-            </label>
-            <input
-              className="text-body py-[15px] px-[18px] border border-[#D9D9D9] rounded-lg"
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Enter your password"
-              required
-            />
-          </div>
+        <form
+          noValidate
+          className="flex flex-col gap-6 w-[442px]"
+          onSubmit={formik.handleSubmit}
+        >
+          <ValidatedInput
+            {...emailInputProps}
+            label="Email"
+            containerStyle="relative flex flex-col gap-2"
+            labelStyle="text-subheading2 text-dark-blue"
+            value={formik.values.email}
+            onChange={(e) => formik.setFieldValue("email", e.target.value)}
+            type="email"
+          />
+          <ValidatedInput
+            {...passwordInputProps}
+            label="Password"
+            containerStyle="relative flex flex-col gap-2"
+            labelStyle="text-subheading2 text-dark-blue"
+            value={formik.values.password}
+            onChange={(e) => formik.setFieldValue("password", e.target.value)}
+            type="password"
+          />
           <div className="mt-2 flex flex-col items-center gap-8">
             <button
               type="submit"
@@ -58,14 +82,14 @@ export default function Login() {
             <p className="text-small text-soft-gray flex flex-row gap-2 items-baseline">
               Don’t have an account yet?{" "}
               <Link
-                href="/auth/signup"
+                href="/auth/signup/pet-owner"
                 className="text-body-bold underline text-bright-blue "
               >
                 Sign up
               </Link>
             </p>
           </div>
-        </div>
+        </form>
       </div>
     </>
   );

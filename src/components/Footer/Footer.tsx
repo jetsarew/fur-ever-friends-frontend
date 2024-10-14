@@ -2,7 +2,7 @@ import { FacebookIcon, GitHubIcon, InstagramIcon, YoutubeIcon } from "@/shared/I
 
 export default function Footer(){
     return (
-        <footer className="border-t border-bd-gray">
+        <footer className="-mx-[68.5px] border-t border-bd-gray">
             <div className="w-[1154px] h-[144px] mx-auto pt-8 flex flex-row justify-between">
                 <h2 className="text-header text-dark-blue">FUR-EVER FRIENDS</h2>
                 <div className="flex flex-row gap-[64px]">

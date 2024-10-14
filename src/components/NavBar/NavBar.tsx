@@ -1,23 +1,23 @@
+"use client";
+
 import Link from "next/link";
 import ProfileImage from "./ProfileImage";
 import { BellIcon } from "@/shared/Icon";
 import Notification from "./Notification";
+import { useAppSelector } from "@/store/hooks";
 
 export default function NavBar(){
-    let state = "users";
-    let role = "pet owner";
-
-    state = "users";
-    role = "pet owner";
+    const userData = useAppSelector((state) => state.auth.user)
+    console.log(userData);
 
     return (
         <div className="fixed top-0 left-0 right-0 w-full h-16 px-[111px] flex flex-row justify-between items-center border-b border-bd-gray bg-white z-10">
             <Link href={"/"} className="text-header text-bright-blue">FUR-EVER FRIENDS</Link>
             {
-                state == "users" ?
+                userData ?
                 <div className="flex flex-row justify-between gap-[102px]">
                     {
-                        role == "pet owner" &&
+                        userData.role == "CUSTOMER" &&
                         <div className="flex flex-row items-center gap-6 color text-button text-medium-gray">
                             <Link
                                 href="/find-pet-sitter"
@@ -28,11 +28,11 @@ export default function NavBar(){
                             <Link
                                 href="/pet"
                             >My pets</Link>
-                            <Notification />
+                            <BellIcon />
                         </div>
                     }
                     {
-                        role == "pet sitter" &&
+                        userData.role == "PETSITTER" &&
                         <div className="flex flex-row items-center gap-6 color text-button text-medium-gray">
                             <Link
                                 href="/search"
@@ -40,11 +40,11 @@ export default function NavBar(){
                             <Link
                                 href="/activity"
                             >My tasks</Link>
-                            <BellIcon />
+                            <Notification />
                         </div>
                     }
                     {
-                        role == "admin" &&
+                        userData.role == "ADMIN" &&
                         <div className="flex flex-row items-center gap-6 color text-button text-medium-gray">
                             <Link
                                 href="/users"
@@ -58,15 +58,15 @@ export default function NavBar(){
                             <BellIcon />
                         </div>
                     }
-                    <ProfileImage />
+                    <ProfileImage/>
                 </div> :
                 <div className="flex flex-row justify-between items-center gap-[29px]">
                     <Link
-                        href="/"
+                        href="/auth/login"
                         className="text-button text-bright-blue"
                     >Log in</Link>
                     <Link
-                        href="/"
+                        href="/auth/signup/pet-owner"
                         className="px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-blue"
                     >Join now</Link> 
                 </div>
