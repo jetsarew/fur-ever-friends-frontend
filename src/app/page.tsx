@@ -1,16 +1,18 @@
 import Image from "next/image";
 import NavBar from "@/components/NavBar/NavBar";
+import LandingPageButton from "@/components/Button/LandingPageButton";
+import Footer from "@/components/Footer/Footer";
 
 export default function Home() {
 
   return (
     <>
       <NavBar />
-      <div className="flex flex-col w-[1297px] -ml-[68.5px] gap-[64px]">
+      <div className="w-[1297px] -ml-[68.5px] pb-9 flex flex-col items-center gap-[64px]">
         <div
           className="flex flex-row justify-center relative"
         >
-          <Image src="/banner.webp" alt="banner" width={1297} height={577} className="object-cover"/>
+          <Image src="/banner.webp" alt="banner" width={1297} height={577} className="rounded-xl object-cover"/>
           <div className="w-[575px] text-[56px] leading-[120%] font-semibold text-white absolute top-14 left-14">
             <h1>
               Where every pet finds a caring sitter, and every owner finds peace
@@ -18,13 +20,13 @@ export default function Home() {
           </div>
         </div>
 
-        <h1 className="text-header text-dark-blue text-center">
+        <h1 className="text-[32px] font-semibold leading-[120%] text-dark-blue text-center">
           Connecting pets and sitters <br />
           Creating happy moments together!
         </h1>
 
         {/* Container for all sections */}
-        <div className="flex flex-row  gap-[32px] justify-between">
+        <div className="w-full flex flex-row  gap-[32px] justify-between">
           {/* Main container for content 1 */}
           <div className="flex w-[324px] flex-col gap-[32px] items-end">
             <div className="img1 flex flex-col items-center text-center">
@@ -84,13 +86,9 @@ export default function Home() {
             </div>
           </div>
         </div>
-
-        <div className="flex flex-col justify-center items-center gap-[10px] ">
-          <button className="px-[24px] py-[16px] text-button text-white bg-bright-blue rounded-lg">
-            Join now
-          </button>
-        </div>
+        <LandingPageButton />
       </div>
+      <Footer />
     </>
   );
 }

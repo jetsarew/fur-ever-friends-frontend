@@ -37,7 +37,7 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="container mx-auto p-6 max-w-4xl">
+    <div className="container mx-auto">
       <div>
         <form
           onSubmit={handleSave}
@@ -49,6 +49,8 @@ export default function ProfilePage() {
                 <Image
                   id="profile-image"
                   src="/default-profile.png"
+                  width={200}
+                  height={200}
                   className="w-full h-full object-cover items-center "
                   alt="profile image"
                 />
