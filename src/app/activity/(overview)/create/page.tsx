@@ -1,6 +1,8 @@
 "use client";
 
+import AddPetButton from "@/components/Button/AddPetButton";
 import AddPetActivityCard from "@/components/Card/AddPetActivityCard";
+import Image from "next/image";
 import { useState } from "react";
 
 
@@ -26,6 +28,13 @@ export default function Create_activity() {
       [name]: value,
     }));
   };
+
+  const handleDeletePetActivityCard = () => {
+    setFormData((prevData) => ({
+      ...prevData,
+      petActivities: prevData.petActivities.slice(0, -1),
+    }));    
+  }
 
   const handleLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -72,11 +81,11 @@ export default function Create_activity() {
       <div className="bg-white w-[680px] h-full flex justify-center">
         
 
-        <form onSubmit={handleSave} className="justify-center pb-24 w-full bg-white">
+        <form noValidate onSubmit={handleSave} className="justify-center pb-24 w-full bg-white">
           <div className="grid grid-row text-black gap-8  bg-white">
             {/* Activity Name */}
-            <div>
-              <label className="text-bright-blue block text-subheading2 pb-4">
+            <div className="flex flex-col gap-3">
+              <label className="text-dark-blue block text-subheading2">
                 Activity Name
               </label>
               <input
@@ -90,69 +99,74 @@ export default function Create_activity() {
             </div>
 
             {/* Duration */}
-            <div>
-              <label className="text-bright-blue block text-subheading2 pb-4">
+            <div className="flex flex-col gap-4">
+              <label className="text-dark-blue block text-subheading2">
                 Duration
               </label>
-              
-              {/* Start */}
-              <p className="text-body-bold mb-2">Start</p>
-              <div className="flex flex-row w-[65%] gap-8 mb-4">
-                <input
-                  type="date"
-                  name="startDate"
-                  value={formData.startDate}
-                  onChange={handleInputChange}
-                  className="w-full border rounded-[8px] py-[15px] px-[18px]"
-                  required  // Make this field required
-                />
-                <input
-                  type="time"
-                  name="startTime"
-                  value={formData.startTime}
-                  onChange={handleInputChange}
-                  className="w-full border rounded-[8px] py-[15px] px-[18px]"
-                  required  // Make this field required
-                />
+              <div className="flex flex-col gap-3">
+                <p className="text-body-bold">Start</p>
+                <div className="flex flex-row w-[65%] gap-8">
+                  <input
+                    type="date"
+                    name="startDate"
+                    value={formData.startDate}
+                    onChange={handleInputChange}
+                    className="w-full border rounded-[8px] py-[15px] px-[18px]"
+                    required  // Make this field required
+                  />
+                  <input
+                    type="time"
+                    name="startTime"
+                    value={formData.startTime}
+                    onChange={handleInputChange}
+                    className="w-full border rounded-[8px] py-[15px] px-[18px]"
+                    required  // Make this field required
+                  />
+                </div>
               </div>
 
               {/* End */}
-              <p className="text-body-bold mb-2">End</p>
-              <div className="flex flex-row w-[65%] gap-8">
-                <input
-                  type="date"
-                  name="endDate"
-                  value={formData.endDate}
-                  onChange={handleInputChange}
-                  className="w-full border rounded-[8px] py-[15px] px-[18px]"
-                  required  // Make this field required
-                />
-                <input
-                  type="time"
-                  name="endTime"
-                  value={formData.endTime}
-                  onChange={handleInputChange}
-                  className="w-full border rounded-[8px] py-[15px] px-[18px]"
-                  required  // Make this field required
-                />
+              <div className="flex flex-col gap-3">
+                <p className="text-body-bold">End</p>
+                <div className="flex flex-row w-[65%] gap-8">
+                  <input
+                    type="date"
+                    name="endDate"
+                    value={formData.endDate}
+                    onChange={handleInputChange}
+                    className="w-full border rounded-[8px] py-[15px] px-[18px]"
+                    required  // Make this field required
+                  />
+                  <input
+                    type="time"
+                    name="endTime"
+                    value={formData.endTime}
+                    onChange={handleInputChange}
+                    className="w-full border rounded-[8px] py-[15px] px-[18px]"
+                    required  // Make this field required
+                  />
+                </div>
               </div>
             </div>
 
             {/* Location */}
-            <div>
-              <label className="text-bright-blue block text-subheading2 pb-4">
+            <div className="flex flex-col gap-4">
+              <label className="text-dark-blue block text-subheading2">
                 Location
               </label>
-              <p className="text-body-bold mb-2">Place</p>
+              <div className="flex flex-col gap-3">
+              <p className="text-body-bold">Place</p>
               <input
                 type="text"
                 name="place"
                 value={formData.location.place}
                 onChange={handleLocationChange}
-                className="w-full border rounded-[8px] py-[15px] px-[18px] mb-6"
+                className="w-full border rounded-[8px] py-[15px] px-[18px]"
                 required  // Make this field required
               />
-              <p className="text-body-bold mb-2">Detail</p>
+              </div>
+              <div className="flex flex-col gap-3">
+              <p className="text-body-bold">Detail</p>
               <input
                 type="text"
                 name="detail"
@@ -162,27 +176,35 @@ export default function Create_activity() {
                 required  // Make this field required
               />
             </div>
+            </div>
 
             {/* Pet Activities */}
             <div>
-              <div className="flex justify-between pb-8">
-                <label className="text-bright-blue block text-subheading2">
+              <div className="flex justify-between items-baseline pb-8">
+                <label className="text-dark-blue block text-subheading2">
                   Pet Activities
                 </label>
-                <button
-                  type="button"
-                  onClick={addNewPetActivity} // Trigger adding new pet activity
-                  className="bg-bright-green round-[8px] w-fit h-fit py-1 px-6 rounded-[8px] text-white text-button"
-                >
-                  + Add another pet
-                </button>
+                <AddPetButton onAddNewPet={addNewPetActivity}/>
+                
               </div>
 
               <div className="grid gap-6">
               
               {formData.petActivities.map((activity, index) => (
-                <AddPetActivityCard key={index} />
+                <AddPetActivityCard key={index} handleDeletePetActivityCard={handleDeletePetActivityCard}/>
               ))}
+              {
+                formData.petActivities.length == 0 &&
+                <div className="flex flex-col items-center gap-2">
+                  <Image 
+                    src={"/empty.svg"}
+                    width={200}
+                    height={200}
+                    alt={"empty"}
+                  />
+                  <p className="text-center text-soft-gray">Please choose at least 1 pet</p>
+                </div>
+              }
 
               </div>
             </div>

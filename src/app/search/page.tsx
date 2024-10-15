@@ -19,12 +19,12 @@ export default function FeedPage() {
   return (
     <div>
      
-      <div className="min-h-screen bg-gray-100 p-6 w-full">
+      <div className="w-full">
         <div className="flex justify-center">
           <div className="items-center"></div>
 
-          <div className="mt-4 justify-self-center">
-            <div className="flex items-center">
+          <div className="justify-self-center">
+            <div className="flex items-center gap-4">
               <div className="bg-white flex border-2 border-bright-blue rounded-md w-full ">
                 <Image
                   src="/search.svg"

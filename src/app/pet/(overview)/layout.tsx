@@ -8,7 +8,7 @@ export default function Layout({
   return (
     <div>
         <BackButton />
-        <div className="pt-9">
+        <div className="">
             {children}
         </div>
     </div>

@@ -22,7 +22,7 @@ export default function TaskCard({ taskId, removeTask }: TaskCardProps) {
         />
       </div>
 
-      <select className="w-[241px] border rounded-[8px] px-[18px] py-[15px]">
+      <select className="w-[275px] border rounded-[8px] px-[18px] py-[15px]">
         <option value="feeding">Feeding</option>
         <option value="exercise">Exercise</option>
         <option value="grooming">Grooming</option>
