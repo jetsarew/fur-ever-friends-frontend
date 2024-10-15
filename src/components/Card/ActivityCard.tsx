@@ -106,7 +106,7 @@ export default function ActivityCard({ role, state}: ActivityCardProps){
     );
     
     return (
-        <div className="px-4 py-6 flex flex-col gap-4 border border-bd-gray rounded-lg">
+        <div className="px-4 py-6 flex flex-col gap-4 border border-bd-gray rounded-lg hover:shadow-custom">
             <div className="flex flex-row justify-between items-center">
                 <div className="flex flex-row items-center gap-4">
                     <p className="text-subheading text-bright-blue">Whiskers & Buddy Outing</p>
