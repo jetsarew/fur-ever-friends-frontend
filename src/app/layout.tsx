@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import NavBar from "@/components/NavBar/NavBar";
 import TanstackProvider from "@/provider/tanstack.provider";
 import StoreProvider from "@/provider/store.provider";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -33,7 +33,7 @@ export default function RootLayout({
       <body className="antialiased">
         <TanstackProvider>
           <StoreProvider>
-            <NavBar />
+            <Toaster />
             <main className="w-[1154px] mx-auto mt-16 pt-9">
               {children}
               {compose}

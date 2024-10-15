@@ -4,6 +4,10 @@ import useOutSideClick from "@/hooks/useOutsideClick";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
+import Cookies from "js-cookie";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { deleteAuthState } from "@/store/auth/auth.slice";
+import { useRouter } from "next/navigation";
 
 export default function ProfileImage(){
 
@@ -11,10 +15,17 @@ export default function ProfileImage(){
     const buttonRef = useRef<HTMLDivElement>(null);
     const popUpRef = useRef<HTMLDivElement>(null);
 
+    const userData = useAppSelector((state) => state.auth.user);
+    const dispatch = useAppDispatch();
+    const router = useRouter();
+
     useOutSideClick(buttonRef, popUpRef, setShow);
 
-    const onLogOutButtonClicked = () => {
+    const onLogOutButtonClicked = async () => {
+        Cookies.remove("token");
+        dispatch(deleteAuthState());
         setShow(false);
+        router.push("/");
     }
 
     return (
@@ -36,8 +47,8 @@ export default function ProfileImage(){
                     className="w-[220px] flex flex-col items-start border border-bd-gray rounded-lg pop-up-shadow bg-white absolute top-[55px] right-0"
                 >
                     <div className="w-full px-6 py-4 flex flex-col items-start gap-2 border-b border-bd-gray">
-                        <p className="text-body">Anntonia Porsild</p>
-                        <p className="text-small text-standard-gray">porsild@gmail.com</p>
+                        <p className="text-body">{userData?.firstname + " " + userData?.lastname}</p>
+                        <p className="text-small text-standard-gray">{userData?.email}</p>
                     </div>
                     <Link
                         href="/profile/edit"

@@ -22,8 +22,8 @@ export default function Home() {
 
   const onButtonClick = async () => {
     const response = await authService.login({
-      email: "suchata@gmail.com",
-      password: "12345678",
+      email: "luna.ray@gmail.com",
+      password: "12354678",
     });
     console.log(response);
     dispatch(setAuthUser(response.user));
@@ -70,14 +70,6 @@ export default function Home() {
       phone: "0123456789",
       role: "CUSTOMER",
     });
-    // const response = await authService.register({
-    //   email: "min@gmail.com",
-    //   password: "12345678",
-    //   firstname: "Min",
-    //   lastname: "Planet",
-    //   phone: "0123456789",
-    //   role: "CUSTOMER",
-    // });
     console.log(response);
     dispatch(setAuthUser(response.user));
     Cookies.set("token", response.token.accessToken);
@@ -87,11 +79,6 @@ export default function Home() {
     const response = await userService.createPetSitter("suzana@gmail.com");
     console.log(response);
   };
-
-  // const onGetAuthUserButtonClicked = async () => {
-  //   const response = await userService.getAuthUser();
-  //   console.log(response);
-  // }
 
   const onUpdateButtonClicked = async () => {
     const response = await updateUserMutation.mutateAsync({
@@ -157,17 +144,15 @@ export default function Home() {
   };
 
   const onGetPetButtonClicked = async () => {
-    const response = await petService.getPet(
-      "02ccc77d-509e-4acf-98be-f5b7f66c405c"
-    );
+    
+    const response = await petService.getPet("e7594d44-569a-4948-bde9-10a99676e6bf");
     console.log(response);
 
     const response2 = await petService.getAllPet();
     console.log(response2);
 
-    const response3 = await petService.getPetsByOwner(
-      "0679aaf6-d2f4-40f5-96f4-1c3ac1d0442e"
-    );
+    const ownerId:string = (userData && userData.customer) ? userData.customer.id : "953a660c-3a03-4d74-9bbf-bdb5717d35b9";
+    const response3 = await petService.getPetsByOwner(ownerId);
     console.log(response3);
   };
 
