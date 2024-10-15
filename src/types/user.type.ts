@@ -8,9 +8,9 @@ export type CommonUserModel = {
     refreshToken: string;
     role: Role;
     accountStatus: AccountStatus;
-    customer: Customer;
-    petsitter: PetSitter;
-    admin: Admin;
+    customer?: Customer;
+    petsitter?: PetSitter;
+    admin?: Admin;
 };
 
 export type Customer = {

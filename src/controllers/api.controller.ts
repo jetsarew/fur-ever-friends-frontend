@@ -13,10 +13,10 @@ export async function apiController<T>(
 ): Promise<T> {
   try {
     const response = await axiosInstance.request({ url, method, data });
-    if(url == "/qualifications"){
-      return response.data;
+    if(response.data.data){
+      return response.data.data;
     }
-    return response.data.data;
+    return response.data;
   } catch (error) {
     const message = (error as Error).message;
     return Promise.reject(message);
