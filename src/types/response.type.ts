@@ -32,8 +32,8 @@ export type PetModelResponse = {
     animalTypeId: string;
     breedId: string;
     ownerId: string;
-    breed: Breed;
-    animalType: AnimalType;
+    breed: BreedResponse;
+    animalType: AnimalResponse;
     owner: Owner;
 }
 
@@ -45,13 +45,13 @@ export type CustomerModelResponse = {
 
 export type Gender = "MALE" | "FEMALE";
 
-export type Breed = {
+export type BreedResponse = {
     id: string;
     name: string;
     animalTypeId: string;
 }
 
-export type AnimalType = {
+export type AnimalResponse = {
     id: string;
     name: string;
 }

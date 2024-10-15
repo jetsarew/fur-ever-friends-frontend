@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { AnimalBreeds, AnimalTypes } from "@/app/constants/formik/animalBreed";
+import { AnimalType } from "@/types/breed.type";
 
 // Define the interface for formData
 interface FormData {
-    type: string;
-    breed: string;
+    animalTypeId: AnimalType;
+    breedId: string;
     name: string;
     sex: string;
     age: string;
@@ -19,8 +21,8 @@ interface FormData {
 
 export default function Add_pet() {
     const [formData, setFormData] = useState<FormData>({
-        type: '',
-        breed: '',
+        animalTypeId: "3c7d4c5d-8299-44cb-81fb-83233375b952" as AnimalType,
+        breedId: '',
         name: '',
         sex: '',
         age: '',
@@ -36,8 +38,8 @@ export default function Add_pet() {
 
         // Validate that all required fields are filled
         if (
-            !formData.type ||
-            !formData.breed ||
+            !formData.animalTypeId ||
+            !formData.breedId ||
             !formData.name ||
             !formData.sex ||
             !formData.age ||
@@ -62,6 +64,12 @@ export default function Add_pet() {
             ...prevData,
             [name]: value,
         }));
+        if(name == "animalTypeId"){
+            setFormData((prevData) => ({
+                ...prevData,
+                breedId: "",
+            }));
+        }
     };
 
     // Handle image upload and preview
@@ -125,20 +133,17 @@ export default function Add_pet() {
                                 Type
                             </label>
                             <select
-                                name="type"
+                                name="animalTypeId"
                                 className="w-full border rounded-[8px] px-[18px] py-[15px] mt-3"
                                 onChange={handleChange}
-                                value={formData.type}
+                                value={formData.animalTypeId}
                                 required  // Ensure this field is required
                             >
-                                <option value="" disabled>Select Type</option>
-                                <option value="Dogs">Dogs</option>
-                                <option value="Cats">Cats</option>
-                                <option value="Rabbits">Rabbits</option>
-                                <option value="Rodents">Rodents</option>
-                                <option value="Birds">Birds</option>
-                                <option value="Reptile">Reptiles</option>
-                                <option value="Fish">Fish</option>
+                                {
+                                    AnimalTypes.map((animalType, index) => {
+                                        return <option key={index} value={animalType.id}>{animalType.name}</option>
+                                    })
+                                }
                             </select>
                         </div>
 
@@ -147,18 +152,18 @@ export default function Add_pet() {
                                 Breed
                             </label>
                             <select
-                                name="breed"
+                                name="breedId"
                                 className="w-full border rounded-[8px] px-[18px] py-[15px] mt-3"
                                 onChange={handleChange}
-                                value={formData.breed}
+                                value={formData.breedId}
                                 required
                             >
-                                <option value="" disabled>Select Breed</option>
-                                <option value="golden retriever">Golden Retriever</option>
-                                <option value="shiba inu">Shiba Inu</option>
-                                <option value="shih tzu">Shih Tzu</option>
-                                <option value="saint bernard">Saint Bernard</option>
-                                <option value="german shepherd">German Shepherd</option>
+                                <option value="" disabled>Select breed</option>
+                                {
+                                    AnimalBreeds[formData.animalTypeId].map((breed, index) => {
+                                        return <option key={index} value={breed.id}>{breed.name}</option>
+                                    })
+                                }
                             </select>
                         </div>
                     </div>
