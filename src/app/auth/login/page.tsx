@@ -25,7 +25,7 @@ export default function Login() {
       const response = await authService.login(formik.values);
       console.log(response);
       dispatch(setAuthUser(response.user));
-      Cookies.set("token", response.token.accessToken);
+      Cookies.set("accessToken", response.token.accessToken, { secure: true, sameSite: 'Strict' });
       router.push("/");
     } catch (error) {
       Toast("Login failed.", "error");

@@ -9,7 +9,7 @@ export const userService = {
     ): Promise<CreatePetSitterResponse> => {
         return await apiController(`/users/${petSitterEmail}`, "post");
     },
-    getAuthUser: async (): Promise<CommonUserModel> => { //Not works
+    getAuthUser: async (): Promise<CommonUserModel> => {
         return await apiController("/users/me", "get");
     },
     updateUser: async (

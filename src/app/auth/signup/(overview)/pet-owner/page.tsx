@@ -28,7 +28,7 @@ export default function PetOwnerSignUpPage() {
         const response = await registerMutation.mutateAsync(parsedFormik);
         console.log(response);
         dispatch(setAuthUser(response.user));
-        Cookies.set("token", response.token.accessToken);
+        Cookies.set("accessToken", response.token.accessToken, { secure: true, sameSite: 'Strict' });
         router.push("/");
     } catch (error) {
         Toast("Register failed.", "error");

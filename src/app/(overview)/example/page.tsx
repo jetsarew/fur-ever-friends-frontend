@@ -1,6 +1,8 @@
 "use client";
+
 import { UpdatePetDto } from "@/dto/pet.dto";
 import { useUser } from "@/hooks/useUser";
+import { adminService } from "@/services/adminService";
 import { customerService } from "@/services/customer.service";
 import { petService } from "@/services/pet.service";
 import { qualificationService } from "@/services/qualification.service";
@@ -117,6 +119,11 @@ export default function Home() {
     console.log(response2);
   }
 
+  const onSetAccountStateButtonClicked = async () => {
+    const response = await adminService.setAccountState("5116ecb6-3761-4b6c-b097-3dd3614ad49b", "BANNED");
+    console.log(response);
+  }
+
   return (
     <div className="flex flex-col gap-10">
       <div className="px-8 py-8 flex flex-col gap-8 items-start border-[2px] border-golden-yellow">
@@ -190,6 +197,16 @@ export default function Home() {
           onClick={onCustomerButtonClicked}
         >
           Get customer
+        </button>
+    </div>
+    <div className="px-8 py-8 flex flex-col gap-8 items-start border-[2px] border-pink-500">
+        <p className="text-header text-pink-500">Admin Service</p>
+        <button
+          className="px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green"
+          type="button"
+          onClick={onSetAccountStateButtonClicked}
+        >
+          Set account state
         </button>
     </div>
     </div>

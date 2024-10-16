@@ -8,6 +8,7 @@ import Cookies from "js-cookie";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { deleteAuthState } from "@/store/auth/auth.slice";
 import { useRouter } from "next/navigation";
+import { authService } from "@/services/auth.service";
 
 export default function ProfileImage(){
 
@@ -22,6 +23,7 @@ export default function ProfileImage(){
     useOutSideClick(buttonRef, popUpRef, setShow);
 
     const onLogOutButtonClicked = async () => {
+        await authService.logout();
         Cookies.remove("token");
         dispatch(deleteAuthState());
         setShow(false);
