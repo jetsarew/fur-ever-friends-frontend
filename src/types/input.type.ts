@@ -1,5 +1,5 @@
 export interface InputProps {
-    value?: string;
+    value?: string | number;
     onChange?: (value: React.ChangeEvent<HTMLInputElement>) => void;
     disabled?: boolean;
     label?: string;

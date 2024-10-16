@@ -68,6 +68,19 @@ export const commentValidator = yup
   .required("Comment is a required field")
   .min(1);
 
+export const breedNotEmptyValidator = yup
+  .string()
+  .min(1)
+  .required("Required field and not empty breed");
+
+export const fileNotEmptyValidator = yup
+  .mixed()
+  .required("Required field and file cannot be empty")
+  .test("fileSize", "File cannot be empty", (value) => {
+    return value instanceof File && value.size > 0;
+  });
+
+
 export const validator = {
   email: emailValidator,
   password: passwordValidator,
