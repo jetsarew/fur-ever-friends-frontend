@@ -1,13 +1,15 @@
 import Image from "next/image";
 import PetCardTextSection from "./PetCardTextSection";
+import PetActionButton from "../Button/PetActionButton";
 
-export default function PetCard({ width, padding, border }: {
+export default function PetCard({ width, padding, border, showActionButton }: {
     width?: string;
     padding?: string;
     border?: string;
+    showActionButton?: boolean;
 }){
     return (
-        <div className={`${width == undefined ? "" : width} ${padding == undefined ? "px-3 py-3" : padding} flex flex-row items-start ${border == undefined ? "" : border}`}>
+        <div className={`relative ${width == undefined ? "" : width} ${padding == undefined ? "px-3 py-3" : padding} flex flex-row items-start ${border == undefined ? "" : border}`}>
             <div className="py-3 pr-1 flex flex-col items-center gap-3">
                 <Image 
                     src="/Whiskers.jpg"
@@ -60,6 +62,9 @@ export default function PetCard({ width, padding, border }: {
                     padding={"pt-3 pl-3"}
                 />
             </div>
+            {
+                showActionButton && <PetActionButton />
+            }   
         </div>
     )
 }
