@@ -4,12 +4,6 @@ export type LoginDto = {
   email: string;
   password: string;
 };
-
-export type LogoutDto = {
-  headers: {
-    Authorization: string;
-  }
-};
   
 export type RegisterDto = {
   email: string;
