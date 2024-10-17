@@ -1,0 +1,1 @@
+export const getAttachmentSrc = (filename: string) => `http://localhost:3000/attachments/${filename}`;

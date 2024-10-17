@@ -3,7 +3,7 @@
 import { useState } from "react";
 import ActivityProgressBar from "./ActivityProgressBar";
 import ActivitySection from "./ActivitySection";
-import PetCard from "./PetCard";
+//import PetCard from "./PetCard";
 
 interface PetActivityCardProps {
     showCheckBox: boolean;
@@ -21,11 +21,11 @@ export default function PetActivityCard({
     return (
         <div className="flex flex-col items-center">
             <div className={`w-[544px] px-4 pt-3 flex flex-col items-center border rounded-lg ${showProgressBar && "border-b-0 rounded-b-none"} border-bd-gray `}>
-                <PetCard 
+                {/* <PetCard 
                     width={"w-full"}
                     padding={"pt-3"}
                     border={"border-b border-bd-gray"}
-                />
+                /> */}
                 <div>
                     <ActivitySection 
                         title={"Bathing"}

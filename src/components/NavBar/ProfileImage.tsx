@@ -11,7 +11,6 @@ import { useRouter } from "next/navigation";
 import { authService } from "@/services/auth.service";
 
 export default function ProfileImage(){
-
     const [show, setShow] = useState<boolean>(false);
     const buttonRef = useRef<HTMLDivElement>(null);
     const popUpRef = useRef<HTMLDivElement>(null);
@@ -34,7 +33,7 @@ export default function ProfileImage(){
         <div className="relative">
             <div ref={buttonRef}>
                 <Image 
-                    src={"/profile.jpg"}
+                    src={"/default_profile.jpg"}
                     width={144}
                     height={144}
                     alt={"profile image"}
