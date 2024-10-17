@@ -10,7 +10,6 @@ export const petService = {
         const { file, ...parsedPetDetail } = createPetRequest;
         formData.append("json", JSON.stringify(parsedPetDetail));
         formData.append("file", file);
-        console.log(createPetRequest);
         return await apiController("/pets", "post", formData)
     }, 
     getAllPet: async (): Promise<PetModelResponse[]> => {

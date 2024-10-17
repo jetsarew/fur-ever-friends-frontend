@@ -2,9 +2,24 @@
 
 import { useRouter } from "next/navigation";
 import Modal from "./Modal";
-
-export default function DeletePetModal(){
+import { usePets } from "@/hooks/usePets";
+import { Toast } from "../Toast/Toast";
+interface DeletePetModalInterface {
+    petId: string;
+}
+export default function DeletePetModal({ petId }: DeletePetModalInterface){
     const router = useRouter()
+    const { deletePet } = usePets();
+
+    const onDeleteButtonClicked = async () => {
+        try {
+            await deletePet(petId);
+            Toast("Delete pet successfully", "success");
+            router.back();
+        } catch (error) {
+
+        }
+    }
 
     return ( 
         <Modal
@@ -17,7 +32,11 @@ export default function DeletePetModal(){
                 <div className="flex flex-col gap-6">
                     <p className="text-small-paragraph text-soft-gray">This action cannot be undone, and the pet will be permanently removed from your account.</p>
                     <div className="flex flex-col gap-2">
-                        <button className="w-full py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-red">Delete</button>
+                        <button 
+                            type="button"
+                            onClick={onDeleteButtonClicked}
+                            className="w-full py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-red"
+                        >Delete</button>
                         <button 
                             type="button"
                             onClick={() => {router.back();}}

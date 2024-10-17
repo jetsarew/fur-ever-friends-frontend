@@ -7,13 +7,17 @@ import { createPetValidationSchema, CreatePetValue, emptyCreatePetValues } from 
 import { useFormik } from "formik";
 import ValidatedInput from "@/components/Input/ValidatedInput";
 import { getFieldProps } from "@/utils/getFieldProps";
-import { petService } from "@/services/pet.service";
 import { Toast } from "@/components/Toast/Toast";
 import { useAppSelector } from "@/store/hooks";
+import { usePets } from "@/hooks/usePets";
+import { useRouter } from "next/navigation";
 
 export default function CreatePet() {
     const userData = useAppSelector((state) => state.auth.user);
     const [file, setFile] = useState<File | null>(null);
+    const router = useRouter();
+
+    const  { createPet } = usePets();
 
     const onFileUploaded = (e: React.ChangeEvent<HTMLInputElement>) => {
         console.log(e);
@@ -25,16 +29,17 @@ export default function CreatePet() {
     };
 
     const handleCreatePet = async () => {
-        if(!formik.values.file || !userData){
+        if(!formik.values.file || !userData || !userData.customer){
             return ;
         }
         try {
-            const response = await petService.createPet({
+            await createPet({
                 ...formik.values,
                 file: formik.values.file as File,
-                ownerId: userData.id
+                ownerId: userData.customer.id
             });
-            console.log(response);
+            router.back();
+            Toast("Create pet successfully.", "success");
         } catch (error) {
             Toast("Failed to create pet.", "error");
         }
@@ -178,8 +183,8 @@ export default function CreatePet() {
                                 value={formik.values.gender}
                                 required
                             >
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
+                                <option value="MALE">Male</option>
+                                <option value="FEMALE">Female</option>
                             </select>
                         </div>
                         <ValidatedInput 
@@ -188,7 +193,7 @@ export default function CreatePet() {
                             containerStyle="relative flex-1 flex flex-col gap-3"
                             labelStyle="text-subheading2 text-bright-blue"
                             value={formik.values.age}
-                            onChange={(e) => formik.setFieldValue("age", e.target.value)}
+                            onChange={(e) => formik.setFieldValue("age", Number(e.target.value))}
                             type="number"
                         />
                          <ValidatedInput 
@@ -197,7 +202,7 @@ export default function CreatePet() {
                             containerStyle="relative flex-1 flex flex-col gap-3 text-nowrap"
                             labelStyle="text-subheading2 text-bright-blue"
                             value={formik.values.weight}
-                            onChange={(e) => formik.setFieldValue("weight", e.target.value)}
+                            onChange={(e) => formik.setFieldValue("weight", Number(e.target.value))}
                             type="number"
                         />
                     </div>

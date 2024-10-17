@@ -13,10 +13,12 @@ import { authSlice } from "./auth/auth.slice";
 import storage from "./storage";
 import { userSlice } from "./user/user.slice";
 import { qualificationSlice } from "./qualification/qualification.slice";
+import { petSlice } from "./pet/pet.slice";
 
 const rootReducer = combineReducers({
   auth: authSlice.reducer,
   user: userSlice.reducer,
+  pet: petSlice.reducer,
   qualification: qualificationSlice.reducer,
 });
 
@@ -24,7 +26,7 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  whitelist: ["auth", "user", "qualification"],
+  whitelist: ["auth", "user", "pet", "qualification"],
 };
 
 const persistedReducers = persistReducer(persistConfig, rootReducer);

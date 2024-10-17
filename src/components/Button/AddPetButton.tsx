@@ -1,18 +1,27 @@
 "sue client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import AddPetEntry from "./AddPetEntry";
+import { PetModelResponse } from "@/types/response.type";
+import useOutSideClick from "@/hooks/useOutsideClick";
 
 interface AddPetButtonInterface {
-    onAddNewPet: () => void
+    pets: PetModelResponse[];
+    petsInActivity: string[];
+    onAddNewPet: (petId: string) => void;
 }
 
-export default function AddPetButton({ onAddNewPet }: AddPetButtonInterface){
+export default function AddPetButton({ pets, petsInActivity, onAddNewPet }: AddPetButtonInterface){
     const [visible, setVisible] = useState<boolean>(false);
+    const buttonRef = useRef<HTMLDivElement>(null);
+    const popUpRef = useRef<HTMLDivElement>(null);
+
+    useOutSideClick(buttonRef, popUpRef, setVisible);
 
     return (
         <div className="relative">
             <div
+                ref={buttonRef}
                 onClick={() => setVisible(!visible)}
                 className="bg-bright-green round-[8px] py-2 px-6 rounded-[8px] text-white text-button hover:cursor-pointer"
             >
@@ -20,11 +29,12 @@ export default function AddPetButton({ onAddNewPet }: AddPetButtonInterface){
             </div>
             {
                 visible &&
-                <div className="absolute top-[100%] right-0 w-[320px] flex flex-col border border-bd-gray rounded-lg bg-white shadow-custom">
-                    <AddPetEntry onAddNewPet={onAddNewPet}/>
-                    <AddPetEntry onAddNewPet={onAddNewPet}/>
-                    <AddPetEntry onAddNewPet={onAddNewPet}/>
-                    <AddPetEntry onAddNewPet={onAddNewPet}/>
+                <div ref={popUpRef} className="absolute top-[100%] right-0 w-[320px] flex flex-col border border-bd-gray rounded-lg bg-white shadow-custom">
+                    {
+                        pets.map((pet, index) => {
+                            return <AddPetEntry key={index} pet={pet} onAddNewPet={onAddNewPet} isAdded={petsInActivity.includes(pet.id)}/>
+                        })
+                    }
                 </div>
             }
             

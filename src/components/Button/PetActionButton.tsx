@@ -5,7 +5,11 @@ import { BinIcon, PencilIcon, ThreeDotIcon } from "@/shared/Icon";
 import Link from "next/link";
 import { useRef, useState } from "react";
 
-export default function PetActionButton() {
+interface PetActionButtonInterface {
+  petId: string;
+}
+
+export default function PetActionButton({ petId }: PetActionButtonInterface) {
   const [visible, setVisible] = useState<boolean>(false);
   const buttonRef = useRef<HTMLDivElement>(null);
   const popUpRef = useRef<HTMLDivElement>(null);
@@ -27,7 +31,7 @@ export default function PetActionButton() {
             <p className="text-body-bold text-soft-gray">edit</p>
           </Link>
           <Link
-            href={"/compose/delete-pet/123"}
+            href={`/compose/delete-pet/${petId}`}
             className="px-4 py-3 flex flex-row gap-3 hover:bg-[#F8F8F8]"
           >
             <BinIcon />
