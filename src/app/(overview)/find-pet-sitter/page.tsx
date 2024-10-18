@@ -7,7 +7,7 @@ import { FilterIcon } from "@/shared/Icon";
 export default function FeedPage(){
     return (
         <div className="flex flex-col gap-8">
-            <div className="pt-9 pb-4 flex flex-row items-center gap-4 sticky top-[64px] border-b border-bd-gray  bg-white">
+            <div className="pt-9 pb-4 flex flex-row items-center gap-4 sticky top-[63px] border-b border-bd-gray  bg-white">
                 <InputField 
                     type="text"
                     width="flex-1"

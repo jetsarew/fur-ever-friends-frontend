@@ -1020,3 +1020,26 @@ export const DeleteIcon = () => {
     </svg>
   );
 };
+
+export const CloseIcon = ({
+  customStyle,
+  color,
+}: {
+  customStyle: string;
+  color: string;
+}) => {
+  return (
+    <svg
+      className={customStyle}
+      xmlns="http://www.w3.org/2000/svg"
+      height="24"
+      viewBox="0 -960 960 960"
+      width="24"
+    >
+      <path
+        fill={color}
+        d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
+      />
+    </svg>
+  );
+};

@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import ProfileImage from "./ProfileImage";
-import { BellIcon } from "@/shared/Icon";
 import Notification from "./Notification";
 import { useAppSelector } from "@/store/hooks";
 
@@ -28,7 +27,7 @@ export default function NavBar(){
                             <Link
                                 href="/pet"
                             >My pets</Link>
-                            <BellIcon />
+                            <Notification />
                         </div>
                     }
                     {
@@ -55,7 +54,7 @@ export default function NavBar(){
                             <Link
                                 href="/applications"
                             >Pet sitter applications</Link>
-                            <BellIcon />
+                            <Notification />
                         </div>
                     }
                     <ProfileImage/>
