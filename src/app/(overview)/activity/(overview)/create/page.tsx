@@ -135,7 +135,7 @@ export default function Create_activity() {
                       alt={"empty"}
                     />
                     <p className="text-center text-soft-gray">
-                      Please choose at least 1 pet
+                      No pets here! Add your pet to make the most of this activity.
                     </p>
                   </div>
                 )}

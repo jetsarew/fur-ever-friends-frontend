@@ -24,7 +24,7 @@ export default function SlideImage(){
                 height={732}
                 width={584}
                 alt="cover image"
-                className="w-[292px] h-[366px] object-cover"
+                className="w-full h-[366px] object-contain"
             />
         </div>
     );

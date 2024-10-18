@@ -206,64 +206,37 @@ export default function CreatePet() {
                             type="number"
                         />
                     </div>
-
-                    <div className="w-full flex flex-col gap-3 relative">
-                        <label className="text-bright-blue block text-subheading2" htmlFor="personality">
-                            Personality
-                            <span className={`text-subheading2 text-red-500`}>{personalityInputProps.error && "*"}</span>
-                        </label>
-                        <textarea
-                            name="personality"
-                            className="w-full h-[96px] px-[18px] py-[15px] border rounded-[8px] resize-none"
-                            onChange={(e) => formik.setFieldValue("personality", e.target.value)}
-                            value={formik.values.personality}
-                            required
-                        />
-                        {personalityInputProps.error && personalityInputProps.errorMessage && (
-                            <div className="absolute top-[105%] right-0 text-small text-red-500">
-                            {personalityInputProps.errorMessage}
-                            </div>
-                        )}
-                    </div>
-
-                    <div className="w-full flex flex-col gap-3 relative">
-                        <label className="text-bright-blue block text-subheading2" htmlFor="allergy">
-                            Allergies
-                            <span className={`text-subheading2 text-red-500`}>{allergyInputProps.error && "*"}</span>
-                        </label>
-                        <textarea
-                            name="allergy"
-                            className="w-full h-[96px] px-[18px] py-[15px]  border rounded-[8px] resize-none mt-3"
-                            onChange={(e) => formik.setFieldValue("allergy", e.target.value)}
-                            value={formik.values.allergy}
-                            required
-                        />
-                        {allergyInputProps.error && allergyInputProps.errorMessage && (
-                            <div className="absolute top-[105%] right-0 text-small text-red-500">
-                            {allergyInputProps.errorMessage}
-                            </div>
-                        )}
-                    </div>
-
-                    <div className="w-full flex flex-col gap-3 relative">
-                        <label className="text-bright-blue block text-subheading2" htmlFor="otherDetail">
-                            Other Details
-                            <span className={`text-subheading2 text-red-500`}>{otherDetailInputProps.error && "*"}</span>
-                        </label>
-                        <textarea
-                            name="otherDetail"
-                            className="w-full h-[96px] px-[18px] py-[15px]  border rounded-[8px] resize-none mt-3"
-                            onChange={(e) => formik.setFieldValue("otherDetail", e.target.value)}
-                            value={formik.values.otherDetail}
-                            required
-                        />
-                        {otherDetailInputProps.error && otherDetailInputProps.errorMessage && (
-                            <div className="absolute top-[105%] right-0 text-small text-red-500">
-                            {otherDetailInputProps.errorMessage}
-                            </div>
-                        )}
-                    </div>
-
+                    
+                    <ValidatedInput 
+                        {...personalityInputProps}
+                        label="Personality"
+                        containerStyle="relative w-full flex flex-col gap-3"
+                        labelStyle="text-subheading2 text-bright-blue"
+                        height="h-[96px]"
+                        value={formik.values.personality}
+                        onTextAreaChange={(e) => formik.setFieldValue("personality", e.target.value)}
+                        type="textarea"
+                    />
+                    <ValidatedInput 
+                        {...allergyInputProps}
+                        label="Allergies"
+                        containerStyle="relative w-full flex flex-col gap-3"
+                        labelStyle="text-subheading2 text-bright-blue"
+                        height="h-[96px]"
+                        value={formik.values.allergy}
+                        onTextAreaChange={(e) => formik.setFieldValue("allergy", e.target.value)}
+                        type="textarea"
+                    />
+                    <ValidatedInput 
+                        {...otherDetailInputProps}
+                        label="OtherDetail"
+                        containerStyle="relative w-full flex flex-col gap-3"
+                        labelStyle="text-subheading2 text-bright-blue"
+                        height="h-[96px]"
+                        value={formik.values.otherDetail}
+                        onTextAreaChange={(e) => formik.setFieldValue("otherDetail", e.target.value)}
+                        type="textarea"
+                    />
                     <button
                         type="submit"
                         className="mt-2 bg-bright-green round-[8px] w-fit h-fit justify-self-center py-3 px-6 rounded-[8px] text-white text-button"
