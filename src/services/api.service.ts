@@ -13,7 +13,7 @@ import {
   import Cookies from "js-cookie";
 
   
-  const baseUrl: string = process.env.NEXT_PUBLIC_ENV || "";
+  const baseUrl: string = process.env.NEXT_PUBLIC_ENV + "/api/" || "";
   
   export const axiosInstance: AxiosInstance = axios.create({
     baseURL: baseUrl,
