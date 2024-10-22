@@ -1,13 +1,13 @@
 export type CommonUserModel = {
     id: string;
     email: string;
-    password: string;
     firstname: string;
     lastname: string;
+    avatar: string;
     phone: string;
     refreshToken: string;
-    role: Role;
     accountStatus: AccountStatus;
+    role: Role;
     customer?: Customer;
     petsitter?: PetSitter;
     admin?: Admin;
@@ -21,7 +21,12 @@ export type Customer = {
 
 export type PetSitter = {
     id: string;
+    location: string;
+    quote: string;
+    about: string;
+    experience: string;
     userId: string;
+    coverImages: string[];
     information: string;
     rating: number;
     certificateUrl: string;

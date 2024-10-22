@@ -10,7 +10,7 @@ export type UpdateProfileValues = {
     location?: string;
     about?: string;
     experience?: string;
-    coverImages?: File[];
+    coverImages?: string[];
 };
 
 export const emptyUpdateProfileValues = {

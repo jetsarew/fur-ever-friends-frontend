@@ -1,5 +1,5 @@
-import PetOwnerEditProfilePage from "@/components/Page/PetOwnerEditProfilePage";
-//import PetSitterEditProfilePage from "@/components/Page/PetSitterEditProfilePage";
+//import PetOwnerEditProfilePage from "@/components/Page/PetOwnerEditProfilePage";
+import PetSitterEditProfilePage from "@/components/Page/PetSitterEditProfilePage";
 
 export default function ProfilePage({ params }: {
   params: { id: string }
@@ -7,7 +7,7 @@ export default function ProfilePage({ params }: {
   console.log(params.id);
 
   return (
-    <PetOwnerEditProfilePage />
-    //<PetSitterEditProfilePage />
+    //<PetOwnerEditProfilePage />
+    <PetSitterEditProfilePage />
   );
 }

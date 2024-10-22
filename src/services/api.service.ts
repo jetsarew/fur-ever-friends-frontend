@@ -57,7 +57,7 @@ import {
       originalRequest
     ) {
       const refreshToken = store.getState().auth.refreshToken;
-  
+      console.log(store.getState().auth);
       if (refreshToken) {
         try {
           const accessToken = await refreshAccessToken(refreshToken);

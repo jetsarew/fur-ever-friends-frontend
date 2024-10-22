@@ -11,6 +11,7 @@ import {
 import { useAppSelector } from "@/store/hooks";
 import { getFieldProps } from "@/utils/getFieldProps";
 import { CloseIcon } from "@/shared/Icon";
+import { getAttachmentSrc } from "@/hooks/useImage";
 
 export default function PetSitterEditProfilePage() {
   const [profileImage, setProfileImage] = useState<File | null>(null);
@@ -56,11 +57,11 @@ export default function PetSitterEditProfilePage() {
       firstname: userData?.firstname,
       lastname: userData?.lastname,
       phone: userData?.phone,
-      quote: "",
-      location: "",
-      about: "",
-      experience: "",
-      coverImages: [],
+      quote: userData?.petsitter?.quote,
+      location: userData?.petsitter?.location,
+      about: userData?.petsitter?.about,
+      experience: userData?.petsitter?.experience,
+      coverImages: userData?.petsitter?.coverImages,
     },
     validateOnChange: false,
     enableReinitialize: true,
@@ -97,7 +98,7 @@ export default function PetSitterEditProfilePage() {
             <div className="mb-4 w-[150px] h-[150px] rounded-full border-4 border-bright-blue overflow-hidden items-center">
               <Image
                 id="profile-image"
-                src="/default_profile.jpg"
+                src={userData?.avatar ? getAttachmentSrc(userData.avatar) : "/default_profile.jpg"}
                 width={200}
                 height={200}
                 className="w-full h-full object-cover items-center "

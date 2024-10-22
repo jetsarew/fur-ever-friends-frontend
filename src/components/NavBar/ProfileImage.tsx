@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { deleteAuthState } from "@/store/auth/auth.slice";
 import { useRouter } from "next/navigation";
 import { authService } from "@/services/auth.service";
+import { getAttachmentSrc } from "@/hooks/useImage";
 
 export default function ProfileImage() {
   const [show, setShow] = useState<boolean>(false);
@@ -29,11 +30,12 @@ export default function ProfileImage() {
     router.push("/");
   };
 
+  console.log(userData);
   return (
     <div className="relative">
       <div ref={buttonRef}>
         <Image
-          src={"/default_profile.jpg"}
+          src={userData?.avatar ? getAttachmentSrc(userData.avatar) : "/default_profile.jpg"}
           width={144}
           height={144}
           alt={"profile image"}

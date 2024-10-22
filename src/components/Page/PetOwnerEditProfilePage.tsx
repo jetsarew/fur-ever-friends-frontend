@@ -1,8 +1,12 @@
 "use client";
+import { getAttachmentSrc } from "@/hooks/useImage";
+import { useAppSelector } from "@/store/hooks";
 import Image from "next/image";
 import { FormEvent } from "react";
 
 export default function PetOwnerEditProfilePage() {
+  const userData = useAppSelector((state) => state.auth.user);
+
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -35,7 +39,7 @@ export default function PetOwnerEditProfilePage() {
     console.log("Phone Number:", phoneNumber);
     console.log("Image URL:", imgSrc);
   };
-
+  
   return (
     <div className="container mx-auto">
       <div>
@@ -48,7 +52,7 @@ export default function PetOwnerEditProfilePage() {
               <div className="w-[150px] h-[150px] rounded-full border-4 border-bright-blue overflow-hidden items-center">
                 <Image
                   id="profile-image"
-                  src="/default-profile.png"
+                  src={userData?.avatar ? getAttachmentSrc(userData.avatar) : "/default_profile.jpg"}
                   width={200}
                   height={200}
                   className="w-full h-full object-cover items-center "
