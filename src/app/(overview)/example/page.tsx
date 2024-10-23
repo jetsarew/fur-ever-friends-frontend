@@ -127,28 +127,7 @@ export default function Home() {
           onClick={onUGetUserButtonClicked}
         >
           Get User
-        </button>
-        <button
-          className="px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green"
-          type="button"
-          onClick={onGetQualificationsClicked}
-        >
-          Get Qualifications
-        </button>
-        <button
-          className="px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green"
-          type="button"
-          onClick={onAcceptQualificationClick}
-        >
-          Accept Qualification
-        </button>
-        <button
-          className="px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green"
-          type="button"
-          onClick={onRejectQualificationClick}
-        >
-          Reject Qualification
-        </button>
+        </button>  
       </div>
       <div className="px-8 py-8 flex flex-col gap-8 items-start border-[2px] border-bright-blue">
         <p className="text-header text-bright-blue">Pet Service</p>
@@ -179,6 +158,27 @@ export default function Home() {
     </div>
     <div className="px-8 py-8 flex flex-col gap-8 items-start border-[2px] border-pink-500">
         <p className="text-header text-pink-500">Admin Service</p>
+        <button
+          className="px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green"
+          type="button"
+          onClick={onGetQualificationsClicked}
+        >
+          Get Qualifications
+        </button>
+        <button
+          className="px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green"
+          type="button"
+          onClick={onAcceptQualificationClick}
+        >
+          Accept Qualification
+        </button>
+        <button
+          className="px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green"
+          type="button"
+          onClick={onRejectQualificationClick}
+        >
+          Reject Qualification
+        </button>
         <button
           className="px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green"
           type="button"
