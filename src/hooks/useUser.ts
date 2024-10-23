@@ -1,6 +1,6 @@
 "use client";
 
-import { UpdateUserWithRoleDto } from "@/dto/auth.dto";
+import { UpdatePetSitterDto, UpdateUserWithRoleDto } from "@/dto/auth.dto";
 import { userService } from "@/services/user.service";
 import { setAuthUser } from "@/store/auth/auth.slice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
@@ -25,15 +25,17 @@ export const useUser = () => {
     refetch,
   } = useQuery("users", fetchAllUsers, {
     refetchOnWindowFocus: false,
-    enabled: !hasFetched,
+    enabled: false,
   });
 
   useEffect(() => {
     if (userListQueryData) {
       dispatch(setUser(userListQueryData));
       setHasFetched(true);
+      console.log(hasFetched);
     }
   }, [userListQueryData, dispatch]);
+
   const updateUserMutation = useMutation(
     async (updateUserRequest: UpdateUserWithRoleDto) => {
       const { userId, ...rest } = updateUserRequest;
@@ -46,9 +48,22 @@ export const useUser = () => {
     },
   );
 
+  const updatePetSitterMutation = useMutation(
+    async (updatePetSitterRequest: UpdatePetSitterDto) => {
+      const { userId, ...rest } = updatePetSitterRequest;
+    
+      if(!userId) return;
+
+      const response = await userService.updatePetSitter(userId, rest);
+      dispatch(setAuthUser(response));
+      return response;
+    },
+  );
+
   return {
     user,
     updateUserMutation,
+    updatePetSitterMutation,
     isLoading,
     refetch,
     userRecommendStore,

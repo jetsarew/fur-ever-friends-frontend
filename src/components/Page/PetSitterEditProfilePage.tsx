@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import ValidatedInput from "../Input/ValidatedInput";
 import { useFormik } from "formik";
@@ -8,74 +8,118 @@ import {
   updateProfileValidationSchema,
   UpdateProfileValues,
 } from "@/app/constants/formik/updateProfile.formik";
-import { useAppSelector } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { getFieldProps } from "@/utils/getFieldProps";
 import { CloseIcon } from "@/shared/Icon";
+import { getAttachmentSrc } from "@/hooks/useImage";
+import { useUser } from "@/hooks/useUser";
+import { Toast } from "../Toast/Toast";
+import { setAuthUser } from "@/store/auth/auth.slice";
+import { UpdatePetSitterDto } from "@/dto/auth.dto";
+import { useRouter } from "next/navigation";
 
 export default function PetSitterEditProfilePage() {
   const [profileImage, setProfileImage] = useState<File | null>(null);
-  const [coverImages, setCoverImages] = useState<string[]>([]);
+  const [coverImages, setCoverImages] = useState<File[]>([]);
+  const [coverImageUrls, setCoverImageUrls] = useState<string[]>([]);
 
   const userData = useAppSelector((state) => state.auth.user);
+  const { updatePetSitterMutation } = useUser();
+  const dispatch = useAppDispatch();
+  const router = useRouter();
 
-  const onProfileImageUploaded = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onProfileImageUploaded = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files?.length) {
-      //formik.setFieldValue("file", files[0]);
+      const objectUrl = URL.createObjectURL(files[0]);
+      formik.setFieldValue("avatar", objectUrl);
+
       setProfileImage(files[0]);
     }
   };
 
-  const onCoverImageUploaded = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onCoverImageUploaded = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files?.length) {
       const objectUrl = URL.createObjectURL(files[0]);
-      formik.setFieldValue("coverImages", [
-        ...(formik.values.coverImages ?? []),
-        files[0],
-      ]);
-      setCoverImages((prev) => [...prev, objectUrl]);
+      setCoverImageUrls((prev) => {
+        return [...prev, objectUrl];
+      })
+      setCoverImages((prev) => {
+        return [...prev, files[0]];
+      })
     }
   };
 
+  const onPreviousCoverImageRemoved = (deletedIndex: number) => {
+    formik.setFieldValue("coverImages", formik.values.coverImages?.filter((coverImage, index) => {
+      return index != deletedIndex;
+    }));
+  };
+
   const onCoverImageRemoved = (deletedIndex: number) => {
-    setCoverImages((prev) =>
-      prev.filter((coverImage, index) => {
+    setCoverImageUrls((prev) => {
+      return prev.filter((url, index) => {
         return index != deletedIndex;
       })
-    );
+    })
+    setCoverImages((prev) => {
+      return prev.filter((url, index) => {
+        return index != deletedIndex;
+      })
+    })
   };
 
   const handleUpdateProfile = async () => {
     try {
-    } catch (error) {}
+      const updateData: UpdatePetSitterDto = {
+        userId: userData?.id,
+        firstname: formik.values.firstname,
+        lastname: formik.values.lastname,
+        phone: formik.values.phone,
+        petsitterData: {
+          location: formik.values.location,
+          quote: formik.values.quote,
+          about: formik.values.about,
+          experience: formik.values.experience,
+          coverImages: formik.values.coverImages
+        }
+      }
+      if(profileImage){
+        updateData.avatarFile = profileImage;
+      }
+      if(coverImages.length){
+        updateData.coverImageFile = [...coverImages];
+      }
+      const response = await updatePetSitterMutation.mutateAsync(updateData);
+      if (response) {
+        dispatch(setAuthUser(response));
+      }
+      console.log(response);
+      router.push(`/profile/${userData?.id}`)
+    } catch (error) {
+      Toast("Failed to update profile.", "error");
+    }
   };
 
   const formik = useFormik<UpdateProfileValues>({
     initialValues: {
-      firstname: userData?.firstname,
-      lastname: userData?.lastname,
-      phone: userData?.phone,
-      quote: "",
-      location: "",
-      about: "",
-      experience: "",
-      coverImages: [],
+      firstname: userData?.firstname ?? "",
+      lastname: userData?.lastname ?? "",
+      phone: userData?.phone ?? "",
+      avatar: userData?.avatar ? getAttachmentSrc(userData.avatar) : "/default_profile.jpg",
+      quote: userData?.petsitter?.quote ?? "",
+      location: userData?.petsitter?.location ?? "",
+      about: userData?.petsitter?.about ?? "",
+      experience: userData?.petsitter?.experience ?? "",
+      coverImages: userData?.petsitter?.coverImages ?? [],
     },
+    validationSchema: updateProfileValidationSchema,
     validateOnChange: false,
     enableReinitialize: true,
-    validationSchema: updateProfileValidationSchema,
-    onSubmit: handleUpdateProfile,
+    onSubmit: handleUpdateProfile
   });
-
-  useEffect(() => {
-    if (profileImage && profileImage instanceof Blob) {
-      const objectUrl = URL.createObjectURL(profileImage);
-      //formik.setFieldValue("imageUrl", objectUrl);
-
-      return () => URL.revokeObjectURL(objectUrl);
-    }
-  }, [profileImage]);
+  
 
   const firstnameInputProps = getFieldProps(formik, "firstname");
   const lastnameInputProps = getFieldProps(formik, "lastname");
@@ -97,7 +141,7 @@ export default function PetSitterEditProfilePage() {
             <div className="mb-4 w-[150px] h-[150px] rounded-full border-4 border-bright-blue overflow-hidden items-center">
               <Image
                 id="profile-image"
-                src="/default_profile.jpg"
+                src={formik.values.avatar ?? "/default_profile.jpg"}
                 width={200}
                 height={200}
                 className="w-full h-full object-cover items-center "
@@ -199,7 +243,9 @@ export default function PetSitterEditProfilePage() {
               />
               Upload Image
             </div>
-            {coverImages.length == 0 && (
+            {formik.values.coverImages && formik.values.coverImages.length == 0 && 
+              coverImageUrls.length == 0 &&
+            (
               <div className="flex flex-col items-center gap-4">
                 <Image
                   src={"/empty-cover-image.svg"}
@@ -212,7 +258,30 @@ export default function PetSitterEditProfilePage() {
                 </p>
               </div>
             )}
-            {coverImages.map((image, index) => {
+            {formik.values.coverImages?.map((image, index) => {
+              return (
+                <div
+                  key={index}
+                  className="relative bg-[#F5F5F5] hover:shadow-custom"
+                >
+                  <Image
+                    src={getAttachmentSrc(image)}
+                    width={700}
+                    height={700}
+                    alt="cover images"
+                    className="w-full h-[366px] object-contain"
+                  />
+                  <button
+                    type="button"
+                    className={`w-8 h-8 bg-[#0f1419bf] hover:bg-[#272c30bf] rounded-full flex flex-row justify-center items-center absolute top-2 right-2`}
+                    onClick={() => onPreviousCoverImageRemoved(index)}
+                  >
+                    <CloseIcon customStyle="w-[18px] h-[18px]" color="white" />
+                  </button>
+                </div>
+              );
+            })}
+            {coverImageUrls?.map((image, index) => {
               return (
                 <div
                   key={index}
