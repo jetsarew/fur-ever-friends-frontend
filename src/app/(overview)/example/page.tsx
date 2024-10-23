@@ -4,6 +4,7 @@ import { adminService } from "@/services/adminService";
 import { customerService } from "@/services/customer.service";
 import { petService } from "@/services/pet.service";
 import { qualificationService } from "@/services/qualification.service";
+import { reportService } from "@/services/report.service";
 import { userService } from "@/services/user.service";
 import { useAppSelector } from "@/store/hooks";
 
@@ -86,6 +87,14 @@ export default function Home() {
     console.log(response);
   }
 
+  const onGetReportButtonClicked = async () => {
+    const response = await reportService.getReports();
+    console.log(response);
+
+    const response2 = await reportService.getReport("c6f96f56-ed59-4010-ba26-789e160dee89");
+    console.log(response2);
+  }
+
   return (
     <div className="flex flex-col gap-10">
       <div className="px-8 py-8 flex flex-col gap-8 items-start border-[2px] border-golden-yellow">
@@ -162,7 +171,17 @@ export default function Home() {
         >
           Set account state
         </button>
-    </div>
+      </div>
+      <div className="px-8 py-8 flex flex-col gap-8 items-start border-[2px] border-red-500">
+        <p className="text-header text-red-500">Report Service</p>
+        <button
+          className="px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-red-500"
+          type="button"
+          onClick={onGetReportButtonClicked}
+        >
+          Get Report
+        </button>
+      </div>
     </div>
   );
 }

@@ -60,6 +60,7 @@ export type QualificationModelResponse = {
     phone: string;
     state: "PENDING" | "ACCEPTED" | "REJECTED";
     certificateUrl: string;
+    createdAt: string;
 }
 
 export type AccountStatus = "ACTIVE" | "INACTIVE" | "BANNED";

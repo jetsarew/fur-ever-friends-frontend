@@ -1,14 +1,17 @@
 import { BillIcon, PhoneIcon, WarningIcon } from "@/shared/Icon";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function PetSitterCard() {
   return (
     <div className="py-6 px-4 flex flex-col gap-4 border border-bd-gray rounded-lg">
       <div className="flex flex-row justify-between items-center">
         <h3 className="text-subheading text-dark-blue">Pet Sitter</h3>
-        <button>
+        <Link
+          href={`/profile/${"1234"}/report`}
+        >
           <WarningIcon />
-        </button>
+        </Link>
       </div>
       <div>
         <div className="pb-3 flex flex-row gap-4 border-b border-bd-gray">
