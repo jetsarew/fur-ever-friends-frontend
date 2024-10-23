@@ -10,6 +10,7 @@ export type UpdateProfileValues = {
     location?: string;
     about?: string;
     experience?: string;
+    avatar?: string;
     coverImages?: string[];
 };
 
@@ -18,7 +19,7 @@ export const emptyUpdateProfileValues = {
 
 export const updateProfileValidationSchema = yup.object({
   firstname: stringNotEmptyValidator,
-  lastnamename: stringNotEmptyValidator,
+  lastname: stringNotEmptyValidator,
   phone: telValidator,
   quote: stringNotEmptyValidator,
   location: stringNotEmptyValidator,

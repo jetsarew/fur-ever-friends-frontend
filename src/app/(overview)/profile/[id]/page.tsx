@@ -44,7 +44,7 @@ export default function ProfilePage({ params }: {
     return (
         <div className="w-[918px] mx-auto flex flex-row items-start gap-8">
             <div className="w-[562px] flex flex-col gap-8">
-                <SlideImage />
+                <SlideImage coverImages={userData?.petsitter?.coverImages ?? []}/>
                 <div className="pb-8 flex flex-row flex-wrap gap-x-6 gap-y-2 border-b border-bd-gray">
                     <Tag 
                         icon={<DogIcon />}
@@ -165,7 +165,7 @@ export default function ProfilePage({ params }: {
                         </div>
                         <div className="w-full py-2 flex flex-col items-start gap-1 border-b border-bd-gray">
                             <div className="flex flex-row items-end">
-                                <p className="h-5 text-subheading text-golden-yellow">{userData?.petsitter?.rating}</p>
+                                <p className="h-5 text-subheading text-golden-yellow">{(userData?.petsitter?.rating ?? 0).toFixed(1)}</p>
                                 <StarIcon className="w-5 h-5 text-golden-yellow"/>
                             </div>
                             <p className="text-[14px] font-normal leading-[100%]">Rating</p>

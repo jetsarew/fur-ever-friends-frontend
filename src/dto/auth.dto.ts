@@ -27,8 +27,39 @@ export type UpdatePetSitterDto = {
   firstname?: string;
   lastname?: string;
   phone?: string;
-  information?: string;
+  avatar?: string;
+  avatarFile?: File;
+  coverImageFile?: File[];
+  petsitterData?: PetSitterData;
+  userId?: string;
 }
+
+export type PetSitterData = {
+  quote?: string;
+  location?: string;
+  about?: string;
+  experience?: string;
+  coverImages?: string[];
+  serviceTags?: [];
+}
+
+// export type UpdatePetSitterDto = {
+//   password?: string;
+//   firstname?: string;
+//   lastname?: string;
+//   phone?: string;
+//   avatar?: z.string().optional(),
+//     petsitterData: z.object({
+//         quote: z.string().optional(),
+//         location: z.string().optional(),
+//         about: z.string().optional(),
+//         experience: z.string().optional(),
+//         coverImages: z.array(z.string()).optional(),
+//         serviceTags: z.nativeEnum(ServiceType).array().optional(),
+//     }).optional(),
+// }
+
+
 
 export type UpdateUserDto = {
   password?: string;
