@@ -1,3 +1,4 @@
+import { ReportType } from "@/dto/report.dto";
 import { CredentialType } from "./credential.type";
 import { AccountStatus, CommonUserModel, PetSitter, Role } from "./user.type";
 
@@ -71,4 +72,17 @@ export type UserModelResponse = {
     refreshToken: string | null;
     role: Role;
     accountStatus: AccountStatus;
+    createdAt: string;
+}
+
+export type ReportModelResponse = {
+    id: string;
+    createdAt: string;
+    type: ReportType;
+    content: string;
+    reportImages: string[];
+    reporterId: string;
+    reportedId: string;
+    reporter: UserModelResponse;
+    reported: UserModelResponse;
 }

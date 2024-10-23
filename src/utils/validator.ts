@@ -73,6 +73,11 @@ export const breedNotEmptyValidator = yup
   .min(1)
   .required("Required field and not empty breed");
 
+export const reportTypeNotEmptyValidator = yup
+  .string()
+  .min(1)
+  .required("Please select report type");
+
 export const fileNotEmptyValidator = yup
   .mixed()
   .required("Required field and file cannot be empty")
