@@ -182,10 +182,13 @@ export default function ProfilePage({ params }: {
                         <p className="text-body-paragraph">{userData?.petsitter?.quote}</p>
                         <p className="text-body text-medium-gray">{userData?.petsitter?.location}</p>
                     </div>
-                    <div className="pt-4 flex flex-row justify-between gap-5">
-                        <InviteButton />
-                        <FavoriteButton />
-                    </div>
+                    {
+                        myData?.role != "ADMIN" &&
+                        <div className="pt-4 flex flex-row justify-between gap-5">
+                            <InviteButton />
+                            <FavoriteButton />
+                        </div>
+                    }
                 </div>
             </div>
         </div>
