@@ -1,47 +1,29 @@
 "use client";
 
-//import { UpdatePetDto } from "@/dto/pet.dto";
-import { useUser } from "@/hooks/useUser";
 import { adminService } from "@/services/adminService";
 import { customerService } from "@/services/customer.service";
 import { petService } from "@/services/pet.service";
 import { qualificationService } from "@/services/qualification.service";
 import { userService } from "@/services/user.service";
-import { setAuthUser } from "@/store/auth/auth.slice";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-//import { useState } from "react";
-export default function Home() {
-  //const [petFile, setPetFile] = useState<File>();
-  const { updateUserMutation } = useUser();
-  const dispatch = useAppDispatch();
-  const userData = useAppSelector((state) => state.auth.user);
+import { useAppSelector } from "@/store/hooks";
 
-  const onUpdateButtonClicked = async () => {
-    const response = await updateUserMutation.mutateAsync({
-      role: "CUSTOMER", 
-      userId: userData?.id,
-      userData: {
-        firstname: "Suchata2",
-      },
-    });
-    if (response) {
-      dispatch(setAuthUser(response));
-    }
-    console.log(response);
-  };
+export default function Home() {
+
+  const userData = useAppSelector((state) => state.auth.user);
 
   const onGetAuthUserButtonClicked = async () => {
     const response = await userService.getAuthUser();
     console.log(response);
   };
 
-  const onUGetUserButtonClicked = async () => {
+  const onGetUserButtonClicked = async () => {
+    const response2 = await userService.getAllUser();
+    console.log(response2);
+
     const response = await userService.getUser(
       "df5126d5-cb15-463c-84bd-376b94927cfe"
     );
     console.log(response);
-    const response2 = await userService.getAllUser();
-    console.log(response2);
   };
 
   const onGetQualificationsClicked = async () => {
@@ -56,6 +38,7 @@ export default function Home() {
     const response = await userService.createPetSitter("engfa@gmail.com");
     console.log(response);
   };
+  
   const onRejectQualificationClick = async () => {
     const response = await qualificationService.updateQualification("ddfd9249-a3c3-4b37-8ccb-10c08a7df934", {state: "REJECTED"})
     console.log(response);
@@ -117,14 +100,7 @@ export default function Home() {
         <button
           className="px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green"
           type="button"
-          onClick={onUpdateButtonClicked}
-        >
-          Update
-        </button>
-        <button
-          className="px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green"
-          type="button"
-          onClick={onUGetUserButtonClicked}
+          onClick={onGetUserButtonClicked}
         >
           Get User
         </button>  

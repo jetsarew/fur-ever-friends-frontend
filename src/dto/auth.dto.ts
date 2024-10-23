@@ -22,6 +22,17 @@ export type UpdateUserWithRoleDto = {
   userId?: string;
 }
 
+export type UpdatePetOwnerDto = {
+  password?: string;
+  firstname?: string;
+  lastname?: string;
+  phone?: string;
+  avatar?: string;
+  avatarFile?: File;
+  userId?: string;
+  role: Role;
+}
+
 export type UpdatePetSitterDto = {
   password?: string;
   firstname?: string;

@@ -23,11 +23,17 @@ export default function ProfileImage() {
   useOutSideClick(buttonRef, popUpRef, setShow);
 
   const onLogOutButtonClicked = async () => {
-    await authService.logout();
-    Cookies.remove("token");
-    dispatch(deleteAuthState());
-    setShow(false);
-    router.push("/");
+    try {
+      await authService.logout();
+      Cookies.remove("token");
+      dispatch(deleteAuthState());
+      setShow(false);
+      router.push("/");
+    } catch(error) {
+      setShow(false);
+      router.push("/");
+    }
+    
   };
 
   console.log(userData);
