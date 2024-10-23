@@ -1,5 +1,5 @@
 import { apiController } from "@/controllers/api.controller";
-import { UpdatePetSitterDto, UpdateUserWithRoleDto } from "@/dto/auth.dto";
+import { UpdatePetOwnerDto, UpdatePetSitterDto } from "@/dto/auth.dto";
 import { CreatePetSitterResponse } from "@/types/response.type";
 import { CommonUserModel } from "@/types/user.type";
 
@@ -12,11 +12,18 @@ export const userService = {
     getAuthUser: async (): Promise<CommonUserModel> => {
         return await apiController("/users/me", "get");
     },
-    updateUser: async (
+    updatePetOwner: async (
         userId: string,
-        updateUserRequest: UpdateUserWithRoleDto
+        updatePetOwnerRequest: UpdatePetOwnerDto
     ): Promise<CommonUserModel> => {
-        return await apiController(`/users/update/${userId}`, "patch", updateUserRequest);
+        const formData = new FormData();
+        const { avatarFile, ...parsedUpdateRequest } = updatePetOwnerRequest;
+        formData.append("json", JSON.stringify(parsedUpdateRequest));
+        console.log(parsedUpdateRequest);
+        if(avatarFile) {
+            formData.append("avatar", avatarFile);
+        }
+        return await apiController(`/users/customer/${userId}`, "patch", formData);
     },
     updatePetSitter: async (
         userId: string,

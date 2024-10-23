@@ -1,112 +1,138 @@
 "use client";
+import {
+  updateProfileValidationSchema,
+  UpdateProfileValues,
+} from "@/app/constants/formik/updatePetOwnerProfile.formik";
+import { UpdatePetOwnerDto } from "@/dto/auth.dto";
 import { getAttachmentSrc } from "@/hooks/useImage";
+import { useUser } from "@/hooks/useUser";
 import { useAppSelector } from "@/store/hooks";
+import { useFormik } from "formik";
 import Image from "next/image";
-import { FormEvent } from "react";
+import { useState } from "react";
+import { Toast } from "../Toast/Toast";
+import { getFieldProps } from "@/utils/getFieldProps";
+import ValidatedInput from "../Input/ValidatedInput";
 
 export default function PetOwnerEditProfilePage() {
   const userData = useAppSelector((state) => state.auth.user);
+  const [profileImage, setProfileImage] = useState<File | null>(null);
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const imgElement = document.getElementById(
-          "profile-image"
-        ) as HTMLImageElement;
-        if (imgElement) {
-          imgElement.src = reader.result as string;
-        }
-      };
-      reader.readAsDataURL(file);
+  const { updateUserMutation } = useUser();
+
+  const onProfileImageUploaded = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const files = e.target.files;
+    if (files?.length) {
+      const objectUrl = URL.createObjectURL(files[0]);
+      formik.setFieldValue("avatar", objectUrl);
+
+      setProfileImage(files[0]);
     }
   };
 
-  const handleSave = (event: FormEvent) => {
-    event.preventDefault();
-    const displayName = (
-      document.getElementById("display-name") as HTMLInputElement
-    ).value;
-    const phoneNumber = (
-      document.getElementById("phone-number") as HTMLInputElement
-    ).value;
-    const imgSrc = (
-      document.getElementById("profile-image") as HTMLImageElement
-    ).src;
-
-    console.log("Display Name:", displayName);
-    console.log("Phone Number:", phoneNumber);
-    console.log("Image URL:", imgSrc);
+  const handleUpdateProfile = async () => {
+    try {
+      const updateData: UpdatePetOwnerDto = {
+        userId: userData?.id,
+        firstname: formik.values.firstname,
+        lastname: formik.values.lastname,
+        phone: formik.values.phone,
+        role: "CUSTOMER",
+      };
+      if (profileImage) {
+        updateData.avatarFile = profileImage;
+      }
+      const response = await updateUserMutation.mutateAsync(updateData);
+      console.log(response);
+      Toast("Your profile has been updated.", "success");
+    } catch (error) {
+      Toast("Failed to update profile.", "error");
+    }
   };
-  
+
+  const formik = useFormik<UpdateProfileValues>({
+    initialValues: {
+      firstname: userData?.firstname ?? "",
+      lastname: userData?.lastname ?? "",
+      phone: userData?.phone ?? "",
+      avatar: userData?.avatar
+        ? getAttachmentSrc(userData.avatar)
+        : "/default_profile.jpg",
+    },
+    validationSchema: updateProfileValidationSchema,
+    validateOnChange: false,
+    enableReinitialize: true,
+    onSubmit: handleUpdateProfile,
+  });
+
+  const firstnameInputProps = getFieldProps(formik, "firstname");
+  const lastnameInputProps = getFieldProps(formik, "lastname");
+  const phoneInputProps = getFieldProps(formik, "phone");
+
   return (
     <div className="container mx-auto">
       <div>
         <form
-          onSubmit={handleSave}
+          noValidate
+          onSubmit={formik.handleSubmit}
           className="flex flex-col items-center gap-8"
         >
           <div>
-            <label htmlFor="upload-image" className="flex flex-col items-center">
-              <div className="w-[150px] h-[150px] rounded-full border-4 border-bright-blue overflow-hidden items-center">
+            <label
+              htmlFor="upload-image"
+              className="flex flex-col items-center"
+            >
+              <div className="mb-4 w-[150px] h-[150px] rounded-full border-4 border-bright-blue overflow-hidden items-center">
                 <Image
                   id="profile-image"
-                  src={userData?.avatar ? getAttachmentSrc(userData.avatar) : "/default_profile.jpg"}
+                  src={formik.values.avatar ?? "/default_profile.jpg"}
                   width={200}
                   height={200}
                   className="w-full h-full object-cover items-center "
                   alt="profile image"
                 />
               </div>
-              <input
-                id="upload-image"
-                type="file"
-                accept="image/*"
-                onChange={handleImageUpload}
-                className="hidden"
-              />
-
-              <div className="flex flex-col justify-center items-center w-[200px] mt-4">
-                <button
-                  type="button"
-                  onClick={() =>
-                    document.getElementById("upload-image")?.click()
-                  }
-                  className="px-[24px] py-[8px] text-center text-button text-white bg-bright-blue rounded-lg"
-                >
-                  Upload image
-                </button>
+              <div className="relative flex flex-row justify-center items-center text-white bg-bright-blue rounded-[8px] w-[163px] h-[32px] justify-self-center px-6 text-button cursor-pointer">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={onProfileImageUploaded}
+                  className="absolute left-0 right-0 top-0 bottom-0 cursor-pointer opacity-0"
+                />
+                Upload Image
               </div>
             </label>
           </div>
 
-          <div className="w-[680px] text-left text-subheading2">
-            <label className="text-dark-blue">First Name</label>
-            <input
-              id="firstName"
-              type="text"
-              className="text-body py-[15px] px-[18px] border border-[#D9D9D9] rounded-lg w-full mt-[10px]"
-            />
-          </div>
-
-          <div className="w-[680px] text-left text-subheading2">
-            <label className="text-dark-blue">Last Name</label>
-            <input
-              id="lastName"
-              type="text"
-              className="text-body py-[15px] px-[18px] border border-[#D9D9D9] rounded-lg w-full mt-[10px]"
-            />
-          </div>
-
-          <div className="w-[680px] text-left text-subheading2">
-            <label className="text-dark-blue">Phone Number</label>
-            <input
-              id="phone-number"
-              type="text"
-              className="text-body py-[15px] px-[18px] border border-[#D9D9D9] rounded-lg w-full mt-[10px]"
-            />
-          </div>
+          <ValidatedInput
+            {...firstnameInputProps}
+            label="First Name"
+            containerStyle="relative w-[680px] flex flex-col gap-3"
+            labelStyle="text-subheading2 text-dark-blue"
+            value={formik.values.firstname}
+            onChange={(e) => formik.setFieldValue("firstname", e.target.value)}
+            type="text"
+          />
+          <ValidatedInput
+            {...lastnameInputProps}
+            label="Last Name"
+            containerStyle="relative w-[680px] flex flex-col gap-3"
+            labelStyle="text-subheading2 text-dark-blue"
+            value={formik.values.lastname}
+            onChange={(e) => formik.setFieldValue("lastname", e.target.value)}
+            type="text"
+          />
+          <ValidatedInput
+            {...phoneInputProps}
+            label="Phone Number"
+            containerStyle="relative w-[680px] flex flex-col gap-3"
+            labelStyle="text-subheading2 text-dark-blue"
+            value={formik.values.phone}
+            onChange={(e) => formik.setFieldValue("phone", e.target.value)}
+            type="text"
+          />
 
           <div className="col-span-3 flex justify-center">
             <button

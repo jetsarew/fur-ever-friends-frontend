@@ -1,6 +1,6 @@
 "use client";
 
-import { UpdatePetSitterDto, UpdateUserWithRoleDto } from "@/dto/auth.dto";
+import { UpdatePetOwnerDto, UpdatePetSitterDto } from "@/dto/auth.dto";
 import { userService } from "@/services/user.service";
 import { setAuthUser } from "@/store/auth/auth.slice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
@@ -37,12 +37,12 @@ export const useUser = () => {
   }, [userListQueryData, dispatch]);
 
   const updateUserMutation = useMutation(
-    async (updateUserRequest: UpdateUserWithRoleDto) => {
+    async (updateUserRequest: UpdatePetOwnerDto) => {
       const { userId, ...rest } = updateUserRequest;
     
       if(!userId) return;
 
-      const response = await userService.updateUser(userId, rest);
+      const response = await userService.updatePetOwner(userId, rest);
       dispatch(setAuthUser(response));
       return response;
     },
