@@ -76,3 +76,9 @@ export type QualificationDto = {
   phone: string;
   file: File;
 };
+
+export type UpdateQualificationStateDto = {
+  state: QualificationState
+}
+
+export type QualificationState = "PENDING" | "ACCEPTED" | "REJECTED";

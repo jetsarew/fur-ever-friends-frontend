@@ -16,11 +16,6 @@ export default function Home() {
   const dispatch = useAppDispatch();
   const userData = useAppSelector((state) => state.auth.user);
 
-  const onCreatePetSitterButtonClicked = async () => {
-    const response = await userService.createPetSitter("suzana@gmail.com");
-    console.log(response);
-  };
-
   const onUpdateButtonClicked = async () => {
     const response = await updateUserMutation.mutateAsync({
       role: "CUSTOMER", 
@@ -51,6 +46,18 @@ export default function Home() {
 
   const onGetQualificationsClicked = async () => {
     const response = await qualificationService.getQualifications();
+    console.log(response);
+
+    const response2 = await qualificationService.getQualification("8e945896-ae79-4048-9714-ec2e6bd0a165");
+    console.log(response2);
+  };
+
+  const onAcceptQualificationClick = async () => {
+    const response = await userService.createPetSitter("engfa@gmail.com");
+    console.log(response);
+  };
+  const onRejectQualificationClick = async () => {
+    const response = await qualificationService.updateQualification("ddfd9249-a3c3-4b37-8ccb-10c08a7df934", {state: "REJECTED"})
     console.log(response);
   };
 
@@ -103,13 +110,6 @@ export default function Home() {
         <button
           className="px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green"
           type="button"
-          onClick={onCreatePetSitterButtonClicked}
-        >
-          Create pet sitter
-        </button>
-        <button
-          className="px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green"
-          type="button"
           onClick={onGetAuthUserButtonClicked}
         >
           Get auth user
@@ -134,6 +134,20 @@ export default function Home() {
           onClick={onGetQualificationsClicked}
         >
           Get Qualifications
+        </button>
+        <button
+          className="px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green"
+          type="button"
+          onClick={onAcceptQualificationClick}
+        >
+          Accept Qualification
+        </button>
+        <button
+          className="px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green"
+          type="button"
+          onClick={onRejectQualificationClick}
+        >
+          Reject Qualification
         </button>
       </div>
       <div className="px-8 py-8 flex flex-col gap-8 items-start border-[2px] border-bright-blue">

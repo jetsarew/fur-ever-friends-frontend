@@ -1,5 +1,5 @@
 import { apiController } from "@/controllers/api.controller";
-import { QualificationDto } from "@/dto/auth.dto";;
+import { QualificationDto, UpdateQualificationStateDto } from "@/dto/auth.dto";;
 import { QualificationModelResponse } from "@/types/user.type";
 
 export const qualificationService = {
@@ -15,5 +15,21 @@ export const qualificationService = {
     },
     getQualifications: async (): Promise<QualificationModelResponse[]> => {
         return await apiController("/qualifications", "get");
-    }
+    },
+    getQualification: async (
+        qualificationId: string
+    ): Promise<QualificationModelResponse> => {
+        return await apiController(`/qualifications/${qualificationId}`, "get");
+    },
+    updateQualification: async (
+        qualificationId: string,
+        updateQualificationRequest: UpdateQualificationStateDto
+    ): Promise<QualificationModelResponse> => {
+        return await apiController(`/qualifications/${qualificationId}`, "put", updateQualificationRequest);
+    },
+    deleteQualification: async (
+        qualificationId: string
+    ): Promise<QualificationModelResponse> => {
+        return await apiController(`/qualifications/${qualificationId}`, "delete");
+    },
 }
