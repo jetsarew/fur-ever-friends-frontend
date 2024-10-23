@@ -1,4 +1,4 @@
-import { LoginDto, RegisterDto, UpdateUserWithRoleDto } from "@/dto/auth.dto";
+import { LoginDto, RegisterDto, UpdateQualificationStateDto, UpdateUserWithRoleDto } from "@/dto/auth.dto";
 import axiosInstance from "@/services/api.service";
 
 export async function apiController<T>(
@@ -8,6 +8,7 @@ export async function apiController<T>(
     | LoginDto
     | RegisterDto
     | UpdateUserWithRoleDto
+    | UpdateQualificationStateDto
     | FormData,
 ): Promise<T> {
   try {
