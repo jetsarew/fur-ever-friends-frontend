@@ -8,8 +8,8 @@ export default function UnassignedActivitiesPage(){
                 href={"create"}
                 className="px-6 py-4 flex flex-row justify-center items-center text-button text-white bg-bright-green rounded-lg"
             >+ Create new activity</Link>
-            <ActivityCard role={"pet sitter"} state={"Unassigned"}/>
-            <ActivityCard role={"pet owner"} state={"Unassigned"}/>
+            <ActivityCard role={"PETSITTER"} state={"Unassigned"}/>
+            <ActivityCard role={"CUSTOMER"} state={"Unassigned"}/>
         </div>
     );
 }

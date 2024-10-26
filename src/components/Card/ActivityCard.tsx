@@ -2,16 +2,17 @@ import { LocationIcon } from "@/shared/Icon";
 import Image from "next/image";
 import ShowRequestButton from "../Button/ShowRequestButton";
 import Link from "next/link";
+import { Role } from "@/types/user.type";
 
 type activityState = "Unassigned" | "Assigned" | "In progress" | "Returning" | "Completed" | "Requested" | "Scheduled";
 
 interface ActivityCardProps{
-    role: "pet owner" | "pet sitter",
+    role: Role,
     state: activityState,
 }
 
 export default function ActivityCard({ role, state}: ActivityCardProps){
-    const profileElement = role == "pet owner" ? 
+    const profileElement = role == "CUSTOMER" ? 
         <div className="pt-4 flex flex-row justify-between items-end">
             <div className="flex flex-row items-end gap-2">
                 <Image 
@@ -44,7 +45,7 @@ export default function ActivityCard({ role, state}: ActivityCardProps){
             } 
         </div>;
     
-    const topRightElement = role == "pet owner" ? (
+    const topRightElement = role == "CUSTOMER" ? (
         state == "Assigned" ?
         <div className="flex flex-row items-baseline gap-1 text-dark-blue">
             <p className="text-body">start in</p>
@@ -80,7 +81,7 @@ export default function ActivityCard({ role, state}: ActivityCardProps){
         )
     );
 
-    const bottomElement = role == "pet owner" ? (
+    const bottomElement = role == "CUSTOMER" ? (
         state == "Unassigned" ? 
         <ShowRequestButton /> : 
         (
@@ -141,11 +142,11 @@ export default function ActivityCard({ role, state}: ActivityCardProps){
                             <p className="text-body">December 31, 2024 at 6:00 pm</p>
                         </div>
                     </div>
-                    <div className={`pt-4 flex flex-row items-end gap-2 ${!(role == "pet owner" && state == "Unassigned") &&"pb-4 border-b border-bd-gray"}`}>
+                    <div className={`pt-4 flex flex-row items-end gap-2 ${!(role == "CUSTOMER" && state == "Unassigned") &&"pb-4 border-b border-bd-gray"}`}>
                         <LocationIcon />
                         <p className="text-body">KMITL ECC Building</p>
                     </div>
-                    {!(role == "pet owner" && state == "Unassigned") && profileElement}
+                    {!(role == "CUSTOMER" && state == "Unassigned") && profileElement}
                 </div>
                 {bottomElement}
             </div>
