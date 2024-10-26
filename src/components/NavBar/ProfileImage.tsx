@@ -4,7 +4,6 @@ import useOutSideClick from "@/hooks/useOutsideClick";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
-import Cookies from "js-cookie";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { deleteAuthState } from "@/store/auth/auth.slice";
 import { useRouter } from "next/navigation";
@@ -24,14 +23,18 @@ export default function ProfileImage() {
 
   const onLogOutButtonClicked = async () => {
     try {
+      console.log("logggggggg");
       await authService.logout();
-      Cookies.remove("token");
+      //Cookies.remove("token");
+      console.log("loeffdssfdggg");
       dispatch(deleteAuthState());
       setShow(false);
       router.push("/");
     } catch(error) {
-      setShow(false);
-      router.push("/");
+      console.error(error);
+      // Cookies.remove("token");
+      // setShow(false);
+      //router.push("/");
     }
     
   };

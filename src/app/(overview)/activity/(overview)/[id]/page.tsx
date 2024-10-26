@@ -1,23 +1,46 @@
+"use client";
+
 //import ActivityStateBar from "@/components/Card/ActivityStateBar"
 import PetActivityCard from "@/components/Card/PetActivityCard"
-//import PetOwnerCard from "@/components/Card/PetOwnerCard"
-//import RequestForm from "@/components/Form/RequestForm"
+import { formatUTCDate } from "@/hooks/useConvertTime";
+import { activityService } from "@/services/activity.service"
+import PetOwnerCard from "@/components/Card/PetOwnerCard"
+import RequestForm from "@/components/Form/RequestForm"
 //import PetCard from "@/components/Card/PetCard"
-//import PetSitterCard from "@/components/Card/PetSitterCard"
+import PetSitterCard from "@/components/Card/PetSitterCard"
 import { CalendarIcon, CalendarWithCheckIcon, LocationIcon } from "@/shared/Icon"
+import { useAppSelector } from "@/store/hooks";
+import { ActivityModelResponse } from "@/types/response.type"
 import Link from "next/link"
+import { useEffect, useState } from "react"
 
 export default function ActivityDetailPage({ params }: {
     params: { id: string }
 }
 ){
+    const [activity, setActivity] = useState<ActivityModelResponse | null>(null);
+
+    const userData = useAppSelector((state) => state.auth.user);
+
+    useEffect(() => {
+        const fetchActivity = async () => {
+            const response = await activityService.getActivityById(params.id);
+            console.log(response);
+            setActivity(response);
+        }
+
+        fetchActivity();
+    }, [params.id]);
+
+    if(!activity) return null;
+
     return (
         <div className="flex flex-col items-start gap-8">
-            <h1 className="text-header text-bright-blue">Whiskers & Buddy Outing {params.id}</h1>
+            <h1 className="text-header text-bright-blue">{activity.title}</h1>
             <div className="w-full flex flex-row justify-between items-start">
                 <div className="w-[561px] flex flex-col gap-8">
-                    {/* <PetSitterCard /> */}
-                    {/* <PetOwnerCard /> */}
+                    { userData?.role == "CUSTOMER" && activity.petsitter != null && <PetSitterCard activity={activity} /> }
+                    { userData?.role == "PETSITTER" && <PetOwnerCard activity={activity}/> }
                     <div className="py-6 px-4 flex flex-col gap-4 border border-bd-gray rounded-lg">
                         <h3 className="text-subheading text-dark-blue">Duration</h3>
                         <div>
@@ -25,14 +48,14 @@ export default function ActivityDetailPage({ params }: {
                                 <CalendarIcon/>
                                 <div className="pt-2 flex flex-col gap-2">
                                     <p className="text-body-bold">Start</p>
-                                    <p className="text-small text-soft-gray">December 31, 2024 at 7:00 am </p>
+                                    <p className="text-small text-soft-gray">{formatUTCDate(activity.startDateTime)}</p>
                                 </div>
                             </div>
                             <div className="pt-2 flex flex-row items-start gap-2">
                                 <CalendarWithCheckIcon />
                                 <div className="pt-2 flex flex-col gap-2">
                                     <p className="text-body-bold">End</p>
-                                    <p className="text-small text-soft-gray">December 31, 2024 at 6:00 pm  </p>
+                                    <p className="text-small text-soft-gray">{formatUTCDate(activity.endDateTime)}</p>
                                 </div>
                             </div>
                         </div>
@@ -43,27 +66,31 @@ export default function ActivityDetailPage({ params }: {
                             <div className="flex flex-row items-start gap-2">
                                 <LocationIcon />
                                 <div className="pt-2 flex flex-col gap-2">
-                                    <p className="text-body-bold">KMITL ECC Building</p>
-                                    <p className="text-small-paragraph text-soft-gray">I will be waiting near the reception desk inside the main lobby.</p>
+                                    <p className="text-body-bold">{activity.pickupPoint}</p>
+                                    <p className="text-small-paragraph text-soft-gray">{activity.detail}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 {/* <ActivityStateBar /> */}
-                {/* <RequestForm /> */}
+                {userData?.role == "PETSITTER" && activity.state == "PENDING" && <RequestForm />}
             </div>
             <div className="py-6 px-4 flex flex-col gap-4 border border-bd-gray rounded-lg">
                 <h3 className="text-subheading text-dark-blue">Pet Activities</h3>
                 <div className="flex flex-row justify-between items-center flex-wrap gap-8">
-                    <PetActivityCard 
-                        showCheckBox={false}
-                        showProgressBar={false}
-                    />
-                    <PetActivityCard 
-                        showCheckBox={false}
-                        showProgressBar={false}
-                    />
+                    {
+                        activity.services.map((service, index) => {
+                            return (
+                                <PetActivityCard 
+                                    key={index}
+                                    service={service}
+                                    showCheckBox={false}
+                                    showProgressBar={false}
+                                />
+                            )
+                        })
+                    }
                 </div>
                 {/* <div className="pt-4 border-t border-bd-gray ">
                     <button className="px-6 py-2 flex flex-row justify-center items-center rounded-lg bg-bright-blue text-button text-white">See progress</button>

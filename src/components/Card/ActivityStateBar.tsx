@@ -1,8 +1,10 @@
+import { Role } from "@/types/user.type";
+
 type activityState = "Unassigned" | "Assigned" | "In progress" | "Returning" | "Completed" | "Requested" | "Scheduled";
 
 export default function ActivityStateBar(){
     const currentState = "Requested";
-    const role: "pet sitter" | "pet owner" = "pet sitter";
+    const role: Role = "PETSITTER";
 
     const statePriority = {
         "Unassigned": 0,
@@ -23,9 +25,9 @@ export default function ActivityStateBar(){
 
     const activeUnassignedElement = (
         <div className="h-[151px] pt-[2px] flex flex-col items-end gap-4">
-            <p className="text-subheading text-bright-blue">{`${role == "pet sitter" ? "Requested" : "Unassigned"}`}</p>
+            <p className="text-subheading text-bright-blue">{`${role == "PETSITTER" ? "Requested" : "Unassigned"}`}</p>
             {
-                role == "pet sitter" ? 
+                role == "PETSITTER" ? 
                 <div className="flex flex-col items-end gap-1">
                     <p className="text-end text-body-paragraph">Waiting for pet owner approval</p> 
                 </div>
@@ -41,7 +43,7 @@ export default function ActivityStateBar(){
 
     const activeAssignedElement = (
         <div className="h-[151px] pt-[2px] flex flex-col items-end gap-4">
-            <p className="text-subheading text-bright-blue">{`${role == "pet sitter" ? "Scheduled" : "Assigned"}`}</p>
+            <p className="text-subheading text-bright-blue">{`${role == "PETSITTER" ? "Scheduled" : "Assigned"}`}</p>
             <div className="flex flex-row justify-end items-baseline gap-1 text-body">
                 <p>The activity starts in</p>
                 <p className="text-subheading">8</p>
@@ -69,7 +71,7 @@ export default function ActivityStateBar(){
         <div className="h-[151px] pt-[1px] flex flex-col items-end gap-4">
             <p className="text-subheading text-bright-blue">Returning</p>
             {
-                role == "pet sitter" ?
+                role == "PETSITTER" ?
                 <div className="flex flex-col items-end gap-1">
                     <p className="text-end text-body-paragraph">Have you returned all the pets to the owner yet?</p> 
                     <button className="px-6 py-2 rounded-lg bg-bright-green text-button text-white">I have returned all pets</button>
@@ -88,7 +90,7 @@ export default function ActivityStateBar(){
         <div className="h-[149px] pt-[2px] flex flex-col items-end gap-4">
             <p className="text-subheading text-bright-blue">Completed</p>
             {
-                role == "pet sitter" ?
+                role == "PETSITTER" ?
                 <div className="flex flex-col items-end gap-1">
                     <p className="text-end text-body-paragraph">You have successfully completed the activity</p> 
                 </div>
@@ -104,13 +106,13 @@ export default function ActivityStateBar(){
 
     const inactiveUnassignedElement = (
         <div className="h-[68px]">
-            <p className={`text-body ${statePriority[currentState] < statePriority["Unassigned"] ? "text-soft-gray" : "text-dark-blue"}`}>{`${role == "pet sitter" ? "Requested" : "Unassigned"}`}</p>
+            <p className={`text-body ${statePriority[currentState] < statePriority["Unassigned"] ? "text-soft-gray" : "text-dark-blue"}`}>{`${role == "PETSITTER" ? "Requested" : "Unassigned"}`}</p>
         </div>
     );
 
     const inactiveAssignedElement = (
         <div className="h-[68px]">
-            <p className={`text-body ${statePriority[currentState] < statePriority["Assigned"] ? "text-soft-gray" : "text-dark-blue"}`}>{`${role == "pet sitter" ? "Scheduled" : "Assigned"}`}</p>
+            <p className={`text-body ${statePriority[currentState] < statePriority["Assigned"] ? "text-soft-gray" : "text-dark-blue"}`}>{`${role == "PETSITTER" ? "Scheduled" : "Assigned"}`}</p>
         </div>
     );
 

@@ -2,16 +2,17 @@ import { LocationIcon } from "@/shared/Icon";
 import Image from "next/image";
 import ShowRequestButton from "../Button/ShowRequestButton";
 import Link from "next/link";
-
-type activityState = "Unassigned" | "Assigned" | "In progress" | "Returning" | "Completed" | "Requested" | "Scheduled";
+import { Role } from "@/types/user.type";
+import { ActivityModelResponse } from "@/types/response.type";
+import { formatUTCDate, timeUntil } from "@/hooks/useConvertTime";
 
 interface ActivityCardProps{
-    role: "pet owner" | "pet sitter",
-    state: activityState,
+    role?: Role,
+    activity: ActivityModelResponse;
 }
 
-export default function ActivityCard({ role, state}: ActivityCardProps){
-    const profileElement = role == "pet owner" ? 
+export default function ActivityCard({ role, activity}: ActivityCardProps){
+    const profileElement = role == "CUSTOMER" ? 
         <div className="pt-4 flex flex-row justify-between items-end">
             <div className="flex flex-row items-end gap-2">
                 <Image 
@@ -21,9 +22,9 @@ export default function ActivityCard({ role, state}: ActivityCardProps){
                     alt="pet picture"
                     className="w-6 h-6 border-[2px] border-bright-blue rounded-full object-cover"
                 />
-                <p className="text-body-bold text-dark-blue">Kirana Jasmine Chewter</p>
+                <p className="text-body-bold text-dark-blue">{activity.petsitter?.user.firstname + " " + activity.petsitter?.user.lastname}</p>
             </div>
-            <p className="h-5 text-subheading text-bright-green">$99</p>
+            <p className="h-5 text-subheading text-bright-green">{"$" + activity.price}</p>
         </div> :
         <div className="pt-4 flex flex-row justify-between items-end">
             <div className="flex flex-row items-end gap-2">
@@ -34,57 +35,57 @@ export default function ActivityCard({ role, state}: ActivityCardProps){
                     alt="pet picture"
                     className="w-6 h-6 border-[2px] border-bright-blue rounded-full object-cover"
                 />
-                <p className="text-body-bold text-dark-blue">Anntonia Prosild</p>
+                <p className="text-body-bold text-dark-blue">{activity.customer.user.firstname + activity.customer.user.lastname}</p>
             </div>
             {
-                state == "Assigned" || state == "In progress" ?
-                <p className="h-5 text-subheading text-bright-green">$99</p> :
-                state == "Unassigned" && <button className="text-body-bold text-soft-gray">Cancel</button>
+                activity.state == "ASSIGNED" || activity.state == "IN_PROGRESS" ?
+                <p className="h-5 text-subheading text-bright-green">{"$" + activity.price}</p> :
+                activity.state == "PENDING" && <button className="text-body-bold text-soft-gray">Cancel</button>
                 
             } 
         </div>;
     
-    const topRightElement = role == "pet owner" ? (
-        state == "Assigned" ?
+    const topRightElement = role == "CUSTOMER" ? (
+        activity.state == "ASSIGNED" ?
         <div className="flex flex-row items-baseline gap-1 text-dark-blue">
             <p className="text-body">start in</p>
-            <p className="text-subheading">30</p>
-            <p className="text-body">m</p>
+            <p className="text-subheading">{timeUntil(activity.startDateTime).diffTime}</p>
+            <p className="text-body">{timeUntil(activity.startDateTime).unit}</p>
         </div> : 
         (
-            state == "In progress" ?
+            activity.state == "IN_PROGRESS" ?
             <div className="flex flex-row items-baseline gap-1 text-dark-blue">
                 <p className="text-body">end in</p>
-                <p className="text-subheading">30</p>
-                <p className="text-body">m</p>
+                <p className="text-subheading">{timeUntil(activity.endDateTime).diffTime}</p>
+                <p className="text-body">{timeUntil(activity.endDateTime).unit}</p>
             </div>
             :
             <></>
         )
         
     ): (
-        state == "Assigned" ?
+        activity.state == "ASSIGNED" ?
         <div className="flex flex-row items-baseline gap-1 text-dark-blue">
             <p className="text-body">start in</p>
-            <p className="text-subheading">30</p>
-            <p className="text-body">m</p>
+            <p className="text-subheading">{timeUntil(activity.startDateTime).diffTime}</p>
+            <p className="text-body">{timeUntil(activity.startDateTime).unit}</p>
         </div> :
         (
-            state == "In progress" ?
+            activity.state == "IN_PROGRESS" ?
             <div className="flex flex-row items-baseline gap-1 text-dark-blue">
                 <p className="text-body">end in</p>
-                <p className="text-subheading">30</p>
-                <p className="text-body">m</p>
+                <p className="text-subheading">{timeUntil(activity.endDateTime).diffTime}</p>
+                <p className="text-body">{timeUntil(activity.endDateTime).unit}</p>
             </div> :
-            <p className="h-5 text-subheading text-bright-green">$99</p>
+            <p className="h-5 text-subheading text-bright-green">{"$" + activity.price}</p>
         )
     );
 
-    const bottomElement = role == "pet owner" ? (
-        state == "Unassigned" ? 
+    const bottomElement = role == "CUSTOMER" ? (
+        activity.state == "PENDING" ? 
         <ShowRequestButton /> : 
         (
-            state == "Returning" ?
+            activity.state == "RETURNING" ?
             <div className="w-full flex flex-row gap-8">
                 <button className="flex-1 px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green">I have received my pets</button>
                 <Link
@@ -92,7 +93,7 @@ export default function ActivityCard({ role, state}: ActivityCardProps){
                     className="flex-1 px-6 py-4 flex flex-row justify-center items-center border-[2px] border-bright-red rounded-lg text-body-bold text-bright-red"
                 >Report an issue</Link>
             </div> : (
-                state == "Completed" ?
+                activity.state == "COMPLETED" ?
                 <Link
                     href={"/activity/123456/review"}
                     className="w-full px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-golden-yellow"
@@ -102,14 +103,17 @@ export default function ActivityCard({ role, state}: ActivityCardProps){
         )
     ):
     (
-        state == "Returning" && <button className="w-full px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green">I have returned all pets</button>
+        activity.state == "RETURNING" && <button className="w-full px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green">I have returned all pets</button>
     );
     
     return (
         <div className="px-4 py-6 flex flex-col gap-4 border border-bd-gray rounded-lg hover:shadow-custom">
             <div className="flex flex-row justify-between items-center">
                 <div className="flex flex-row items-center gap-4">
-                    <p className="text-subheading text-bright-blue">Whiskers & Buddy Outing</p>
+                    <Link
+                        href={`/activity/${activity.id}`}
+                        className="text-subheading text-bright-blue"
+                    >{activity.title}</Link>
                     <div className="flex flex-row gap-1">
                         <Image 
                             src="/Whiskers.jpg"
@@ -134,18 +138,18 @@ export default function ActivityCard({ role, state}: ActivityCardProps){
                     <div className="pb-4 flex flex-row gap-8 border-b border-bd-gray">
                         <div className="w-[308px] flex flex-col items-start gap-2">
                             <p className="text-body-bold">Start</p>
-                            <p className="text-body">December 31, 2024 at 7:00 am</p>
+                            <p className="text-body">{formatUTCDate(activity.startDateTime)}</p>
                         </div>
                         <div className="w-[308px] flex flex-col items-start gap-2">
                             <p className="text-body-bold">End</p>
-                            <p className="text-body">December 31, 2024 at 6:00 pm</p>
+                            <p className="text-body">{formatUTCDate(activity.endDateTime)}</p>
                         </div>
                     </div>
-                    <div className={`pt-4 flex flex-row items-end gap-2 ${!(role == "pet owner" && state == "Unassigned") &&"pb-4 border-b border-bd-gray"}`}>
+                    <div className={`pt-4 flex flex-row items-end gap-2 ${!(role == "CUSTOMER" && activity.state == "PENDING") &&"pb-4 border-b border-bd-gray"}`}>
                         <LocationIcon />
-                        <p className="text-body">KMITL ECC Building</p>
+                        <p className="text-body">{activity.pickupPoint}</p>
                     </div>
-                    {!(role == "pet owner" && state == "Unassigned") && profileElement}
+                    {!(role == "CUSTOMER" && activity.state == "PENDING") && profileElement}
                 </div>
                 {bottomElement}
             </div>

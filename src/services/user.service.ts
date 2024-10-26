@@ -13,7 +13,6 @@ export const userService = {
         return await apiController("/users/me", "get");
     },
     updatePetOwner: async (
-        userId: string,
         updatePetOwnerRequest: UpdatePetOwnerDto
     ): Promise<CommonUserModel> => {
         const formData = new FormData();
@@ -23,10 +22,9 @@ export const userService = {
         if(avatarFile) {
             formData.append("avatar", avatarFile);
         }
-        return await apiController(`/users/customer/${userId}`, "patch", formData);
+        return await apiController(`/users/customer/me`, "patch", formData);
     },
     updatePetSitter: async (
-        userId: string,
         updatePetSitterRequest: UpdatePetSitterDto
     ): Promise<CommonUserModel> => {
         const formData = new FormData();
@@ -42,7 +40,7 @@ export const userService = {
             })
         }
         console.log(formData.values);
-        return await apiController(`/users/petsitter/${userId}`, "patch", formData);
+        return await apiController(`/users/petsitter/me`, "patch", formData);
     },
     getUser: async (
         userId: string

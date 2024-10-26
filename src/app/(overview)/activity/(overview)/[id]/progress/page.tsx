@@ -1,7 +1,7 @@
 "use client";
 
 import ActivityProgressCard from "@/components/Card/ActivityProgressCard";
-import PetActivityCard from "@/components/Card/PetActivityCard";
+//import PetActivityCard from "@/components/Card/PetActivityCard";
 import TextArea from "@/components/Input/TextArea";
 import Image from "next/image";
 
@@ -18,14 +18,18 @@ export default function ActivityProgressPage({ params }: {
             <div className="py-6 px-4 flex flex-col gap-4 border border-bd-gray rounded-lg">
                 <h3 className="text-subheading text-dark-blue">Pet Activities</h3>
                 <div className="flex flex-row justify-between items-center flex-wrap gap-8">
-                    <PetActivityCard 
-                        showCheckBox={true}
-                        showProgressBar={true}
-                    />
-                    <PetActivityCard 
-                        showCheckBox={true}
-                        showProgressBar={true}
-                    />
+                {
+                    // activity.services.map((service, index) => {
+                    //         return (
+                    //             <PetActivityCard 
+                    //                 key={index}
+                    //                 service={service}
+                    //                 showCheckBox={true}
+                    //                 showProgressBar={true}
+                    //             />
+                    //         )
+                    //     })
+                }
                 </div>
                 <div className="flex flex-row justify-center">
                     <button className="px-8 py-4 flex flex-row justify-center items-center rounded-lg bg-bright-green text-button text-white">Save</button>

@@ -11,7 +11,7 @@ export const usePets = () => {
   const petListStore = useAppSelector((state) => state.pet.pets);
 
   const fetchPetsData = async () => {
-    return petService.getAllPet();
+    return petService.getPetsByOwner();
   };
 
   const { isLoading, refetch } = useQuery("pets", fetchPetsData, {

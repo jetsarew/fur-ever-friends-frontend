@@ -1,30 +1,18 @@
 import Image from "next/image";
 import TaskCard from "./TaskCard";
-import { useState } from "react";
 import { PetModelResponse } from "@/types/response.type";
 import { getAttachmentSrc } from "@/hooks/useImage";
+import { CreateTaskDto, ServiceType } from "@/dto/activity.dto";
 
 interface AddPetActivityCardInterface {
   pet: PetModelResponse;
-  handleDeletePetActivityCard: (petId: string) => void;
+  tasks: CreateTaskDto[];
+  handleTaskAdded: (petId: string) => void;
+  handleTaskRemoved: (petId: string, taskIndex: number) => void;
+  handleTaskTypeEdited: (petId: string, taskIndex: number, type: ServiceType) => void;
+  handleTaskDetailEdited: (petId: string, taskIndex: number, detail: string) => void;
 }
-export default function AddPetActivityCard({ pet, handleDeletePetActivityCard }: AddPetActivityCardInterface) {
-  const [tasks, setTasks] = useState<number[]>([0]); // Array to store tasks (IDs)
-
-  // Add a new task card
-  const addNewTask = () => {
-    setTasks((prevTasks) => [...prevTasks, prevTasks.length]); // Append new task with a unique ID
-  };
-
-  // Function to remove a task by ID
-  const removeTask = (taskId: number) => {
-    if(tasks.length == 1){
-      handleDeletePetActivityCard(pet.id);
-    }
-    else{
-      setTasks((prevTasks) => prevTasks.filter((task) => task !== taskId)); // Remove task with given ID
-    }
-  };
+export default function AddPetActivityCard({ pet, tasks, handleTaskAdded, handleTaskRemoved, handleTaskTypeEdited, handleTaskDetailEdited }: AddPetActivityCardInterface) {
 
   return (
     <div className="border px-6 py-8 rounded-[8px]">
@@ -47,13 +35,21 @@ export default function AddPetActivityCard({ pet, handleDeletePetActivityCard }:
       <div className="grid gap-6">
         {/* Render a TaskCard for each task in the array */}
         {tasks.map((task, index) => (
-          <TaskCard key={index} taskId={task} removeTask={removeTask} /> // Pass removeTask and taskId as props
+          <TaskCard 
+            key={index} 
+            task={task} 
+            petId={pet.id} 
+            taskIndex={index}
+            handleTaskTypeEdited={handleTaskTypeEdited}
+            handleTaskDetailEdited={handleTaskDetailEdited}
+            removeTask={() => handleTaskRemoved(pet.id, index)} 
+          />
         ))}
       </div>
 
       <button
         type="button"
-        onClick={addNewTask} // Add new task when button is clicked
+        onClick={() => handleTaskAdded(pet.id)} // Add new task when button is clicked
         className="bg-white round-[8px] w-fit h-fit mt-6 px-6 py-2 rounded-[8px] text-bright-green border-2 border-bright-green text-button"
       >
         + Add a task

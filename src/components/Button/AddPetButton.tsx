@@ -4,14 +4,15 @@ import { useRef, useState } from "react";
 import AddPetEntry from "./AddPetEntry";
 import { PetModelResponse } from "@/types/response.type";
 import useOutSideClick from "@/hooks/useOutsideClick";
+import { CreateServiceDto } from "@/dto/activity.dto";
 
 interface AddPetButtonInterface {
     pets: PetModelResponse[];
-    petsInActivity: string[];
+    services: CreateServiceDto[];
     onAddNewPet: (petId: string) => void;
 }
 
-export default function AddPetButton({ pets, petsInActivity, onAddNewPet }: AddPetButtonInterface){
+export default function AddPetButton({ pets, services, onAddNewPet }: AddPetButtonInterface){
     const [visible, setVisible] = useState<boolean>(false);
     const buttonRef = useRef<HTMLDivElement>(null);
     const popUpRef = useRef<HTMLDivElement>(null);
@@ -32,7 +33,7 @@ export default function AddPetButton({ pets, petsInActivity, onAddNewPet }: AddP
                 <div ref={popUpRef} className="absolute top-[100%] right-0 w-[320px] flex flex-col border border-bd-gray rounded-lg bg-white shadow-custom">
                     {
                         pets.map((pet, index) => {
-                            return <AddPetEntry key={index} pet={pet} onAddNewPet={onAddNewPet} isAdded={petsInActivity.includes(pet.id)}/>
+                            return <AddPetEntry key={index} pet={pet} onAddNewPet={onAddNewPet} isAdded={services.some((service) => service.petId === pet.id)}/>
                         })
                     }
                 </div>

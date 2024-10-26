@@ -16,12 +16,6 @@ export default function PetPage() {
     if (!isAllowed) {
         router.push("/");
     }
-
-    const pets = petList.filter((pet) => {
-        return  pet.ownerId == userData?.customer?.id;
-    })
-
-    console.log(pets);
     
     return (
         <div>
@@ -33,7 +27,7 @@ export default function PetPage() {
                         </Link>
                     </div>
                     {
-                        pets?.length == 0 &&
+                        petList?.length == 0 &&
                         <div className="pt-[90px] flex flex-col items-center gap-4">
                             <Image
                                 src={"/empty.svg"}
@@ -46,9 +40,9 @@ export default function PetPage() {
                             </p>
                         </div>
                     }
-                    <div className={`flex flex-wrap justify-cen gap-8 gap-y-8 ${pets.length && "pb-24"}`}>
+                    <div className={`flex flex-wrap justify-cen gap-8 gap-y-8 ${petList.length && "pb-24"}`}>
                         {
-                            pets?.map((pet, index) => {
+                            petList?.map((pet, index) => {
                                 return <PetCard key={index} width={"w-[443px]"} border={"border border-bd-gray rounded-lg"} padding={"px-6 py-3"} showActionButton={true} pet={pet} />
                             })
                         }

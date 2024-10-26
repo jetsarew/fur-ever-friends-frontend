@@ -1,6 +1,7 @@
 import { ReportType } from "@/dto/report.dto";
 import { CredentialType } from "./credential.type";
 import { AccountStatus, CommonUserModel, PetSitter, Role } from "./user.type";
+import { ServiceType } from "@/dto/activity.dto";
 
 export type AuthModelResponse = {
     token: CredentialType;
@@ -39,6 +40,12 @@ export type PetModelResponse = {
 }
 
 export type CustomerModelResponse = {
+    id: string;
+    userId: string;
+    user: UserModelResponse;
+}
+
+export type PetSitterModelResponse = {
     id: string;
     userId: string;
     user: UserModelResponse;
@@ -86,3 +93,80 @@ export type ReportModelResponse = {
     reporter: UserModelResponse;
     reported: UserModelResponse;
 }
+
+export type ActivityModelResponse = {
+    id: string;
+    title: string;
+    detail: string;
+    createdAt: string;
+    updatedAt: string;
+    pickupPoint: string;
+    price: number | null;
+    startDateTime: string;
+    endDateTime: string;
+    state: ActivityState;
+    services: ServiceModelResponse[];
+    customer: CustomerModelResponse;
+    petsitter: PetSitterModelResponse | null;
+    progresses: ProgressModelResponse[];
+    request: RequestModelResponse[];
+    review: ReviewModelResponse | null;
+}
+
+export type ServiceModelResponse = {
+    id: string;
+    pet: PetActivityModelResponse;
+    tasks: TaskModelResponse[];
+}
+
+export type TaskModelResponse = {
+    id: string;
+    type: ServiceType;
+    detail: string;
+    status: boolean;
+    createdAt: string;
+}
+
+export type PetActivityModelResponse = {
+    id: string;
+    name: string;
+    breed: {
+        id: string;
+        name: string;
+        animalTypeId: string;
+    },
+    age: number;
+}
+
+export type ProgressModelResponse = {
+    id: string;
+    createdAt: string;
+    image: string[];
+    content: string;
+}
+
+export type RequestModelResponse = {
+    id: string;
+    createdAt: string;
+    message: string;
+    price: number;
+    state: ActivityState;
+    petsitter: PetSitterModelResponse;
+}
+
+export type ReviewModelResponse = {
+    id: string;
+    content: string;
+    rating: number;
+    createdAt: string;
+}
+
+export type InviteModelResponse = {
+    id: string;
+    createdAt: string;
+    activityId: string;
+    petsitterId: string;
+    link: string;
+}
+
+export type ActivityState = 'PENDING' | 'REJECTED' | 'CANCELLED' | 'ASSIGNED' | 'IN_PROGRESS' | 'RETURNING' | 'FAILED' | 'COMPLETED';

@@ -1,13 +1,13 @@
 import {
     deleteAuthState,
     setAuthAccessToken,
-    setAuthRefreshToken,
+    // setAuthRefreshToken,
   } from "@/store/auth/auth.slice";
   import { store } from "@/store/store";
   import axios, {
-    type AxiosError,
+    // type AxiosError,
     type AxiosInstance,
-    type AxiosResponse,
+    // type AxiosResponse,
     type InternalAxiosRequestConfig,
   } from "axios";
   import Cookies from "js-cookie";
@@ -19,21 +19,23 @@ import {
     baseURL: baseUrl,
   });
   
-  const refreshAccessToken = async (refreshToken: string) => {
-    try {
-      const response = await axios.post(`${baseUrl}/auth/refresh`, null, {
-        headers: {
-          Authorization: `Bearer ${refreshToken}`,
-        },
-      });
-      store.dispatch(setAuthAccessToken(response.data.accessToken));
-      store.dispatch(setAuthRefreshToken(response.data.refreshToken));
-      return response.data.accessToken;
-    } catch (error) {
-      store.dispatch(deleteAuthState());
-      console.error("Failed to refresh token:", error);
-    }
-  };
+  // const refreshAccessToken = async (refreshToken: string) => {
+  //   try {
+  //     const response = await axios.post(`${baseUrl}/auth/refresh`, null, {
+  //       headers: {
+  //         Authorization: `Bearer ${refreshToken}`,
+  //       },
+  //     });
+  //     store.dispatch(setAuthAccessToken(response.data.accessToken));
+  //     store.dispatch(setAuthRefreshToken(response.data.refreshToken));
+  //     return response.data.accessToken;
+  //   } catch (error) {
+  //     store.dispatch(deleteAuthState());
+  //     console.error("Failed to refresh token:", error);
+  //     window.location.href = "/auth/login";
+  //     return Promise.reject(error);
+  //   }
+  // };
   
   const requestInterceptor = (config: InternalAxiosRequestConfig) => {
     const token = Cookies.get("token");
@@ -44,39 +46,67 @@ import {
     return config;
   };
   
-  const responseInterceptor = (response: AxiosResponse) => {
-    return response;
-  };
+  axiosInstance.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    async (error) => {
+      const originalRequest = error.config;
   
-  const errorInterceptor = async (error: AxiosError) => {
-    const originalRequest = error.config;
+      // Check if the error is due to an expired token (401)
+      if (error.response.status === 401 && !originalRequest._retry) {
+        originalRequest._retry = true;
   
-    if (
-      error.response?.status === 401 &&
-      store.getState().auth.user != null &&
-      originalRequest
-    ) {
-      const refreshToken = store.getState().auth.refreshToken;
-      console.log(store.getState().auth);
-      if (refreshToken) {
         try {
-          const accessToken = await refreshAccessToken(refreshToken);
-          originalRequest.headers["Authorization"] = `Bearer ${accessToken}`;
-          return axios(originalRequest);
-        } catch (refreshError) {
-          console.error("Failed to refresh token:", refreshError);
-        }
-      } else {
-        store.dispatch(deleteAuthState());
-        console.error("Refresh token not found in storage");
-      }
-    }
+          const response = await axios.post(`${baseUrl}auth/refresh`, {}, { withCredentials: true });
+          console.log(response);
+
+          const { data } = response.data;
+
+          store.dispatch(setAuthAccessToken(data.token.accessToken));
+          // Access token is now set by the backend in a cookie
   
-    return Promise.reject(error);
-  };
+          return axiosInstance(originalRequest);
+        } catch (refreshError) {
+          store.dispatch(deleteAuthState());
+          console.error("Failed to refresh token:", error);
+          window.location.href = "/auth/login";
+          return Promise.reject(error);
+        }
+      }
+  
+      return Promise.reject(error);
+    }
+  );
+  
+  // const errorInterceptor = async (error: AxiosError) => {
+  //   const originalRequest = error.config;
+  
+  //   if (
+  //     error.response?.status === 401 &&
+  //     store.getState().auth.user != null &&
+  //     originalRequest
+  //   ) {
+  //     const refreshToken = store.getState().auth.refreshToken;
+  //     console.log(store.getState().auth);
+  //     if (refreshToken) {
+  //       try {
+  //         const accessToken = await refreshAccessToken(refreshToken);
+  //         originalRequest.headers["Authorization"] = `Bearer ${accessToken}`;
+  //         return axios(originalRequest);
+  //       } catch (refreshError) {
+  //         console.error("Failed to refresh token:", refreshError);
+  //       }
+  //     } else {
+  //       store.dispatch(deleteAuthState());
+  //       console.error("Refresh token not found in storage");
+  //     }
+  //   }
+  
+  //   return Promise.reject(error);
+  // };
   
   axiosInstance.interceptors.request.use(requestInterceptor);
-  axiosInstance.interceptors.response.use(responseInterceptor, errorInterceptor);
   
   export default axiosInstance;
   

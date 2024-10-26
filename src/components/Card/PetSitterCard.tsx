@@ -1,8 +1,13 @@
 import { BillIcon, PhoneIcon, WarningIcon } from "@/shared/Icon";
+import { ActivityModelResponse } from "@/types/response.type";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function PetSitterCard() {
+interface PetSitterCardInterface {
+  activity: ActivityModelResponse;
+}
+
+export default function PetSitterCard({ activity }: PetSitterCardInterface) {
   return (
     <div className="py-6 px-4 flex flex-col gap-4 border border-bd-gray rounded-lg">
       <div className="flex flex-row justify-between items-center">
@@ -23,10 +28,10 @@ export default function PetSitterCard() {
             className="w-[75px] h-[75px] border-[3px] border-bright-blue rounded-full object-cover"
           />
           <div className="py-2 flex flex-col justify-between items-start">
-            <p className="text-subheading">Kirana Jasmine Chewter</p>
+            <p className="text-subheading">{activity.petsitter?.user.firstname + " " + activity.petsitter?.user.lastname}</p>
             <div className="flex flex-row">
               <PhoneIcon />
-              <p className="text-body-bold">{`(555) 123-4567`}</p>
+              <p className="text-body-bold">{activity.petsitter?.user.phone}</p>
             </div>
           </div>
         </div>
@@ -35,7 +40,7 @@ export default function PetSitterCard() {
             <BillIcon />
             <p className="text-body-bold">Service fee</p>
           </div>
-          <p className="text-subheading text-bright-green">$99</p>
+          <p className="text-subheading text-bright-green">{`$${activity.price}`}</p>
         </div>
       </div>
     </div>

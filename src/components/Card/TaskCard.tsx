@@ -1,13 +1,18 @@
 "use client";
 
+import { CreateTaskDto, ServiceType } from "@/dto/activity.dto";
 import Image from "next/image";
 
 interface TaskCardProps {
-  taskId: number;
-  removeTask: (taskId: number) => void; // Function to remove task
+  task: CreateTaskDto;
+  petId: string;
+  taskIndex: number;
+  handleTaskTypeEdited: (petId: string, taskIndex: number, type: ServiceType) => void;
+  handleTaskDetailEdited: (petId: string, taskIndex: number, detail: string) => void;
+  removeTask: () => void;
 }
 
-export default function TaskCard({ taskId, removeTask }: TaskCardProps) {
+export default function TaskCard({ task, petId, taskIndex, handleTaskTypeEdited, handleTaskDetailEdited, removeTask }: TaskCardProps) {
   return (
     <div>
       <div className="flex justify-between">
@@ -18,22 +23,29 @@ export default function TaskCard({ taskId, removeTask }: TaskCardProps) {
           height={24}
           alt="Delete task"
           className="rounded-full cursor-pointer"
-          onClick={() => removeTask(taskId)} // Call removeTask with taskId when clicked
+          onClick={() => removeTask()} // Call removeTask with taskId when clicked
         />
       </div>
 
-      <select className="w-[275px] border rounded-[8px] px-[18px] py-[15px]">
-        <option value="feeding">Feeding</option>
-        <option value="exercise">Exercise</option>
-        <option value="grooming">Grooming</option>
-        <option value="training">Training</option>
-        <option value="administering medication">Administering Medication</option>
-        <option value="relaxation">Relaxation</option>
+      <select className="w-[275px] border rounded-[8px] px-[18px] py-[15px]"
+        onChange={(e) => handleTaskTypeEdited(petId, taskIndex, e.target.value as ServiceType)}
+        value={task.type}
+      >
+        <option value="EXERCISING">Exercise</option>
+        <option value="FEEDING">Feeding</option>
+        <option value="GROOMING">Grooming</option>
+        <option value="TRAINING">Training</option>
+        <option value="ADMINISTERING_MEDICATION">Administering Medication</option>
+        <option value="RELAXATION">Relaxation</option>
       </select>
 
       <div className="mt-4 flex flex-col">
         <p className="text-body-bold mb-2">Detail</p>
-        <textarea className="w-full border rounded-[8px] resize-none px-[18px] py-[15px]" />
+        <textarea 
+          className="w-full border rounded-[8px] resize-none px-[18px] py-[15px]" 
+          value={task.detail}
+          onChange={(e) => handleTaskDetailEdited(petId, taskIndex, e.target.value)}
+        />
       </div>
 
       <hr className="mt-6" />

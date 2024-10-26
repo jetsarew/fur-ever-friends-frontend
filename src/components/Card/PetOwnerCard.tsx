@@ -1,7 +1,12 @@
 import { BillIcon } from "@/shared/Icon";
+import { ActivityModelResponse } from "@/types/response.type";
 import Image from "next/image";
 
-export default function PetOwnerCard() {
+interface PetOwnerCardInterface {
+    activity: ActivityModelResponse;
+  }
+
+export default function PetOwnerCard({ activity }: PetOwnerCardInterface) {
     const state = "Unassigned";
     return (
         <div className="py-6 px-4 flex flex-col gap-4 border border-bd-gray rounded-lg">
@@ -20,7 +25,7 @@ export default function PetOwnerCard() {
                     alt={"pet sitter profile picture"}
                     className="w-[75px] h-[75px] border-[3px] border-bright-blue rounded-full object-cover"
                 />
-                    <p className="text-subheading">Kirana Jasmine Chewter</p>
+                    <p className="text-subheading">{activity.customer.user.firstname + " " + activity.customer.user.lastname}</p>
                 </div>
                 {
                     (state != "Unassigned") && 
@@ -29,7 +34,7 @@ export default function PetOwnerCard() {
                             <BillIcon />
                             <p className="text-body-bold">Service fee</p>
                         </div>
-                        <p className="text-subheading text-bright-green">$99</p>
+                        <p className="text-subheading text-bright-green">{`$${activity.price}`}</p>
                     </div>
                 }
             </div>
