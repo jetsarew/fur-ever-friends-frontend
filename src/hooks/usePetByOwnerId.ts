@@ -4,11 +4,11 @@ import { petService } from "@/services/pet.service";
 import { useQuery } from "react-query";
 import { PetModelResponse } from "@/types/response.type";
 
-export const usePetByOwnerId = (ownerId: string) => {
+export const usePetByOwnerId = () => {
   const PET_QUERY_KEY = "pet";
 
   const fetchPetsByOwnerId = async () => {
-    const response = await petService.getPetsByOwner(ownerId);
+    const response = await petService.getPetsByOwner();
     return response;
   };
 

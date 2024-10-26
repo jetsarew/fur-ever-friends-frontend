@@ -1,16 +1,20 @@
 "use client";
 
+import { activityService } from "@/services/activity.service";
 import { adminService } from "@/services/adminService";
 import { customerService } from "@/services/customer.service";
 import { petService } from "@/services/pet.service";
 import { qualificationService } from "@/services/qualification.service";
 import { reportService } from "@/services/report.service";
+import { requestService } from "@/services/request.service";
 import { userService } from "@/services/user.service";
-import { useAppSelector } from "@/store/hooks";
+//import { useAppSelector } from "@/store/hooks";
+import { useState } from "react";
 
 export default function Home() {
 
-  const userData = useAppSelector((state) => state.auth.user);
+  //const userData = useAppSelector((state) => state.auth.user);
+  const [progressImage, setProgressImage] = useState<File | null>(null);
 
   const onGetAuthUserButtonClicked = async () => {
     const response = await userService.getAuthUser();
@@ -53,8 +57,7 @@ export default function Home() {
     const response2 = await petService.getAllPet();
     console.log(response2);
 
-    const ownerId:string = (userData && userData.customer) ? userData.customer.id : "953a660c-3a03-4d74-9bbf-bdb5717d35b9";
-    const response3 = await petService.getPetsByOwner(ownerId);
+    const response3 = await petService.getPetsByOwner();
     console.log(response3);
   };
 
@@ -93,6 +96,58 @@ export default function Home() {
 
     const response2 = await reportService.getReport("c6f96f56-ed59-4010-ba26-789e160dee89");
     console.log(response2);
+  }
+
+  const onUpdateActivityStateButtonClicked = async () => {
+    const response = await activityService.updateActivityState("6107c245-e070-47e1-8762-7ac678ee1527", {
+      state: "COMPLETED"
+    });
+    console.log(response);
+  }
+
+  const onReviewButtonClicked = async () => {
+    const response = await activityService.reviewActivity({
+      activityId: "6107c245-e070-47e1-8762-7ac678ee1527",
+      petsitterId: "dbfcdc4b-d3d1-4817-a98c-f5c9ae4f5ae3",
+      content: "Good",
+      rating: 4,
+    });
+    console.log(response);
+  }
+
+  const onCreateRequestButtonClicked = async () => {
+    const response = await requestService.createRequest({
+      activityId: "17db7094-814c-4f86-86c1-692df717c90f",
+      price: 50,
+      message: "I love you.",
+    })
+    console.log(response);
+  }
+
+  const onAcceptRequestButtonClicked = async () => {
+    const response = await requestService.acceptRequest("71a1dbf8-9159-4de8-a7af-f08a90d433e4");
+    console.log(response);
+  }
+
+  const onFileUploaded = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files?.length) {
+      setProgressImage(files[0]);
+    }
+};
+
+  const onUpdateProgressButtonClicked = async () => {
+    if(!progressImage) return;
+    const response = await activityService.createProgress("17db7094-814c-4f86-86c1-692df717c90f", {
+      progresses: progressImage,
+      content: "This is a progress."
+    });
+    console.log(response);
+  }
+
+  const onGetProgressButtonClicked = async () => {
+    const response = await activityService.getProgressesByActivityId("17db7094-814c-4f86-86c1-692df717c90f");
+    console.log(response);
   }
 
   return (
@@ -182,6 +237,56 @@ export default function Home() {
           Get Report
         </button>
       </div>
+      <div className="px-8 py-8 flex flex-col gap-8 items-start border-[2px] border-green-500">
+        <p className="text-header text-green-500">Activity Service</p>
+        <button
+          className="px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-green-500"
+          type="button"
+          onClick={onUpdateActivityStateButtonClicked}
+        >
+          Update Activity State
+        </button>
+        <button
+          className="px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-green-500"
+          type="button"
+          onClick={onReviewButtonClicked}
+        >
+          Review
+        </button>
+        <button
+          className="px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-green-500"
+          type="button"
+          onClick={onCreateRequestButtonClicked}
+        >
+          Send Request
+        </button>
+        <button
+          className="px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-green-500"
+          type="button"
+          onClick={onAcceptRequestButtonClicked}
+        >
+          Accept Request
+        </button>
+        <input 
+          type="file"
+          onChange={onFileUploaded}
+        />
+        <button
+          className="px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-green-500"
+          type="button"
+          onClick={onUpdateProgressButtonClicked}
+        >
+          Update Progress
+        </button>
+        <button
+          className="px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-green-500"
+          type="button"
+          onClick={onGetProgressButtonClicked}
+        >
+          Get Progress
+        </button>
+      </div>
     </div>
+    
   );
 }
