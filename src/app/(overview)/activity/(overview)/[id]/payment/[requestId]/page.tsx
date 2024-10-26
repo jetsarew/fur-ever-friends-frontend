@@ -1,11 +1,11 @@
 import Image from "next/image"
 
 export default function PaymentPage({ params }: {
-    params: { id: string }
+    params: { id: string, requestId: string }
 }
 ){
     return (
-        <div className="flex flex-col min-h-screen flex items-center justify-center bg-gray-100">
+        <div className="-mt-9 flex flex-col min-h-screen items-center justify-center">
             <div className="flex flex-col items-center gap-12 w-[680px]">
             <div className="flex flex-col items-start gap-12 self-stretch">
                 <div className="flex flex-col items-start gap-4 self-stretch p-6 px-4 rounded-lg border-2 border-bd-gray">
@@ -87,14 +87,10 @@ export default function PaymentPage({ params }: {
             </div>
                 <button
                 type="submit"
-                className="flex justify-center items-center gap-3 py-4 px-6 rounded-lg bg-bright-blue text-body text-white"
+                className="flex justify-center items-center gap-3 py-4 px-6 rounded-lg bg-bright-blue text-body text-white text-button"
                 >
                 Confirm
                 </button>
-            </div>
-
-            <div>
-                Payment for activity id{params.id}
             </div>
         </div>
     )

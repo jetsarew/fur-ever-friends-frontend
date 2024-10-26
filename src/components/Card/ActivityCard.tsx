@@ -83,7 +83,7 @@ export default function ActivityCard({ role, activity}: ActivityCardProps){
 
     const bottomElement = role == "CUSTOMER" ? (
         activity.state == "PENDING" ? 
-        <ShowRequestButton /> : 
+        <ShowRequestButton activityId={activity.id} requests={activity.requests}/> : 
         (
             activity.state == "RETURNING" ?
             <div className="w-full flex flex-row gap-8">
@@ -145,11 +145,11 @@ export default function ActivityCard({ role, activity}: ActivityCardProps){
                             <p className="text-body">{formatUTCDate(activity.endDateTime)}</p>
                         </div>
                     </div>
-                    <div className={`pt-4 flex flex-row items-end gap-2 ${!(role == "CUSTOMER" && activity.state == "PENDING") &&"pb-4 border-b border-bd-gray"}`}>
+                    <div className={`pt-4 flex flex-row items-end gap-2 ${!(role == "CUSTOMER" && (activity.state == "PENDING" || activity.state == "CANCELLED" || activity.state == "FAILED" || activity.state == "REJECTED")) &&"pb-4 border-b border-bd-gray"}`}>
                         <LocationIcon />
                         <p className="text-body">{activity.pickupPoint}</p>
                     </div>
-                    {!(role == "CUSTOMER" && activity.state == "PENDING") && profileElement}
+                    {!(role == "CUSTOMER" && (activity.state == "PENDING" || activity.state == "CANCELLED" || activity.state == "FAILED" || activity.state == "REJECTED")) && profileElement}
                 </div>
                 {bottomElement}
             </div>

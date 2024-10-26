@@ -1,12 +1,20 @@
+import { getAttachmentSrc } from "@/hooks/useImage";
+import { RequestModelResponse } from "@/types/response.type";
 import { StarIcon } from "@heroicons/react/16/solid";
 import Image from "next/image";
+import Link from "next/link";
 
-export default function RequestCard() {
+interface RequestCardInterface {
+    request: RequestModelResponse;
+    activityId: string;
+}
+
+export default function RequestCard({ request, activityId }: RequestCardInterface) {
     return (
-        <div className="px-4 py-6 flex flex-col gap-4 border border-bd-gray rounded-lg">
+        <div className="w-full px-4 py-6 flex flex-col gap-4 border border-bd-gray rounded-lg">
             <div className="flex flex-row gap-4">
                 <Image
-                    src="/pet-sitter.jpg"
+                    src={request.petsitter.user.avatar ? getAttachmentSrc(request.petsitter.user.avatar) : "/default_profile.jpg"}
                     width={250}
                     height={250}
                     alt={"pet sitter profile"}
@@ -14,11 +22,11 @@ export default function RequestCard() {
                 />
                 <div className="flex-1 flex flex-col gap-4">
                     <div className="flex flex-row justify-between items-center">
-                        <p className="text-subheading">Kirana Jasmine Chewter</p>
-                        <p className="text-subheading2 text-dark-blue">$99</p>
+                        <p className="text-subheading">{request.petsitter.user.firstname + " " + request.petsitter.user.lastname}</p>
+                        <p className="text-subheading2 text-dark-blue">{`$${request.price}`}</p>
                     </div>
                     <div className="flex flex-col gap-2">
-                        <p className="text-small-paragraph text-standard-gray">Hi Anntonia, I’d love to make Buddy Playtime a great experience! Let’s make this happen and ensure Buddy has a blast!</p>
+                        <p className="text-small-paragraph text-standard-gray">{request.message}</p>
                         <div className="flex flex-col gap-1">
                             <div className="flex flex-row items-end gap-1">
                                 <StarIcon className="w-5 h-5 text-golden-yellow" />
@@ -36,7 +44,10 @@ export default function RequestCard() {
                 </div>
             </div>
             <div className="flex flex-row gap-8">
-                <button className="flex-1 px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green">Accept</button>
+                <Link 
+                    href={`/activity/${activityId}/payment/${request.petsitter.id}`}
+                    className="flex-1 px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green"
+                >Accept</Link>
                 <button className="flex-1 px-6 py-4 flex flex-row justify-center items-center border-[2px] border-bright-red rounded-lg text-body-bold text-bright-red">Reject</button>
             </div>
         </div>
