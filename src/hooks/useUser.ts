@@ -38,11 +38,7 @@ export const useUser = () => {
 
   const updateUserMutation = useMutation(
     async (updateUserRequest: UpdatePetOwnerDto) => {
-      const { userId, ...rest } = updateUserRequest;
-    
-      if(!userId) return;
-
-      const response = await userService.updatePetOwner(userId, rest);
+      const response = await userService.updatePetOwner(updateUserRequest);
       dispatch(setAuthUser(response));
       return response;
     },
@@ -50,11 +46,7 @@ export const useUser = () => {
 
   const updatePetSitterMutation = useMutation(
     async (updatePetSitterRequest: UpdatePetSitterDto) => {
-      const { userId, ...rest } = updatePetSitterRequest;
-    
-      if(!userId) return;
-
-      const response = await userService.updatePetSitter(userId, rest);
+      const response = await userService.updatePetSitter(updatePetSitterRequest);
       dispatch(setAuthUser(response));
       return response;
     },

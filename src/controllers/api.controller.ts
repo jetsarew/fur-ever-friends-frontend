@@ -13,6 +13,7 @@ export async function apiController<T>(
 ): Promise<T> {
   try {
     const response = await axiosInstance.request({ url, method, data, withCredentials: true});
+    console.log(response);
     if(response.data.data){
       return response.data.data;
     }

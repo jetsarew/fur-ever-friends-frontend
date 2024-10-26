@@ -73,7 +73,6 @@ export default function PetSitterEditProfilePage() {
   const handleUpdateProfile = async () => {
     try {
       const updateData: UpdatePetSitterDto = {
-        userId: userData?.id,
         firstname: formik.values.firstname,
         lastname: formik.values.lastname,
         phone: formik.values.phone,

@@ -35,7 +35,6 @@ export default function PetOwnerEditProfilePage() {
   const handleUpdateProfile = async () => {
     try {
       const updateData: UpdatePetOwnerDto = {
-        userId: userData?.id,
         firstname: formik.values.firstname,
         lastname: formik.values.lastname,
         phone: formik.values.phone,

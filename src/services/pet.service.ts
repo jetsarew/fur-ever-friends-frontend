@@ -21,9 +21,8 @@ export const petService = {
         return await apiController(`/pets/${petId}`, "get");
     },
     getPetsByOwner: async (
-        ownerId: string
     ): Promise<PetModelResponse[]> => {
-        return await apiController(`/pets/owner/${ownerId}`, "get");
+        return await apiController(`/pets/owner`, "get");
     },
     updatePet: async (
         petId: string,

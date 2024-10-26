@@ -33,6 +33,7 @@ export default function CreatePet() {
             return ;
         }
         try {
+            console.log(formik.values);
             await createPet({
                 ...formik.values,
                 file: formik.values.file as File,

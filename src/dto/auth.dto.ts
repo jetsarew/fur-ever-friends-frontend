@@ -29,7 +29,6 @@ export type UpdatePetOwnerDto = {
   phone?: string;
   avatar?: string;
   avatarFile?: File;
-  userId?: string;
   role: Role;
 }
 
@@ -42,7 +41,6 @@ export type UpdatePetSitterDto = {
   avatarFile?: File;
   coverImageFile?: File[];
   petsitterData?: PetSitterData;
-  userId?: string;
 }
 
 export type PetSitterData = {
