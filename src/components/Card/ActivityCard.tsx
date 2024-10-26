@@ -95,7 +95,7 @@ export default function ActivityCard({ role, activity}: ActivityCardProps){
             </div> : (
                 activity.state == "COMPLETED" ?
                 <Link
-                    href={"/activity/123456/review"}
+                    href={"/activity/123456/review/1234687"}
                     className="w-full px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-golden-yellow"
                 >Rate pet sitter</Link> : 
                 <></>

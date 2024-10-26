@@ -6,12 +6,14 @@ import Image from "next/image";
 import { useState } from "react";
 
 export default function ActivityReviewPage({ params }: {
-    params: { id: string }
+    params: { id: string, petSitterId: string }
 }
 ){
+    console.log(params);
+
     const [rating, setRating] = useState<number>(1);
 
-    console.log(params.id);
+    //console.log(params.id);
 
     return (
         <form className="w-[680px] mx-auto flex flex-col items-center gap-8">
