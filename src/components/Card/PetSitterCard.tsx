@@ -29,7 +29,7 @@ export default function PetSitterCard({ activity }: PetSitterCardInterface) {
           />
           <div className="py-2 flex flex-col justify-between items-start">
             <p className="text-subheading">{activity.petsitter?.user.firstname + " " + activity.petsitter?.user.lastname}</p>
-            <div className="flex flex-row">
+            <div className="flex flex-row items-end gap-2">
               <PhoneIcon />
               <p className="text-body-bold">{activity.petsitter?.user.phone}</p>
             </div>

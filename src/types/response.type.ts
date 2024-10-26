@@ -80,6 +80,7 @@ export type UserModelResponse = {
     role: Role;
     accountStatus: AccountStatus;
     createdAt: string;
+    avatar: string | null;
 }
 
 export type ReportModelResponse = {
@@ -109,7 +110,7 @@ export type ActivityModelResponse = {
     customer: CustomerModelResponse;
     petsitter: PetSitterModelResponse | null;
     progresses: ProgressModelResponse[];
-    request: RequestModelResponse[];
+    requests: RequestModelResponse[];
     review: ReviewModelResponse | null;
 }
 
