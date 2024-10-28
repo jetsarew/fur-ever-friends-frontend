@@ -5,7 +5,7 @@ import Report from "./Report";
 import Role from "./Role";
 import AccountStatus from "./AccountStatus";
 import { DefaultOption, BlockedOption, ReportOption, ApplicationOption } from "../Button/Option";
-import React, { createContext, useEffect } from 'react';
+import React, { createContext } from 'react';
 import { QualificationModelResponse } from "@/types/user.type";
 import { ReportModelResponse } from "@/types/response.type";
 import { CommonUserModel } from "@/types/user.type";
