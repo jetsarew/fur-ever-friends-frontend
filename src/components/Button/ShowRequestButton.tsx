@@ -28,7 +28,7 @@ export default function ShowRequestButton({ activityId, requests }: ShowRequestB
                 <div className="w-full flex flex-col gap-4">
                     {
                         requests.map((request, index) => {
-                            return <RequestCard key={index} activityId={activityId} request={request}/>
+                            return <RequestCard key={index} activityId={activityId} request={request}  border="border border-bd-gray rounded-lg"/>
                         })
                     }
                 </div>

@@ -1,6 +1,6 @@
 "use client";
 
-//import ActivityStateBar from "@/components/Card/ActivityStateBar"
+import ActivityStateBar from "@/components/Card/ActivityStateBar"
 import PetActivityCard from "@/components/Card/PetActivityCard"
 import { formatUTCDate } from "@/hooks/useConvertTime";
 import { activityService } from "@/services/activity.service"
@@ -13,6 +13,7 @@ import { useAppSelector } from "@/store/hooks";
 import { ActivityModelResponse } from "@/types/response.type"
 import Link from "next/link"
 import { useEffect, useState } from "react"
+import { getStatePriority } from "@/hooks/useStatePriority";
 
 export default function ActivityDetailPage({ params }: {
     params: { id: string }
@@ -73,7 +74,7 @@ export default function ActivityDetailPage({ params }: {
                         </div>
                     </div>
                 </div>
-                {/* <ActivityStateBar /> */}
+                {(userData?.role == "CUSTOMER" || activity.requests.some((request) => request.petsitter.userId == userData?.id)) && <ActivityStateBar activity={activity}/>}
                 {userData?.role == "PETSITTER" && activity.state == "PENDING" && <RequestForm />}
             </div>
             <div className="py-6 px-4 flex flex-col gap-4 border border-bd-gray rounded-lg">
@@ -86,20 +87,32 @@ export default function ActivityDetailPage({ params }: {
                                     key={index}
                                     service={service}
                                     showCheckBox={false}
-                                    showProgressBar={false}
+                                    showProgressBar={getStatePriority(activity.state) >= getStatePriority("IN_PROGRESS")}
                                 />
                             )
                         })
                     }
                 </div>
-                {/* <div className="pt-4 border-t border-bd-gray ">
-                    <button className="px-6 py-2 flex flex-row justify-center items-center rounded-lg bg-bright-blue text-button text-white">See progress</button>
-                </div> */}
+                {
+                    getStatePriority(activity.state) >= getStatePriority("IN_PROGRESS") &&
+                    <div
+                        className="pt-4 border-t border-bd-gray "
+                    >
+                        <Link 
+                            href={`/activity/${activity.id}/progress`} 
+                            className="px-6 py-2 w-fit flex flex-row justify-center items-center rounded-lg bg-bright-blue text-button text-white"
+                        >{userData?.role == "CUSTOMER" ? "See progress" : "Update progress"}</Link>
+                    </div>
+                }
             </div>
-            <Link
-                href={"/compose/delete-activity/1234"}
-                className="px-6 py-4 flex flex-row justify-center items-center rounded-lg border-[2px] border-bright-red text-body-bold text-bright-red"
-            >Delete this activity</Link>
+            {
+                activity.state == "PENDING" &&
+                <Link
+                    href={`/compose/delete-activity/${activity.id}`}
+                    className="px-6 py-4 flex flex-row justify-center items-center rounded-lg border-[2px] border-bright-red text-body-bold text-bright-red"
+                >Delete this activity</Link>
+            }
+            
         </div>
     )
 }

@@ -39,4 +39,8 @@ export type CreateProgressDto = {
     content: string;
 }
 
+export type UpdateTaskStatusDto = {
+    status: boolean;
+}
+
 export type ServiceType = 'FEEDING' | 'GROOMING' | 'EXERCISING'| 'TRAINING' | 'ADMINISTERING_MEDICATION' | 'RELAXATION';

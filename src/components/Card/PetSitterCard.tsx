@@ -13,7 +13,7 @@ export default function PetSitterCard({ activity }: PetSitterCardInterface) {
       <div className="flex flex-row justify-between items-center">
         <h3 className="text-subheading text-dark-blue">Pet Sitter</h3>
         <Link
-          href={`/profile/${"1234"}/report`}
+          href={`/profile/${activity.petsitter?.user.id}/report`}
         >
           <WarningIcon />
         </Link>
@@ -27,7 +27,7 @@ export default function PetSitterCard({ activity }: PetSitterCardInterface) {
             alt={"pet sitter profile picture"}
             className="w-[75px] h-[75px] border-[3px] border-bright-blue rounded-full object-cover"
           />
-          <div className="py-2 flex flex-col justify-between items-start">
+          <div className="flex flex-col justify-center items-start gap-2">
             <p className="text-subheading">{activity.petsitter?.user.firstname + " " + activity.petsitter?.user.lastname}</p>
             <div className="flex flex-row items-end gap-2">
               <PhoneIcon />

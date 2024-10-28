@@ -117,7 +117,11 @@ export default function Home() {
 
   const onCreateRequestButtonClicked = async () => {
     const response = await requestService.createRequest({
+<<<<<<< HEAD
       activityId: "fdaf65cd-1bef-4373-bf31-45c9009d923e",
+=======
+      activityId: "f89dce91-dbd1-4d7a-8c38-064f967035b1",
+>>>>>>> cc0bb4bad51dba04e7b9154bacf3e112f6a3eaf3
       price: 50,
       message: "Absolutely stunning!",
     })
@@ -125,7 +129,7 @@ export default function Home() {
   }
 
   const onAcceptRequestButtonClicked = async () => {
-    const response = await requestService.acceptRequest("7c5aab5b-8b29-4e03-87c5-0a64a1fb994f");
+    const response = await requestService.acceptRequest("2446ff2d-e1db-43ea-8045-e2f0dbf742eb");
     console.log(response);
   }
 
@@ -138,7 +142,7 @@ export default function Home() {
 
   const onUpdateProgressButtonClicked = async () => {
     if(!progressImage) return;
-    const response = await activityService.createProgress("17db7094-814c-4f86-86c1-692df717c90f", {
+    const response = await activityService.createProgress("f89dce91-dbd1-4d7a-8c38-064f967035b1", {
       progresses: progressImage,
       content: "This is a progress."
     });
