@@ -165,6 +165,8 @@ export type ReviewModelResponse = {
     content: string;
     rating: number;
     createdAt: string;
+    petsitterId: string;
+    customerId: string;
 }
 
 export type InviteModelResponse = {

@@ -1,3 +1,4 @@
+import { getAttachmentSrc } from "@/hooks/useImage";
 import { getStatePriority } from "@/hooks/useStatePriority";
 import { BillIcon, PhoneIcon, WarningIcon } from "@/shared/Icon";
 import { ActivityModelResponse } from "@/types/response.type";
@@ -25,7 +26,7 @@ export default function PetOwnerCard({ activity }: PetOwnerCardInterface) {
             <div>
                 <div className={`${(activity.state != "PENDING") && "pb-3"} flex flex-row items-center gap-4`}>
                 <Image
-                    src="/profile.jpg"
+                    src={activity.customer?.user.avatar ? getAttachmentSrc(activity.customer.user.avatar) : "/default_profile.jpg"}
                     width={150}
                     height={150}
                     alt={"pet sitter profile picture"}

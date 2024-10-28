@@ -39,11 +39,6 @@ export default function ShowRequestPopUpButton({ activityId, requests }: ShowReq
                             return <RequestCard key={index} activityId={activityId} request={request} border="border-b border-bd-gray hover:bg-[#F8F8F8]"/>
                         })
                     }
-                    {
-                        requests.map((request, index) => {
-                            return <RequestCard key={index} activityId={activityId} request={request} border="border-b border-bd-gray hover:bg-[#F8F8F8]"/>
-                        })
-                    }
                 </div>
             }
         </div>

@@ -7,6 +7,7 @@ import { petService } from "@/services/pet.service";
 import { qualificationService } from "@/services/qualification.service";
 import { reportService } from "@/services/report.service";
 import { requestService } from "@/services/request.service";
+import { reviewService } from "@/services/review.service";
 import { userService } from "@/services/user.service";
 //import { useAppSelector } from "@/store/hooks";
 import { useState } from "react";
@@ -106,7 +107,7 @@ export default function Home() {
   }
 
   const onReviewButtonClicked = async () => {
-    const response = await activityService.reviewActivity({
+    const response = await reviewService.reviewActivity({
       activityId: "6107c245-e070-47e1-8762-7ac678ee1527",
       petsitterId: "dbfcdc4b-d3d1-4817-a98c-f5c9ae4f5ae3",
       content: "Good",

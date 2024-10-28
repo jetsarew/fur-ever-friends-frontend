@@ -1,7 +1,8 @@
-import { CreateActivityDto, CreateReviewDto, InvitePetSitterDto, UpdateActivityStateDto, UpdateTaskStatusDto } from "@/dto/activity.dto";
+import { CreateActivityDto, InvitePetSitterDto, UpdateActivityStateDto, UpdateTaskStatusDto } from "@/dto/activity.dto";
 import { LoginDto, RegisterDto, UpdateQualificationStateDto, UpdateUserWithRoleDto } from "@/dto/auth.dto";
 import { CreateReportDto } from "@/dto/report.dto";
 import { CreateRequestDto } from "@/dto/request.dto";
+import { CreateReviewDto } from "@/dto/review.dto";
 import axiosInstance from "@/services/api.service";
 
 export async function apiController<T>(
