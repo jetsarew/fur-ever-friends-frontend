@@ -1,6 +1,6 @@
 "use client";
 
-import PetSitterSearchCard from "@/components/Card/PetSitterSearchCard";
+//PetSitterSearchCard from "@/components/Card/PetSitterSearchCard";
 import InputField from "@/components/Input/InputField";
 import { FilterIcon } from "@/shared/Icon";
 
@@ -17,6 +17,7 @@ export default function FeedPage(){
                 <FilterIcon />
             </div>
             <div className="flex flex-row items-start justify-start flex-wrap gap-8">
+                {/* <PetSitterSearchCard />
                 <PetSitterSearchCard />
                 <PetSitterSearchCard />
                 <PetSitterSearchCard />
@@ -38,8 +39,7 @@ export default function FeedPage(){
                 <PetSitterSearchCard />
                 <PetSitterSearchCard />
                 <PetSitterSearchCard />
-                <PetSitterSearchCard />
-                <PetSitterSearchCard />   
+                <PetSitterSearchCard />    */}
             </div>
             
         </div>

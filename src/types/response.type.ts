@@ -184,4 +184,10 @@ export type NotificationModelResponse = {
     userId: string;
 }
 
+export type FavoriteModelResponse = {
+    id: string;
+    customer: CustomerModelResponse;
+    petsitter: PetSitterModelResponse;
+}
+
 export type ActivityState = 'PENDING' | 'REJECTED' | 'CANCELLED' | 'ASSIGNED' | 'IN_PROGRESS' | 'RETURNING' | 'FAILED' | 'COMPLETED';
