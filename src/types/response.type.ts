@@ -177,4 +177,11 @@ export type InviteModelResponse = {
     link: string;
 }
 
+export type NotificationModelResponse = {
+    id: string;
+    title: string;
+    content: string;
+    userId: string;
+}
+
 export type ActivityState = 'PENDING' | 'REJECTED' | 'CANCELLED' | 'ASSIGNED' | 'IN_PROGRESS' | 'RETURNING' | 'FAILED' | 'COMPLETED';
