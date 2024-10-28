@@ -17,7 +17,7 @@ export default function PetOwnerCard({ activity }: PetOwnerCardInterface) {
                 {
                     getStatePriority(activity.state) >= getStatePriority("ASSIGNED") &&
                     <Link
-                        href={`/profile/${activity.customer.user.id}/report`}
+                        href={`/activity/${activity.id}/report/${activity.customer?.user.id}`}
                     >
                         <WarningIcon />
                     </Link>

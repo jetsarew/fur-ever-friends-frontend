@@ -4,6 +4,7 @@ export type CreateReportDto = {
     reporterId: string;
     reportedId: string;
     reportImages?: File[];
+    activityId: string;
 }
 
 export type ReportType = 
