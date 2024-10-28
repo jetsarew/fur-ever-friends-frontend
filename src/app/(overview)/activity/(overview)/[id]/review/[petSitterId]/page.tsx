@@ -1,9 +1,14 @@
 "use client";
 
-import TextArea from "@/components/Input/TextArea";
+
 import { StarIcon } from "@heroicons/react/16/solid";
 import Image from "next/image";
-import { useState } from "react";
+
+import { activityService } from "@/services/activity.service";
+import { useFormik } from "formik";
+import { createReviewValidationSchema, CreateReviewValue, emptyCreateReviewValue } from "@/app/constants/formik/create_review.formik";
+import ValidatedInput from "@/components/Input/ValidatedInput";
+import { getFieldProps } from "@/utils/getFieldProps";
 
 export default function ActivityReviewPage({ params }: {
     params: { id: string, petSitterId: string }
@@ -11,12 +16,34 @@ export default function ActivityReviewPage({ params }: {
 ){
     console.log(params);
 
-    const [rating, setRating] = useState<number>(1);
+    
+
+    const onReviewButtonClicked = async () => {
+        const response = await activityService.reviewActivity(
+          formik.values
+        );
+        console.log(response);
+      }
+
+      const formik = useFormik<CreateReviewValue>({
+        initialValues: {
+            ...emptyCreateReviewValue, 
+            activityId: params.id,
+            petsitterId: params.petSitterId
+        },
+        validateOnChange: false,
+        enableReinitialize: true,
+        validationSchema: createReviewValidationSchema,
+        onSubmit: onReviewButtonClicked,
+    });
+
+    const contentInputProps = getFieldProps(formik, "content");
+
 
     //console.log(params.id);
 
     return (
-        <form className="w-[680px] mx-auto flex flex-col items-center gap-8">
+        <form className="w-[680px] mx-auto flex flex-col items-center gap-8" onSubmit={formik.handleSubmit} noValidate>
             <div className="w-full flex flex-col items-start gap-8">
                 <div className="flex flex-row items-center gap-4">
                     <Image 
@@ -31,43 +58,47 @@ export default function ActivityReviewPage({ params }: {
                 <div className="w-full flex flex-row justify-center gap-5">
                     <button
                         type="button"
-                        onClick={() => setRating(1)}
+                        onClick={() => formik.setFieldValue("rating",1)}
                     >
                         <StarIcon className="w-[60px] h-[60px] text-golden-yellow"/>
                     </button>
                     <button
                         type="button"
-                        onClick={() => setRating(2)}
+                        onClick={() => formik.setFieldValue("rating",2)}
                     >
-                        <StarIcon className={`w-[60px] h-[60px] ${rating >= 2 ? "text-golden-yellow" : "text-light-gray2"}`}/>
+                        <StarIcon className={`w-[60px] h-[60px] ${formik.values.rating >= 2 ? "text-golden-yellow" : "text-light-gray2"}`}/>
                     </button>
                     <button
                         type="button"
-                        onClick={() => setRating(3)}
+                        onClick={() => formik.setFieldValue("rating",3)}
                     >
-                        <StarIcon className={`w-[60px] h-[60px] ${rating >= 3 ? "text-golden-yellow" : "text-light-gray2"}`}/>
+                        <StarIcon className={`w-[60px] h-[60px] ${formik.values.rating >= 3 ? "text-golden-yellow" : "text-light-gray2"}`}/>
                     </button>
                     <button
                         type="button"
-                        onClick={() => setRating(4)}
+                        onClick={() => formik.setFieldValue("rating",4)}
                     >
-                        <StarIcon className={`w-[60px] h-[60px] ${rating >= 4 ? "text-golden-yellow" : "text-light-gray2"}`}/>
+                        <StarIcon className={`w-[60px] h-[60px] ${formik.values.rating >= 4 ? "text-golden-yellow" : "text-light-gray2"}`}/>
                     </button>
                     <button
                         type="button"
-                        onClick={() => setRating(5)}
+                        onClick={() => formik.setFieldValue("rating",5)}
                     >
-                        <StarIcon className={`w-[60px] h-[60px] ${rating >= 5 ? "text-golden-yellow" : "text-light-gray2"}`}/>
+                        <StarIcon className={`w-[60px] h-[60px] ${formik.values.rating >= 5 ? "text-golden-yellow" : "text-light-gray2"}`}/>
                     </button>
                 </div>
             </div>
-            <TextArea 
-                label={"Share more about your experience"}
-                width={"w-full"}
-                height={"h-[136px]"}
-                onChange={() => {}}
-            />
-            <button className="px-6 py-4 flex flex-row justify-between items-center rounded-lg text-button text-white bg-golden-yellow">Post review</button>
+            <ValidatedInput
+            {...contentInputProps}
+            label="Share more about your experience"
+            containerStyle="relative w-full flex flex-col gap-3"
+            labelStyle="text-body-bold "
+            height="h-[136px]"
+            value={formik.values.content}
+            onTextAreaChange={(e) => formik.setFieldValue("content", e.target.value)}
+            type="textarea"/>
+           
+            <button className="px-6 py-4 flex flex-row justify-between items-center rounded-lg text-button text-white bg-golden-yellow" type="submit">Post review</button>
         </form>
     );
 }

@@ -1,6 +1,6 @@
 import Image from "next/image"
 
-export default function PaymentPage({ params }: {
+export default function PaymentPage({  }: {
     params: { id: string, requestId: string }
 }
 ){
