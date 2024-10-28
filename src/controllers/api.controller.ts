@@ -1,5 +1,6 @@
 import { CreateActivityDto, InvitePetSitterDto, UpdateActivityStateDto, UpdateTaskStatusDto } from "@/dto/activity.dto";
 import { LoginDto, RegisterDto, UpdateQualificationStateDto, UpdateUserWithRoleDto } from "@/dto/auth.dto";
+import { CreateFavoriteDto } from "@/dto/favorite.dto";
 import { CreateReportDto } from "@/dto/report.dto";
 import { CreateRequestDto } from "@/dto/request.dto";
 import { CreateReviewDto } from "@/dto/review.dto";
@@ -20,6 +21,7 @@ export async function apiController<T>(
     | CreateRequestDto
     | CreateReportDto
     | UpdateTaskStatusDto
+    | CreateFavoriteDto
     | FormData,
 ): Promise<T> {
   try {

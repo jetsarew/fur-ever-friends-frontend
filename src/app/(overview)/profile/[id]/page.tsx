@@ -7,9 +7,11 @@ import SlideImage from "@/components/Card/SlideImage";
 import Tag from "@/components/Tag/Tag";
 import { Toast } from "@/components/Toast/Toast";
 import { getAttachmentSrc } from "@/hooks/useImage";
+import { favoriteService } from "@/services/favorite.service";
 import { userService } from "@/services/user.service";
 import { BirdIcon, CatIcon, DogIcon, ExerciseIcon, FeedingIcon, FishIcon, GroomingIcon, MedicationIcon, RabbitIcon, RelaxationIcon, ReptileIcon, RodentIcon, TrainingIcon } from "@/shared/Icon";
 import { useAppSelector } from "@/store/hooks";
+import { FavoriteModelResponse } from "@/types/response.type";
 import { CommonUserModel } from "@/types/user.type";
 import { StarIcon } from "@heroicons/react/16/solid";
 import Image from "next/image";
@@ -21,24 +23,62 @@ export default function ProfilePage({ params }: {
 }){
     const myData = useAppSelector((state) => state.auth.user);
     const [userData, setUserData] = useState<CommonUserModel | null>(null);
+    const [favorites, setFavorites] = useState<FavoriteModelResponse[]>([]);
     const router = useRouter();
 
-    useEffect(() => {
-        const getUser = async () => {
-            try {
-                if(myData?.id == params.id){
-                    setUserData(myData);
-                }
-                else{
-                    const response = await userService.getUser(params.id);
-                    setUserData(response);
-                } 
-            } catch (error) {
-                Toast("Profile not founded", "error");
-                router.push("/");
+    const getUser = async () => {
+        try {
+            if(myData?.id == params.id){
+                setUserData(myData);
             }
-        };
+            else{
+                const response = await userService.getUser(params.id);
+                setUserData(response);
+                console.log(response);
+            } 
+        } catch (error) {
+            Toast("Profile not founded", "error");
+            router.push("/");
+        }
+    };
+    const getFavorites = async () => {
+        try {
+            const response = await favoriteService.getMyFavorite();
+            console.log(response);
+            setFavorites(response);
+        } catch (error) {
+            router.push("/");
+        }
+    };
+
+    const onFavoriteButtonClick = async (isAdded: boolean) => {
+        try {
+            if(isAdded) {
+                const favoriteId = favorites.filter((favorite) => favorite.petsitter.id == userData?.petsitter?.id)[0].id;
+                const response = await favoriteService.removeFromFavorite(favoriteId);
+                console.log(response);
+            }
+            else {
+                if(!myData?.customer?.id || !userData?.petsitter?.id) {
+                    return;
+                }
+                const response = await favoriteService.addToFavorite({
+                    customerId: myData?.customer?.id,
+                    petsitterId: userData?.petsitter?.id,
+                });
+                console.log(response);
+            }
+            getUser();
+            getFavorites();
+            router.refresh();
+        } catch(error) {
+            
+        }
+    }
+
+    useEffect(() => {
         getUser();
+        getFavorites();
     }, [params.id])
     
     return (
@@ -186,7 +226,7 @@ export default function ProfilePage({ params }: {
                         myData?.role != "ADMIN" &&
                         <div className="pt-4 flex flex-row justify-between gap-5">
                             <InviteButton />
-                            <FavoriteButton />
+                            <FavoriteButton isAdded={favorites.some((favorite) => favorite.petsitter.id == userData?.petsitter?.id)} onFavoriteButtonClick={onFavoriteButtonClick}/>
                         </div>
                     }
                 </div>
