@@ -117,11 +117,7 @@ export default function Home() {
 
   const onCreateRequestButtonClicked = async () => {
     const response = await requestService.createRequest({
-<<<<<<< HEAD
-      activityId: "fdaf65cd-1bef-4373-bf31-45c9009d923e",
-=======
       activityId: "f89dce91-dbd1-4d7a-8c38-064f967035b1",
->>>>>>> cc0bb4bad51dba04e7b9154bacf3e112f6a3eaf3
       price: 50,
       message: "Absolutely stunning!",
     })
