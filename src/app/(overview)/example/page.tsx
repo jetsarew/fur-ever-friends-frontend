@@ -118,7 +118,7 @@ export default function Home() {
 
   const onCreateRequestButtonClicked = async () => {
     const response = await requestService.createRequest({
-      activityId: "f89dce91-dbd1-4d7a-8c38-064f967035b1",
+      activityId: "c7ef88d7-fa3e-401f-8ec1-077cac6842bb",
       price: 50,
       message: "Absolutely stunning!",
     })
@@ -126,7 +126,7 @@ export default function Home() {
   }
 
   const onAcceptRequestButtonClicked = async () => {
-    const response = await requestService.acceptRequest("2446ff2d-e1db-43ea-8045-e2f0dbf742eb");
+    const response = await requestService.acceptRequest("b53b0e61-1b19-4c76-aaad-651c63f844e4");
     console.log(response);
   }
 

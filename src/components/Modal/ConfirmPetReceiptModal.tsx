@@ -2,9 +2,27 @@
 
 import { useRouter } from "next/navigation";
 import Modal from "./Modal";
+import { activityService } from "@/services/activity.service";
+import { Toast } from "../Toast/Toast";
 
-export default function ConfirmPetReceiptModal(){
+interface ConfirmPetReceiptInterface {
+    activityId: string;
+}
+
+export default function ConfirmPetReceiptModal({ activityId }: ConfirmPetReceiptInterface){
     const router = useRouter()
+
+    const onConfirmButtonClicked = async () => {
+        try {
+            await activityService.updateActivityState(activityId, {
+                state: "COMPLETED"
+            })
+            Toast("Success", "success");
+            router.back();
+        } catch (error) {
+
+        }
+    }
 
     return ( 
         <Modal
@@ -17,7 +35,11 @@ export default function ConfirmPetReceiptModal(){
                 <div className="flex flex-col gap-6">
                     <p className="text-small-paragraph text-soft-gray">Please confirm that you have received your pets. This will finalize the return process.</p>
                     <div className="flex flex-col gap-2">
-                        <button className="w-full py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green">Yes, confirm</button>
+                        <button 
+                            type="button"
+                            onClick={onConfirmButtonClicked}
+                            className="w-full py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green"
+                        >Yes, confirm</button>
                         <button 
                             type="button"
                             onClick={() => {router.back();}}

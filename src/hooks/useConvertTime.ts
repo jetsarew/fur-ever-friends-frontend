@@ -110,6 +110,14 @@ export function timeAgo(utcDate: string) {
 }
 
 
+export function hasActivityTerminated(utcDate: string): boolean {
+    const targetDate = new Date(utcDate);
+    const now = new Date();
+
+    return now > targetDate;
+}
+
+
   
 
   

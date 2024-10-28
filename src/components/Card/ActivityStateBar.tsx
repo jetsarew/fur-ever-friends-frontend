@@ -1,12 +1,9 @@
 "use client";
 
-import { convertUTCToTimeRemaining } from "@/hooks/useConvertTime";
+import { convertUTCToTimeRemaining, hasActivityTerminated } from "@/hooks/useConvertTime";
 import { useAppSelector } from "@/store/hooks";
 import { ActivityModelResponse, ActivityState } from "@/types/response.type";
 import Link from "next/link";
-import { Toast } from "../Toast/Toast";
-import { activityService } from "@/services/activity.service";
-import { useRouter } from "next/navigation";
 import ShowRequestPopUpButton from "../Button/ShowRequestPopUpButton";
 
 interface ActivityStateBarInterface {
@@ -17,7 +14,6 @@ export default function ActivityStateBar({
   activity,
 }: ActivityStateBarInterface) {
   const userData = useAppSelector((state) => state.auth.user);
-  const router = useRouter();
 
   const statePriority = {
     PENDING: 0,
@@ -30,26 +26,7 @@ export default function ActivityStateBar({
     CANCELLED: -1,
   };
 
-  const onReturnButtonClicked = async () => {
-    try {
-        //const response = 
-    } catch(error) {
-        Toast("Failed to update activity state.", "error");
-    }
-  }
-
-  const onReceiveButtonClicked = async () => {
-    try {
-        const response = activityService.updateActivityState(activity.id, {
-            state: "COMPLETED"
-        });
-        console.log(response);
-        Toast("The activity has been completed.", "success");
-        router.push("/activity/completed");
-    } catch(error) {
-        Toast("Failed to update activity state.", "error");
-    }
-  }
+  
 
   const pastDotElement = (
     <div className="w-3 h-3 rounded-full bg-dark-blue"></div>
@@ -126,29 +103,48 @@ export default function ActivityStateBar({
   const activeInProgressElement = (
     <div className="h-[151px] pt-[2px] flex flex-col items-end gap-4">
       <p className="text-subheading text-bright-blue">In progress</p>
-      <div className="flex flex-row justify-end flex-wrap items-baseline gap-1 gap-y-2 text-body">
-        <p>The activity ends in</p>
-        <div className="flex flex-row justify-end items-baseline gap-1 text-body">
-          {endTimeRemaining.day ? (
-            <div className="flex flex-row justify-end items-baseline gap-1 text-body">
-              <p className="text-subheading">{endTimeRemaining.day}</p>
-              <p>{`day${endTimeRemaining.day > 1 ? "s" : ""}${endTimeRemaining.hour ? " and" : ""}`}</p>
-            </div>
-          ): null}
-          {endTimeRemaining.hour ? (
-            <div className="flex flex-row justify-end items-baseline gap-1 text-body">
-              <p className="text-subheading">{endTimeRemaining.hour}</p>
-              <p>{`hour${endTimeRemaining.hour > 1 ? "s" : ""}${endTimeRemaining.minute ? " and" : ""}`}</p>
-            </div>
-          ): null}
-          {endTimeRemaining.minute ? (
-            <div className="flex flex-row justify-end items-baseline gap-1 text-body">
-              <p className="text-subheading">{endTimeRemaining.minute}</p>
-              <p>{`minute${endTimeRemaining.minute > 1 ? "s" : ""}`}</p>
-            </div>
-          ): null}
-        </div>
-      </div>
+      { !hasActivityTerminated(activity.endDateTime) ? 
+        <div className="flex flex-row justify-end flex-wrap items-baseline gap-1 gap-y-2 text-body">
+          <p>The activity ends in</p>
+          <div className="flex flex-row justify-end items-baseline gap-1 text-body">
+            {endTimeRemaining.day ? (
+              <div className="flex flex-row justify-end items-baseline gap-1 text-body">
+                <p className="text-subheading">{endTimeRemaining.day}</p>
+                <p>{`day${endTimeRemaining.day > 1 ? "s" : ""}${endTimeRemaining.hour ? " and" : ""}`}</p>
+              </div>
+            ): null}
+            {endTimeRemaining.hour ? (
+              <div className="flex flex-row justify-end items-baseline gap-1 text-body">
+                <p className="text-subheading">{endTimeRemaining.hour}</p>
+                <p>{`hour${endTimeRemaining.hour > 1 ? "s" : ""}${endTimeRemaining.minute ? " and" : ""}`}</p>
+              </div>
+            ): null}
+            {endTimeRemaining.minute ? (
+              <div className="flex flex-row justify-end items-baseline gap-1 text-body">
+                <p className="text-subheading">{endTimeRemaining.minute}</p>
+                <p>{`minute${endTimeRemaining.minute > 1 ? "s" : ""}`}</p>
+              </div>
+            ): null}
+          </div>
+        </div> :
+        (
+          userData?.role == "PETSITTER" ?
+          <div className="flex flex-col items-end gap-1">
+            <p className="text-end text-body-paragraph">
+              Have you returned all the pets to the owner yet?
+            </p>
+            <Link 
+              href={`/compose/confirm-pet-return/${activity.id}`}
+              className="px-6 py-2 rounded-lg bg-bright-green text-button text-white"
+            >
+              I have returned all pets
+            </Link>
+          </div> :
+          <p className="text-end text-body-paragraph">
+            Waiting for the pet sitter to return the pet
+          </p>
+        )
+      }   
     </div>
   );
 
@@ -158,32 +154,24 @@ export default function ActivityStateBar({
       {userData?.role == "PETSITTER" ? (
         <div className="flex flex-col items-end gap-1">
           <p className="text-end text-body-paragraph">
-            Have you returned all the pets to the owner yet?
+            Waiting for pet owner approval
           </p>
-          <button 
-            type="button"
-            onClick={onReturnButtonClicked}
-            className="px-6 py-2 rounded-lg bg-bright-green text-button text-white"
-          >
-            I have returned all pets
-          </button>
         </div>
       ) : (
         <div className="flex flex-col items-end gap-1">
           <p className="text-end text-body-paragraph">
             Have all your pets been returned to you yet?
           </p>
-          <button 
-            type="button" 
-            onClick={onReceiveButtonClicked}
+          <Link
+            href={`/compose/confirm-pet-receipt/${activity.id}`}
             className="px-6 py-2 rounded-lg bg-bright-green text-button text-white"
           >
             I have received my pets
-          </button>
+          </Link>
           <Link
-            href={`/profile/${activity.petsitter?.id}/report`}
+            href={`/compose/missing-pet/${activity.id}`}
             className="h-8 px-6 py-2 flex flex-row justify-center items-center rounded-lg border-[2px] border-bright-red text-body-bold text-bright-red"
-          >Report an issue
+          >Report Missing Pet(s)
           </Link>
         </div>
       )}
@@ -200,16 +188,20 @@ export default function ActivityStateBar({
           </p>
         </div>
       ) : (
-        <div className="flex flex-col items-end gap-1">
+        activity.review == null ? 
+          <div className="flex flex-col items-end gap-1">
+            <p className="text-end text-body-paragraph">
+              Please review the pet sitter
+            </p>
+            <Link 
+              href={`/activity/${activity.id}/review/${activity.petsitter?.user.id}`}
+              className="px-6 py-2 rounded-lg bg-golden-yellow text-button text-white">
+              Rate pet sitter
+            </Link>
+          </div> :
           <p className="text-end text-body-paragraph">
-            Please review the pet sitter
+            You have successfully completed the activity
           </p>
-          <Link 
-            href={`/activity/${activity.id}/review/${activity.petsitter?.user.id}`}
-            className="px-6 py-2 rounded-lg bg-golden-yellow text-button text-white">
-            Rate pet sitter
-          </Link>
-        </div>
       )}
     </div>
   );
