@@ -10,6 +10,7 @@ interface PetActivityCardProps {
     showProgressBar: boolean;
     service: ServiceModelResponse;
     handleTaskUpdated?: (serviceId: string, taskId: string) => void;
+    canUpdateTaskStatus: boolean;
 }
 
 export default function PetActivityCard({
@@ -17,6 +18,7 @@ export default function PetActivityCard({
     showProgressBar,
     service,
     handleTaskUpdated,
+    canUpdateTaskStatus,
 }: PetActivityCardProps){
     const getNumOfTaskDone = () => {
         let count = 0;
@@ -55,6 +57,7 @@ export default function PetActivityCard({
                                     description={task.detail}
                                     border={index != service.tasks.length - 1 ? "border-b border-bd-gray" : ""}
                                     showCheckBox={showCheckBox}
+                                    canUpdateTaskStatus={canUpdateTaskStatus}
                                     onCheckBoxClicked={onActivityCheckBoxClicked}
                                 />
                             )

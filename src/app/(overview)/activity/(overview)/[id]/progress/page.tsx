@@ -70,7 +70,10 @@ export default function ActivityProgressPage({ params }: {
                     }      
                 })
             })
-            fetchActivity();
+            setTimeout(() => {
+                fetchActivity();
+            }, 500)
+            
             Toast("Tasks status has been updated.", "success");
         } catch(error) {
             Toast("Failed to update tasks status.", "error");
@@ -99,6 +102,7 @@ export default function ActivityProgressPage({ params }: {
                                     showCheckBox={true}
                                     showProgressBar={true}
                                     handleTaskUpdated={handleTaskUpdated}
+                                    canUpdateTaskStatus={activity.state == "IN_PROGRESS"}
                                 />
                             )
                         })

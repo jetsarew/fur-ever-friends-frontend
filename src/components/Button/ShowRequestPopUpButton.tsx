@@ -32,7 +32,7 @@ export default function ShowRequestPopUpButton({ activityId, requests }: ShowReq
                 show && 
                 <div
                     ref={popUpRef}
-                    className="absolute w-[640px] max-h-[500px] top-[100%] right-0 flex flex-col border border-bd-gray rounded-lg bg-white shadow-custom overflow-y-auto"
+                    className="absolute w-[640px] max-h-[500px] top-[100%] right-0 flex flex-col border border-bd-gray rounded-lg bg-white shadow-custom overflow-y-auto z-[1]"
                 >
                     {
                         requests.map((request, index) => {
