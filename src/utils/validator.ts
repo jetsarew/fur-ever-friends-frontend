@@ -28,6 +28,14 @@ export const numberNotEmptyValidator = yup
   .positive()
   .required("Required field is number and not empty and greater than 0");
 
+export const serviceFeeValidator = yup
+  .number()
+  .positive()
+  .min(20, "The number must be at least 20")
+  .max(500, "The number must not exceed 500")
+  .required("Required field is number, not empty, and greater than 0");
+
+
 export const passwordValidator = yup
   .string()
   .required("Password is a required field")

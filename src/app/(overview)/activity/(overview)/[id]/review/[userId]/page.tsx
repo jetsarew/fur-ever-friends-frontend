@@ -14,6 +14,7 @@ import { CommonUserModel } from "@/types/user.type";
 import { useRouter } from "next/navigation";
 import { getAttachmentSrc } from "@/hooks/useImage";
 import { reviewService } from "@/services/review.service";
+import { Toast } from "@/components/Toast/Toast";
 
 export default function ActivityReviewPage({ params }: {
     params: { id: string, userId: string }
@@ -26,13 +27,18 @@ export default function ActivityReviewPage({ params }: {
         if(!userData?.petsitter?.id) {
             return;
         }
-
-        const response = await reviewService.reviewActivity(
-          {...formik.values,
-            petsitterId: userData?.petsitter?.id,
-          }
-        );
-        console.log(response);
+        try {
+            const response = await reviewService.reviewActivity(
+                {...formik.values,
+                  petsitterId: userData?.petsitter?.id,
+                }
+              );
+              console.log(response);
+              Toast("The activity has been completed.", "success");
+        } catch(error) {
+            Toast("Failed to review.", "error");
+        }
+        
       }
 
       const formik = useFormik<CreateReviewValue>({
