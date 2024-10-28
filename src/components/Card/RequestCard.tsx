@@ -7,11 +7,12 @@ import Link from "next/link";
 interface RequestCardInterface {
     request: RequestModelResponse;
     activityId: string;
+    border: string;
 }
 
-export default function RequestCard({ request, activityId }: RequestCardInterface) {
+export default function RequestCard({ request, activityId, border }: RequestCardInterface) {
     return (
-        <div className="w-full px-4 py-6 flex flex-col gap-4 border border-bd-gray rounded-lg">
+        <div className={`w-full px-4 py-6 flex flex-col gap-4 ${border}`}>
             <div className="flex flex-row gap-4">
                 <Image
                     src={request.petsitter.user.avatar ? getAttachmentSrc(request.petsitter.user.avatar) : "/default_profile.jpg"}
@@ -45,7 +46,7 @@ export default function RequestCard({ request, activityId }: RequestCardInterfac
             </div>
             <div className="flex flex-row gap-8">
                 <Link 
-                    href={`/activity/${activityId}/payment/${request.petsitter.id}`}
+                    href={`/activity/${activityId}/payment/${request.id}`}
                     className="flex-1 px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green"
                 >Accept</Link>
                 <button className="flex-1 px-6 py-4 flex flex-row justify-center items-center border-[2px] border-bright-red rounded-lg text-body-bold text-bright-red">Reject</button>

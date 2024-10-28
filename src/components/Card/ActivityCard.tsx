@@ -87,15 +87,18 @@ export default function ActivityCard({ role, activity}: ActivityCardProps){
         (
             activity.state == "RETURNING" ?
             <div className="w-full flex flex-row gap-8">
-                <button className="flex-1 px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green">I have received my pets</button>
+                <Link 
+                    href={`/compose/confirm-pet-return/${activity.id}`}
+                    className="flex-1 px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green"
+                >I have received my pets</Link>
                 <Link
-                    href={"/activity/123456/report"} 
+                    href={`/compose/missing-pet/${activity.id}`} 
                     className="flex-1 px-6 py-4 flex flex-row justify-center items-center border-[2px] border-bright-red rounded-lg text-body-bold text-bright-red"
-                >Report an issue</Link>
+                >Report Missing Pet(s)</Link>
             </div> : (
                 activity.state == "COMPLETED" ?
                 <Link
-                    href={"/activity/123456/review/1234687"}
+                    href={`/activity/${activity.id}/review/${activity.petsitter?.id}`}
                     className="w-full px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-golden-yellow"
                 >Rate pet sitter</Link> : 
                 <></>

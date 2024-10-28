@@ -1,12 +1,21 @@
+import { formatUTCDate, timeUntilActivityBeDeleted } from "@/hooks/useConvertTime";
+import { getAttachmentSrc } from "@/hooks/useImage";
+import { DotIcon } from "@/shared/Icon";
+import { ActivityModelResponse } from "@/types/response.type";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function FeedCard() {
+interface FeedCardInterface {
+  activity: ActivityModelResponse
+}
+
+export default function FeedCard({ activity }: FeedCardInterface) {
+
   return (
-    <Link href={"/activity/1234"} className="w-[680px] border rounded-[8px] px-4 py-6 flex flex-row gap-2">
+    <Link href={`/activity/${activity.id}`} className="w-[680px] border rounded-[8px] px-4 py-6 flex flex-row gap-2">
       <div>
         <Image
-          src="/Whiskers.jpg"
+          src={activity.customer.user.avatar ? getAttachmentSrc(activity.customer.user.avatar) : "/default_profile.jpg"}
           width={120}
           height={120}
           alt="Picture of the author"
@@ -14,17 +23,18 @@ export default function FeedCard() {
         />
       </div>
       <div className="flex-1 flex flex-col gap-4">
-        <div className="flex flex-row items-baseline">
-          <p className="text-body-bold">Anntonia Porsid</p>
+        <div className="flex flex-row items-center gap-2">
+          <p className="text-body-bold">{activity.customer.user.firstname + " " + activity.customer.user.lastname}</p>
+          <DotIcon />
           <p className="text-soft-gray text-body">
-            &nbsp;&#x2022;&nbsp;3 Day left
+            {timeUntilActivityBeDeleted(activity.startDateTime) + " left"}
           </p>
         </div>
 
         <div className="flex flex-col">
           <div className="flex gap-4 items-center">
             <p className="text-bright-blue text-subheading2">
-              Whisker & Buddy outing
+              {activity.title}
             </p>
 
             <div className="flex gap-1">
@@ -54,12 +64,12 @@ export default function FeedCard() {
           <div className="py-4 flex flex-row gap-8 border-b border-bd-gray">
             <div className="flex-1 flex flex-col gap-2">
               <p className="text-body-bold">Start</p>
-              <p>December 31, 2024 at 7:00 am</p>
+              <p>{formatUTCDate(activity.startDateTime)}</p>
             </div>
 
             <div className="flex-1 flex flex-col gap-2">
               <p className="text-body-bold">End</p>
-              <p>December 31, 2024 at 6:00 pm</p>
+              <p>{formatUTCDate(activity.endDateTime)}</p>
             </div>
           </div>
           <div className="flex flex-row gap-2 items-end pt-3">
@@ -70,8 +80,8 @@ export default function FeedCard() {
               alt="Location icon"
             />
             <div className="flex flex-row items-baseline gap-1">
-              <p className="text-body">KMITL ECC Building</p>
-              <p className="text-small text-soft-gray">(5.4&nbsp;km)</p>
+              <p className="text-body">{activity.pickupPoint}</p>
+              <p className="text-small text-soft-gray">{"(5.4 km)"}</p>
             </div>
           </div>
         </div>
