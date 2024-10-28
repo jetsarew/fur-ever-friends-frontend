@@ -75,7 +75,7 @@ export default function ActivityDetailPage({ params }: {
                     </div>
                 </div>
                 {(userData?.role == "CUSTOMER" || activity.requests.some((request) => request.petsitter.id == userData?.petsitter?.id) || activity.petsitter?.userId == userData?.id) && <ActivityStateBar activity={activity}/>}
-                {userData?.role == "PETSITTER" && activity.state == "PENDING" && <RequestForm />}
+                {userData?.role == "PETSITTER" && activity.state == "PENDING" && <RequestForm activityId={params.id}/>}
             </div>
             <div className="py-6 px-4 flex flex-col gap-4 border border-bd-gray rounded-lg">
                 <h3 className="text-subheading text-dark-blue">Pet Activities</h3>
