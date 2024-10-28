@@ -1,31 +1,33 @@
+'use client'
+
 import { ViewApplicationsHeader } from "@/components/Admin/Card/Header"
 import { ViewApplicationsContent } from "@/components/Admin/Card/Content"
 import SearchBar from "@/components/Admin/Input/SearchBar"
 import { FilterIcon } from "@/shared/Icon"
+import { qualificationService } from "@/services/qualification.service";
+import { useState, useEffect } from "react";
+import { QualificationModelResponse } from "@/types/user.type";
 
 export default function ApplicationsPage() {
-    const users = {
-        "user1": {
-            user_id: "0123456789AB",
-            src: "/profile.jpg",
-            firstname: "Anntonia",
-            lastname: "Porsild",
-            email: "porsild@gmail.com",
-            phone: "0123456789",
-            role_id: 0,
-            account_status: 0
-        },
-        "user2": {
-            user_id: "0123456789AB",
-            src: "/profile.jpg",
-            firstname: "Karina",
-            lastname: "Jasmine Chewter",
-            email: "karina@gmail.com",
-            phone: "0123456789",
-            role_id: 1,
-            account_status: 1
-        }
-    }
+    const [qualifications, setQualifications] = useState<QualificationModelResponse[]>([]);
+
+    useEffect(() => {
+        const fetchQualifications = async () => {
+            try {
+                const response = await qualificationService.getQualifications();
+                setQualifications(response);
+            } catch (error) {
+                console.error("Failed to fetch qualifications:", error);
+            }
+        };
+
+        fetchQualifications();
+    }, []);
+
+    console.log("A")
+    console.log(typeof (qualifications));
+    console.log(qualifications);
+    console.log("B")
 
     return (
         <div className="flex flex-col w-max top-[112px] left-[143px] gap-[32px]">
@@ -37,8 +39,12 @@ export default function ApplicationsPage() {
             </div>
             <div>
                 <ViewApplicationsHeader />
-                <ViewApplicationsContent id="0123456789" user={users.user1} created_at="10/10/2024" />
-                <ViewApplicationsContent id="0123456789" user={users.user2} created_at="10/10/2024" />
+                {qualifications.length && qualifications.map((qualification) => (
+                    <ViewApplicationsContent
+                        key={qualification.id}
+                        qualification={qualification}
+                    />
+                ))}
             </div>
         </div>
     );

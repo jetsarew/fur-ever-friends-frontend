@@ -8,6 +8,7 @@ export type CommonUserModel = {
     refreshToken: string;
     accountStatus: AccountStatus;
     role: Role;
+    createdAt: string;
     customer?: Customer;
     petsitter?: PetSitter;
     admin?: Admin;
@@ -56,7 +57,7 @@ export type QualificationModelResponse = {
     email: string;
     password: string;
     firstname: string;
-    lasename: string;
+    lastname: string;
     phone: string;
     state: "PENDING" | "ACCEPTED" | "REJECTED";
     certificateUrl: string;
@@ -65,4 +66,3 @@ export type QualificationModelResponse = {
 
 export type AccountStatus = "ACTIVE" | "INACTIVE" | "BANNED";
 export type Role = "CUSTOMER" | "PETSITTER" | "ADMIN";
-  

@@ -21,12 +21,16 @@ export async function apiController<T>(
     | FormData,
 ): Promise<T> {
   try {
-    const response = await axiosInstance.request({ url, method, data, withCredentials: true});
+    const response = await axiosInstance.request({ url, method, data, withCredentials: true });
     console.log(response);
-    if(response.data && response.data.data && response.data.data.data){
+    if (url == "/reports") {
+      return response.data.data.reports;
+    }
+
+    if (response.data && response.data.data && response.data.data.data) {
       return response.data.data.data;
     }
-    else if(response.data && response.data.data){
+    else if (response.data && response.data.data) {
       return response.data.data;
     }
     return response.data;
