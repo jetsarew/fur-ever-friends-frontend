@@ -35,10 +35,13 @@ export default function UnassignedActivitiesPage(){
 
     return (
         <div className="flex flex-col gap-6">
-            <Link 
-                href={"create"}
-                className="px-6 py-4 flex flex-row justify-center items-center text-button text-white bg-bright-green rounded-lg"
-            >+ Create new activity</Link>
+            {
+                userData?.role == "CUSTOMER" &&
+                <Link 
+                    href={"create"}
+                    className="px-6 py-4 flex flex-row justify-center items-center text-button text-white bg-bright-green rounded-lg"
+                >+ Create new activity</Link>
+            }
             {
                 activities.map((activity, index) => {
                     return  <ActivityCard key={index} role={userData?.role} activity={activity}/>
