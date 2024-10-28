@@ -14,7 +14,7 @@ export default function PetSitterCard({ activity }: PetSitterCardInterface) {
       <div className="flex flex-row justify-between items-center">
         <h3 className="text-subheading text-dark-blue">Pet Sitter</h3>
         <Link
-          href={`/profile/${activity.petsitter?.user.id}/report`}
+          href={`/activity/${activity.id}/report/${activity.petsitter?.user.id}`}
         >
           <WarningIcon />
         </Link>

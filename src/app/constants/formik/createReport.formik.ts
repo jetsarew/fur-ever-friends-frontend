@@ -7,6 +7,7 @@ export type CreateReportValues = {
     content: string;
     reporterId: string;
     reportedId: string;
+    activityId: string;
 };
 
 export const emptyCreateReportValues = {
