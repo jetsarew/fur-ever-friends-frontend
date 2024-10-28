@@ -3,7 +3,7 @@
 import { qualificationService } from "@/services/qualification.service";
 import { QualificationModelResponse } from "@/types/user.type";
 import { userService } from "@/services/user.service";
-// import Image from "next/image";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 
 export default function ApplicationPage({ params }: {
@@ -97,8 +97,8 @@ export default function ApplicationPage({ params }: {
                     Certificate
                 </div>
                 <div className="border border-bd-gray rounded-[8px] p-[8px]">
-                    {/* <Image
-                        src={previewCertificateImage}
+                    <Image
+                        src={`http://localhost:3000/attachments/${qualification?.certificateUrl}`}
                         width={194}
                         height={121}
                         alt="Upload file"
@@ -106,8 +106,7 @@ export default function ApplicationPage({ params }: {
                             ? "w-[208px] h-[161px] object-cover"
                             : ""
                             }`}
-                    /> */}
-                    {qualification?.certificateUrl}
+                    />
                 </div>
             </div>
         </div>

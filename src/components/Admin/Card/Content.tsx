@@ -29,16 +29,11 @@ function formatDate(dateString: string) {
     return `${day}/${month}/${year}`;
 }
 
-export function ManageUsersContent({ user }: {
+export function ManageUsersContent({ user, userId }: {
     user: CommonUserModel
+    userId: string
 }) {
-    console.log("A");
-    console.log(user.customer);
-    console.log(user.petsitter);
-    console.log(user.admin);
-    console.log("B");
-
-    const userId = user.customer?.userId || user.petsitter?.userId || "";
+    console.log(userId);
 
     return (
         <UsersContext.Provider value={{ user, userId }}>
