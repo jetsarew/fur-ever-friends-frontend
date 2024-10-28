@@ -35,6 +35,7 @@ export default function ProfilePage({ params }: {
                 const response = await userService.getUser(params.id);
                 setUserData(response);
                 console.log(response);
+                getFavorites();
             } 
         } catch (error) {
             Toast("Profile not founded", "error");
@@ -78,7 +79,6 @@ export default function ProfilePage({ params }: {
 
     useEffect(() => {
         getUser();
-        getFavorites();
     }, [params.id])
     
     return (
@@ -223,7 +223,7 @@ export default function ProfilePage({ params }: {
                         <p className="text-body text-medium-gray">{userData?.petsitter?.location}</p>
                     </div>
                     {
-                        myData?.role != "ADMIN" &&
+                        myData?.role == "CUSTOMER" &&
                         <div className="pt-4 flex flex-row justify-between gap-5">
                             <InviteButton />
                             <FavoriteButton isAdded={favorites.some((favorite) => favorite.petsitter.id == userData?.petsitter?.id)} onFavoriteButtonClick={onFavoriteButtonClick}/>
