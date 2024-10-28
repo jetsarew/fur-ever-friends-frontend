@@ -4,6 +4,7 @@ export default function PaymentPage({ params }: {
     params: { id: string, requestId: string }
 }
 ){
+    console.log(params);
     return (
         <div className="-mt-9 flex flex-col min-h-screen items-center justify-center">
             <div className="flex flex-col items-center gap-12 w-[680px]">

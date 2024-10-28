@@ -116,7 +116,7 @@ export type ActivityModelResponse = {
 
 export type ServiceModelResponse = {
     id: string;
-    pet: PetActivityModelResponse;
+    pet: PetModelResponse;
     tasks: TaskModelResponse[];
 }
 
@@ -130,19 +130,24 @@ export type TaskModelResponse = {
 
 export type PetActivityModelResponse = {
     id: string;
+    age: number;
+    weight: number;
+    allergy: string;
+    personality: string;
+    otherDetail: string;
     name: string;
     breed: {
         id: string;
         name: string;
         animalTypeId: string;
     },
-    age: number;
+    imageUrl: string;
 }
 
 export type ProgressModelResponse = {
     id: string;
     createdAt: string;
-    image: string[];
+    images: string[];
     content: string;
 }
 
