@@ -199,7 +199,9 @@ export default function ActivityStateBar({
               Rate pet sitter
             </Link>
           </div> :
-          <></>
+          <p className="text-end text-body-paragraph">
+            You have successfully completed the activity
+          </p>
       )}
     </div>
   );
