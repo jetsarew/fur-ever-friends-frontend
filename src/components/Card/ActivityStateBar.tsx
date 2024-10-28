@@ -194,7 +194,7 @@ export default function ActivityStateBar({
               Please review the pet sitter
             </p>
             <Link 
-              href={`/activity/${activity.id}/review/${activity.petsitter?.id}`}
+              href={`/activity/${activity.id}/review/${activity.petsitter?.user.id}`}
               className="px-6 py-2 rounded-lg bg-golden-yellow text-button text-white">
               Rate pet sitter
             </Link>
