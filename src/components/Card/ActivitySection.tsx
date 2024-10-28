@@ -3,12 +3,13 @@
 import { BoxIcon, CheckboxIcon } from "@/shared/Icon";
 import { TaskModelResponse } from "@/types/response.type";
 
-export default function ActivitySection({ title, description, border, showCheckBox, onCheckBoxClicked, task }:{
+export default function ActivitySection({ title, description, border, showCheckBox, onCheckBoxClicked, task, canUpdateTaskStatus}:{
     title: string;
     description: string;
     border?: string
     showCheckBox: boolean;
     task: TaskModelResponse;
+    canUpdateTaskStatus: boolean;
     onCheckBoxClicked: (taskId: string) => void;
 }){
 
@@ -21,16 +22,22 @@ export default function ActivitySection({ title, description, border, showCheckB
                         task.status ? 
                         <button
                             type="button"
+                            className={canUpdateTaskStatus ? "" : "hover:cursor-default"}
                             onClick={() => { 
-                                onCheckBoxClicked(task.id);
+                                if(canUpdateTaskStatus) {
+                                    onCheckBoxClicked(task.id);
+                                }
                             }}
                         >
                             <CheckboxIcon />
                         </button> : 
                         <button
                             type="button"
+                            className={canUpdateTaskStatus ? "" : "hover:cursor-default"}
                             onClick={() => { 
-                                onCheckBoxClicked(task.id);
+                                if(canUpdateTaskStatus) {
+                                    onCheckBoxClicked(task.id);
+                                }
                             }}
                         >
                             <BoxIcon />

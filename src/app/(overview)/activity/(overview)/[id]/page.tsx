@@ -2,7 +2,7 @@
 
 import ActivityStateBar from "@/components/Card/ActivityStateBar"
 import PetActivityCard from "@/components/Card/PetActivityCard"
-import { formatUTCDate } from "@/hooks/useConvertTime";
+import { formatUTCDate, hasActivityTerminated } from "@/hooks/useConvertTime";
 import { activityService } from "@/services/activity.service"
 import PetOwnerCard from "@/components/Card/PetOwnerCard"
 import RequestForm from "@/components/Form/RequestForm"
@@ -74,7 +74,7 @@ export default function ActivityDetailPage({ params }: {
                         </div>
                     </div>
                 </div>
-                {(userData?.role == "CUSTOMER" || activity.requests.some((request) => request.petsitter.userId == userData?.id)) && <ActivityStateBar activity={activity}/>}
+                {(userData?.role == "CUSTOMER" || activity.requests.some((request) => request.petsitter.id == userData?.petsitter?.id) || activity.petsitter?.userId == userData?.id) && <ActivityStateBar activity={activity}/>}
                 {userData?.role == "PETSITTER" && activity.state == "PENDING" && <RequestForm />}
             </div>
             <div className="py-6 px-4 flex flex-col gap-4 border border-bd-gray rounded-lg">
@@ -88,13 +88,14 @@ export default function ActivityDetailPage({ params }: {
                                     service={service}
                                     showCheckBox={false}
                                     showProgressBar={getStatePriority(activity.state) >= getStatePriority("IN_PROGRESS")}
+                                    canUpdateTaskStatus={false}
                                 />
                             )
                         })
                     }
                 </div>
                 {
-                    getStatePriority(activity.state) >= getStatePriority("IN_PROGRESS") &&
+                    getStatePriority(activity.state) >= getStatePriority("IN_PROGRESS") && !hasActivityTerminated(activity.endDateTime) &&
                     <div
                         className="pt-4 border-t border-bd-gray "
                     >

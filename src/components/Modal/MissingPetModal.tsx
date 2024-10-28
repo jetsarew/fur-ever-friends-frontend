@@ -2,6 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import Modal from "./Modal";
+import { activityService } from "@/services/activity.service";
+import { Toast } from "../Toast/Toast";
 interface MissingPetModalInterface {
     activityId: string;
 }
@@ -10,9 +12,10 @@ export default function MissingPetModal({ activityId }: MissingPetModalInterface
 
     const onConfirmButtonClicked = async () => {
         try {
-            //await deletePet(petId);
-            //Toast("Delete pet successfully", "success");
-            console.log(activityId);
+            await activityService.updateActivityState(activityId, {
+                state: "FAILED"
+            })
+            Toast("Success", "success");
             router.back();
         } catch (error) {
 

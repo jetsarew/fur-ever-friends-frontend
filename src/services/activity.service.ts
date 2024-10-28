@@ -26,7 +26,7 @@ export const activityService = {
         activityId: string,
         updateActivityStateRequest: UpdateActivityStateDto,
     ) => {
-        await apiController(`/activities/${activityId}`, "put", updateActivityStateRequest);
+        await apiController(`/activities/${activityId}`, "patch", updateActivityStateRequest);
     },
     reviewActivity: async (
         reviewActivityRequest: CreateReviewDto
