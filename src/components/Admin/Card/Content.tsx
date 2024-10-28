@@ -2,12 +2,13 @@
 
 import TableUserCard from "./TableUserCard";
 import Report from "./Report";
+import Role from "./Role";
+import AccountStatus from "./AccountStatus";
 import { DefaultOption, BlockedOption, ReportOption, ApplicationOption } from "../Button/Option";
-import React, { createContext } from 'react';
+import React, { createContext, useEffect } from 'react';
 import { QualificationModelResponse } from "@/types/user.type";
 import { ReportModelResponse } from "@/types/response.type";
 import { CommonUserModel } from "@/types/user.type";
-import { useState } from "react";
 
 interface UsersContextType {
     user: CommonUserModel,
@@ -31,12 +32,17 @@ function formatDate(dateString: string) {
 export function ManageUsersContent({ user }: {
     user: CommonUserModel
 }) {
-    const [userId, setUserId] = useState("");
-    // setUserId(userId);
+    console.log("A");
+    console.log(user.customer);
+    console.log(user.petsitter);
+    console.log(user.admin);
+    console.log("B");
+
+    const userId = user.customer?.userId || user.petsitter?.userId || "";
 
     return (
         <UsersContext.Provider value={{ user, userId }}>
-            {/* <div className="w-fit h-[72px] border border-t-0 border-bd-gray grid grid-cols-[174px_270px_240px_140px_135px_115px_80px]">
+            <div className="w-fit h-[72px] border border-t-0 border-bd-gray grid grid-cols-[174px_270px_240px_140px_135px_115px_80px]">
                 <div className="flex text-body text-standard-gray pl-[16px] pr-[16px] justify-between items-center">{userId}</div>
                 <TableUserCard src={""} firstname={user.firstname} lastname={user.lastname} />
                 <div className="flex text-body text-standard-gray pl-[16px] pr-[16px] justify-between items-center">{user.email}</div>
@@ -44,8 +50,7 @@ export function ManageUsersContent({ user }: {
                 <div className="flex justify-center items-center"><Role role_id={user.role} /></div>
                 <div className="flex justify-center items-center px-[16px]"><AccountStatus account_status={user.accountStatus} /></div>
                 <div className="flex justify-center items-center">{user.accountStatus == "INACTIVE" ? <BlockedOption /> : <DefaultOption />}</div>
-            </div> */}
-
+            </div>
         </UsersContext.Provider>
     );
 }
