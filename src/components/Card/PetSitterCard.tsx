@@ -1,3 +1,4 @@
+import { getAttachmentSrc } from "@/hooks/useImage";
 import { BillIcon, PhoneIcon, WarningIcon } from "@/shared/Icon";
 import { ActivityModelResponse } from "@/types/response.type";
 import Image from "next/image";
@@ -21,7 +22,7 @@ export default function PetSitterCard({ activity }: PetSitterCardInterface) {
       <div>
         <div className="pb-3 flex flex-row gap-4 border-b border-bd-gray">
           <Image
-            src="/pet-sitter.jpg"
+            src={activity.petsitter?.user.avatar ? getAttachmentSrc(activity.petsitter.user.avatar) : "/default_profile.jpg"}
             width={150}
             height={150}
             alt={"pet sitter profile picture"}

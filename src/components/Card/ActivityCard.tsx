@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Role } from "@/types/user.type";
 import { ActivityModelResponse } from "@/types/response.type";
 import { formatUTCDate, timeUntil } from "@/hooks/useConvertTime";
+import { getAttachmentSrc } from "@/hooks/useImage";
 
 interface ActivityCardProps{
     role?: Role,
@@ -118,20 +119,20 @@ export default function ActivityCard({ role, activity}: ActivityCardProps){
                         className="text-subheading text-bright-blue"
                     >{activity.title}</Link>
                     <div className="flex flex-row gap-1">
-                        <Image 
-                            src="/Whiskers.jpg"
-                            width={80}
-                            height={80}
-                            alt="pet picture"
-                            className="w-10 h-10 border-[3px] border-bright-blue rounded-full object-cover"
-                        />
-                        <Image 
-                            src="/Whiskers.jpg"
-                            width={80}
-                            height={80}
-                            alt="pet picture"
-                            className="w-10 h-10 border-[3px] border-bright-blue rounded-full object-cover"
-                        />
+                        {
+                            activity.services.map((service, index) => {
+                                return (
+                                    <Image 
+                                        key={index}
+                                        src={getAttachmentSrc(service.pet.imageUrl)}
+                                        width={80}
+                                        height={80}
+                                        alt="pet picture"
+                                        className="w-10 h-10 border-[3px] border-bright-blue rounded-full object-cover"
+                                    />
+                                )
+                            })
+                        }
                     </div>
                 </div>
                 {topRightElement}

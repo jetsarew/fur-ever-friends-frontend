@@ -4,7 +4,6 @@
 import { StarIcon } from "@heroicons/react/16/solid";
 import Image from "next/image";
 
-import { activityService } from "@/services/activity.service";
 import { useFormik } from "formik";
 import { createReviewValidationSchema, CreateReviewValue, emptyCreateReviewValue } from "@/app/constants/formik/create_review.formik";
 import ValidatedInput from "@/components/Input/ValidatedInput";
@@ -14,6 +13,7 @@ import { userService } from "@/services/user.service";
 import { CommonUserModel } from "@/types/user.type";
 import { useRouter } from "next/navigation";
 import { getAttachmentSrc } from "@/hooks/useImage";
+import { reviewService } from "@/services/review.service";
 
 export default function ActivityReviewPage({ params }: {
     params: { id: string, userId: string }
@@ -27,7 +27,7 @@ export default function ActivityReviewPage({ params }: {
             return;
         }
 
-        const response = await activityService.reviewActivity(
+        const response = await reviewService.reviewActivity(
           {...formik.values,
             petsitterId: userData?.petsitter?.id,
           }
