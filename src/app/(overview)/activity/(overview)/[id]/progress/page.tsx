@@ -74,7 +74,12 @@ export default function ActivityProgressPage({ params }: {
             
             Toast("Tasks status has been updated.", "success");
         } catch(error) {
-            Toast("Failed to update tasks status.", "error");
+            if(error) {
+                Toast(error as string, "error");
+            }
+            else {
+                Toast("Failed to update tasks status.", "error");
+            } 
         }
     }
 
@@ -87,7 +92,7 @@ export default function ActivityProgressPage({ params }: {
     return (
         userData?.role == "PETSITTER" ?
         <div className="w-full flex flex-col items-start gap-8">
-            <h1 className="text-header text-bright-blue">Whiskers & Buddy Outing</h1>
+            <h1 className="text-header text-bright-blue">{activity.title}</h1>
             <div className="py-6 px-4 flex flex-col gap-4 border border-bd-gray rounded-lg">
                 <h3 className="text-subheading text-dark-blue">Pet Activities</h3>
                 <div className="flex flex-row justify-between items-center flex-wrap gap-8">

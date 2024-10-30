@@ -34,8 +34,14 @@ export default function ActivityReviewPage({ params }: {
                 }
               );
               Toast("The activity has been completed.", "success");
+              router.back();
         } catch(error) {
-            Toast("Failed to review.", "error");
+            if(error) {
+                Toast(error as string, "error");
+            }
+            else {
+                Toast("Failed to review.", "error");
+            }
         }
         
       }

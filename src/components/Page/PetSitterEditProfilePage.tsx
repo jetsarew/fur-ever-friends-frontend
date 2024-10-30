@@ -98,7 +98,12 @@ export default function PetSitterEditProfilePage() {
       Toast("Your profile has been updated.", "success");
       router.push(`/profile/${userData?.id}`);
     } catch (error) {
-      Toast("Failed to update profile.", "error");
+      if(error) {
+        Toast(error as string, "error");
+      }
+      else {
+          Toast("Failed to update profile.", "error");
+      }
     }
   };
 

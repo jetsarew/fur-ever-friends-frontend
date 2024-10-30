@@ -28,7 +28,12 @@ export default function Login() {
       //Cookies.set("accessToken", response.token.accessToken, { secure: true, sameSite: 'Strict' });
       router.push("/");
     } catch (error) {
-      Toast("Login failed.", "error");
+      if(error) {
+          Toast(error as string, "error");
+      }
+      else {
+          Toast("Failed to login", "error");
+      }
     }
   };
 
