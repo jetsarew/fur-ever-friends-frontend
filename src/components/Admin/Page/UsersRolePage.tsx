@@ -73,7 +73,7 @@ export function PetSitterPage({ user }: {
                     Reviews({user.petsitter?.reviews.length})
                 </div>
                 {
-                    user.petsitter?.reviews.map((review) => (<ReviewCard key={review.id} />))
+                    user.petsitter?.reviews.map((review, index) => (<ReviewCard key={index} review={review} />))
                 }
             </div>
         </>
