@@ -13,7 +13,7 @@ export default function Report({ report_type }: {
             content = "Neglet/Abuse";
             break;
         case "UNPROFESSIONAL_CONDUCT":
-            content = "Unprofessional behavior";
+            content = "Unprofessional Conduct";
             break;
         case "INAPPROPRIATE_COMMUNICATION":
             content = "Inappropriate Communication";
