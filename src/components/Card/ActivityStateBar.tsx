@@ -2,9 +2,12 @@
 
 import { convertUTCToTimeRemaining, hasActivityTerminated } from "@/hooks/useConvertTime";
 import { useAppSelector } from "@/store/hooks";
-import { ActivityModelResponse, ActivityState } from "@/types/response.type";
+import { ActivityModelResponse, ActivityState, FavoriteModelResponse } from "@/types/response.type";
 import Link from "next/link";
 import ShowRequestPopUpButton from "../Button/ShowRequestPopUpButton";
+import ShowFavoriteButton from "../Button/ShowFavouriteButton";
+import { useEffect, useState } from "react";
+import { favoriteService } from "@/services/favorite.service";
 
 interface ActivityStateBarInterface {
   activity: ActivityModelResponse;
@@ -14,6 +17,7 @@ export default function ActivityStateBar({
   activity,
 }: ActivityStateBarInterface) {
   const userData = useAppSelector((state) => state.auth.user);
+  const [favorite, setFavorite] = useState<FavoriteModelResponse[]>([]);
 
   const statePriority = {
     PENDING: 0,
@@ -26,7 +30,22 @@ export default function ActivityStateBar({
     CANCELLED: -1,
   };
 
-  
+  useEffect(() => {
+    const getFavorites = async () => {
+        try {
+            const response = await favoriteService.getMyFavorite();
+            console.log(response);
+            setFavorite(response);
+        } catch (error) {
+            
+        }
+    };
+
+    if(userData?.role == "CUSTOMER") {
+      getFavorites();
+    }
+
+  }, []);
 
   const pastDotElement = (
     <div className="w-3 h-3 rounded-full bg-dark-blue"></div>
@@ -62,7 +81,10 @@ export default function ActivityStateBar({
             Please choose a pet sitter at least 24 hours before the activity
             begins
           </p>
-          <ShowRequestPopUpButton activityId={activity.id} requests={activity.requests}/>
+          <div className="flex flex-row gap-2">
+            <ShowFavoriteButton activityId={activity.id} favorites={favorite} />
+            <ShowRequestPopUpButton activityId={activity.id} requests={activity.requests}/>
+          </div>
         </div>
       )}
     </div>
