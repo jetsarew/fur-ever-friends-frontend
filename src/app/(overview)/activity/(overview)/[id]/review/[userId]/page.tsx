@@ -28,12 +28,11 @@ export default function ActivityReviewPage({ params }: {
             return;
         }
         try {
-            const response = await reviewService.reviewActivity(
+            await reviewService.reviewActivity(
                 {...formik.values,
                   petsitterId: userData?.petsitter?.id,
                 }
               );
-              console.log(response);
               Toast("The activity has been completed.", "success");
         } catch(error) {
             Toast("Failed to review.", "error");

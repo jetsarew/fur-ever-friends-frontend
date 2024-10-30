@@ -1,3 +1,5 @@
+import { ReviewModelResponse } from "./response.type";
+
 export type CommonUserModel = {
     id: string;
     email: string;
@@ -30,6 +32,7 @@ export type PetSitter = {
     information: string;
     rating: number;
     certificateUrl: string;
+    reviews: ReviewModelResponse[];
 }
 
 export type Admin = {

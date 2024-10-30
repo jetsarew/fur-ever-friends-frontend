@@ -137,13 +137,11 @@ export default function CreateActivityPage() {
         pickupPoint: formik.values.pickupPoint,
         services: services
       };
-      console.log(createActivityRequest);
-      const response = await activityService.createActivity(createActivityRequest);
-      console.log(response);
+      await activityService.createActivity(createActivityRequest);
       Toast("Create activity success.", "success");
       router.push("/activity/unassigned");
     } catch(error) {
-      Toast("Failed to create activity.", "error");
+      Toast(error as string, "error");
     }
   }
 
@@ -152,7 +150,6 @@ export default function CreateActivityPage() {
     const time = formik.values.startTime
 
     formik.setFieldValue('startDateTime', `${date}T${time}`);
-    console.log(`${date}T${time}`)
   };
   
   const handleStartTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -160,7 +157,6 @@ export default function CreateActivityPage() {
     const date = formik.values.startDate;
 
     formik.setFieldValue('startDateTime', `${date}T${time}`);
-    console.log(`${date}T${time}`)
   };
 
   const handleEndDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -168,7 +164,6 @@ export default function CreateActivityPage() {
     const time = formik.values.endTime
 
     formik.setFieldValue('endDateTime', `${date}T${time}`);
-    console.log(`${date}T${time}`)
   };
   
   const handleEndTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -176,8 +171,6 @@ export default function CreateActivityPage() {
     const date = formik.values.endDate;
 
     formik.setFieldValue('endDateTime', `${date}T${time}`);
-    console.log(`${date}T${time}`)
-    console.log(convertToUTC(`${date}T${time}`));
   };
 
   const formik = useFormik<CreateActivityValues>({

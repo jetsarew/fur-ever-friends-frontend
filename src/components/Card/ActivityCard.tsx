@@ -16,21 +16,26 @@ export default function ActivityCard({ role, activity}: ActivityCardProps){
     const profileElement = role == "CUSTOMER" ? 
         <div className="pt-4 flex flex-row justify-between items-end">
             <div className="flex flex-row items-end gap-2">
-                <Image 
-                    src="/pet-sitter.jpg"
-                    width={48}
-                    height={48}
-                    alt="pet picture"
-                    className="w-6 h-6 border-[2px] border-bright-blue rounded-full object-cover"
-                />
-                <p className="text-body-bold text-dark-blue">{activity.petsitter?.user.firstname + " " + activity.petsitter?.user.lastname}</p>
+                <Link href={`/profile/${activity.petsitter?.user.id}`}>
+                    <Image 
+                        src={activity.petsitter?.user.avatar ? getAttachmentSrc(activity.petsitter?.user.avatar) : "/default_profile.jpg"}
+                        width={48}
+                        height={48}
+                        alt="pet picture"
+                        className="w-6 h-6 border-[2px] border-bright-blue rounded-full object-cover"
+                    />
+                </Link>
+                <Link 
+                    href={`/profile/${activity.petsitter?.user.id}`}
+                    className="text-body-bold text-dark-blue hover:underline"
+                >{activity.petsitter?.user.firstname + " " + activity.petsitter?.user.lastname}</Link>
             </div>
             <p className="h-5 text-subheading text-bright-green">{"$" + activity.price}</p>
         </div> :
         <div className="pt-4 flex flex-row justify-between items-end">
             <div className="flex flex-row items-end gap-2">
                 <Image 
-                    src="/profile.jpg"
+                    src={activity.customer?.user.avatar ? getAttachmentSrc(activity.customer?.user.avatar) : "/default_profile.jpg"}
                     width={48}
                     height={48}
                     alt="pet picture"

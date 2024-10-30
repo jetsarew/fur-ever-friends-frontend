@@ -12,7 +12,7 @@ export default function FeedPage(){
                     type="text"
                     width="flex-1"
                     height="h-12"
-                    onChange={(s: string) => {console.log(s)}}
+                    onChange={() => {}}
                 />
                 <FilterIcon />
             </div>

@@ -21,7 +21,6 @@ export default function ActivityProgressPage({ params }: {
 
     const fetchActivity = async () => {
         const response = await activityService.getActivityById(params.id);
-        console.log(response);
         setActivity(response);
         setPreviousActivity(response);
     }
@@ -50,14 +49,13 @@ export default function ActivityProgressPage({ params }: {
 
     const handleUpdateTaskStatus = async (task: TaskModelResponse) => {
         if(!activity?.id) return;
-        const response = await activityService.updateTaskStatus(
+        await activityService.updateTaskStatus(
             activity.id,
             task.id,
             {
                 status: task.status
             }
         )
-        console.log(response);
     }
 
     const onSaveTaskStatusButtonClicked = async() => {
@@ -149,6 +147,18 @@ export default function ActivityProgressPage({ params }: {
                             />
                 })
             }
+            {
+                    activity.progresses.length == 0 &&
+                    <div className="pt-[56px] w-full flex flex-col items-center gap-6">
+                        <Image 
+                            src={"/match-not-found.svg"}
+                            width={300}
+                            height={300}
+                            alt={"not found"}
+                        />
+                        <p className="text-center text-soft-gray text-body-paragraph">{"Your pet sitter hasn't made any updates on this activity."}<br />{"Check back soon!"}</p>
+                    </div>
+                }
         </div> 
     )
 }
