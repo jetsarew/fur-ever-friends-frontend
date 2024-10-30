@@ -1,9 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    images: {
-      domains: ['api.f4th.dev']
-    },
-    output: 'standalone',
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'api.f4th.dev',
+        pathname: '**',
+      },
+    ],
+  },
+  output: "standalone",
 };
 
 export default nextConfig;
