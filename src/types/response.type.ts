@@ -167,6 +167,8 @@ export type ReviewModelResponse = {
     createdAt: string;
     petsitterId: string;
     customerId: string;
+    activityId: string;
+    customer: CustomerModelResponse;
 }
 
 export type InviteModelResponse = {
@@ -188,6 +190,17 @@ export type FavoriteModelResponse = {
     id: string;
     customer: CustomerModelResponse;
     petsitter: PetSitterModelResponse;
+}
+
+export type AnimalTypeModelResponse = {
+    id: string;
+    name: string;
+}
+
+export type BreedTypeModelResponse = {
+    id: string;
+    name: string;
+    animalType: AnimalResponse;
 }
 
 export type ActivityState = 'PENDING' | 'REJECTED' | 'CANCELLED' | 'ASSIGNED' | 'IN_PROGRESS' | 'RETURNING' | 'FAILED' | 'COMPLETED';

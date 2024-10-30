@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { AnimalBreeds, AnimalTypes } from "@/app/constants/formik/animalBreed";
 import { createPetValidationSchema, CreatePetValue, emptyCreatePetValues } from "@/app/constants/formik/createPet.formik";
 import { useFormik } from "formik";
 import ValidatedInput from "@/components/Input/ValidatedInput";
@@ -11,10 +10,14 @@ import { Toast } from "@/components/Toast/Toast";
 import { useAppSelector } from "@/store/hooks";
 import { usePets } from "@/hooks/usePets";
 import { useRouter } from "next/navigation";
+import { AnimalTypeModelResponse, BreedTypeModelResponse } from "@/types/response.type";
+import { petService } from "@/services/pet.service";
 
 export default function CreatePet() {
     const userData = useAppSelector((state) => state.auth.user);
     const [file, setFile] = useState<File | null>(null);
+    const [animalTypes, setAnimalTypes] = useState<AnimalTypeModelResponse[]>([]);
+    const [breeds, setBreeds] = useState<BreedTypeModelResponse[]>([]);
     const router = useRouter();
 
     const  { createPet } = usePets();
@@ -63,6 +66,19 @@ export default function CreatePet() {
     
           return () => URL.revokeObjectURL(objectUrl);
         }
+
+        const getAnimalTypes = async () => {
+            const response1 = await petService.getAnimalType();
+            setAnimalTypes(response1);
+
+            const response2 = await petService.getBreeds();
+            setBreeds(response2);
+            console.log(response2);
+
+            formik.setFieldValue("animalTypeId", response1[0].id);
+        }
+
+        getAnimalTypes();
     }, [file]);
 
     const breedIdInputProps = getFieldProps(formik, "breedId");
@@ -129,7 +145,7 @@ export default function CreatePet() {
                                 value={formik.values.animalTypeId}
                             >
                                 {
-                                    AnimalTypes.map((animalType, index) => {
+                                    animalTypes.map((animalType, index) => {
                                         return <option key={index} value={animalType.id}>{animalType.name}</option>
                                     })
                                 }
@@ -150,7 +166,7 @@ export default function CreatePet() {
                             >
                                 <option value="" disabled>Select breed</option>
                                 {
-                                    AnimalBreeds[formik.values.animalTypeId].map((breed, index) => {
+                                    breeds.filter((breed) => breed.animalType.id == formik.values.animalTypeId).map((breed, index) => {
                                         return <option key={index} value={breed.id}>{breed.name}</option>
                                     })
                                 }

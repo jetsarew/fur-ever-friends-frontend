@@ -5,6 +5,7 @@ import ActivityProgressBar from "./ActivityProgressBar";
 import ActivitySection from "./ActivitySection";
 import { ServiceModelResponse } from "@/types/response.type";
 import PetCard from "./PetCard";
+import { getServiceName } from "@/hooks/useStatePriority";
 interface PetActivityCardProps {
     showCheckBox: boolean;
     showProgressBar: boolean;
@@ -53,7 +54,7 @@ export default function PetActivityCard({
                                 <ActivitySection 
                                     key={index}
                                     task={task}
-                                    title={task.type}
+                                    title={getServiceName(task.type)}
                                     description={task.detail}
                                     border={index != service.tasks.length - 1 ? "border-b border-bd-gray" : ""}
                                     showCheckBox={showCheckBox}

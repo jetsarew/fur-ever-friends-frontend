@@ -1,7 +1,7 @@
 interface TagProps {
     icon: JSX.Element;
     text: string;
-    quantity: number;
+    quantity?: number;
     type: "animal" | "service";
 }
 
@@ -13,7 +13,7 @@ export default function Tag({ icon, text, quantity, type } : TagProps){
                 {icon}
                 <p className={`text-body ${type == "animal" ? "text-bright-blue" : "text-dark-blue"}`}>{text}</p>   
             </div>
-            <p className="text-body text-medium-gray">{"x" + quantity}</p>
+            {quantity && <p className="text-body text-medium-gray">{"x" + quantity}</p>}
         </div>
     );
 }
