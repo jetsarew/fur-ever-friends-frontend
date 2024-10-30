@@ -10,6 +10,7 @@ import React, { createContext, useState } from 'react';
 import { QualificationModelResponse } from "@/types/user.type";
 import { ReportModelResponse } from "@/types/response.type";
 import { CommonUserModel } from "@/types/user.type";
+import { getAttachmentSrc } from "@/hooks/useImage";
 
 export const UsersContext = createContext<CommonUserModel | undefined>(undefined);
 export const ReportsContext = createContext<ReportModelResponse | undefined>(undefined);
@@ -33,7 +34,7 @@ export function ManageUsersContent({ user }: {
         <UsersContext.Provider value={user}>
             <div className="w-fit h-[72px] border border-t-0 border-bd-gray grid grid-cols-[174px_270px_240px_140px_135px_115px_80px]">
                 <div className="flex text-body text-standard-gray pl-[16px] pr-[16px] justify-between items-center">{user.id.substring(0, 14)}</div>
-                <TableUserCard src={`http://localhost:3000/attachments/${user.avatar}` || "/profile.jpg"} firstname={user.firstname} lastname={user.lastname} />
+                <TableUserCard src={user.avatar ? getAttachmentSrc(user.avatar) : "/profile.jpg"} firstname={user.firstname} lastname={user.lastname} />
                 <div className="flex text-body text-standard-gray pl-[16px] pr-[16px] justify-between items-center">{user.email}</div>
                 <div className="flex text-body text-standard-gray pl-[16px] pr-[16px] justify-between items-center">{formatDate(user.createdAt)}</div>
                 <div className="flex justify-center items-center"><Role role_id={user.role} /></div>
@@ -52,8 +53,8 @@ export function ViewReportsContent({ report }: {
         <ReportsContext.Provider value={report}>
             <div className="w-fit h-[72px] border border-t-0 border-bd-gray grid grid-cols-[174px_270px_270px_140px_220px_80px]">
                 <div className="flex text-body text-standard-gray pl-[16px] pr-[16px] justify-between items-center">{report.id}</div>
-                <TableUserCard src={`http://localhost:3000/attachments/${report.reporter.avatar}` || "/profile.jpg"} firstname={report.reporter.firstname} lastname={report.reporter.lastname} />
-                <TableUserCard src={`http://localhost:3000/attachments/${report.reported.avatar}` || "/profile.jpg"} firstname={report.reported.firstname} lastname={report.reported.lastname} />
+                <TableUserCard src={report.reporter.avatar ? getAttachmentSrc(report.reporter.avatar) : "/profile.jpg"} firstname={report.reporter.firstname} lastname={report.reporter.lastname} />
+                <TableUserCard src={report.reported.avatar ? getAttachmentSrc(report.reported.avatar) : "/profile.jpg"} firstname={report.reported.firstname} lastname={report.reported.lastname} />
                 <div className="flex text-body text-standard-gray  pl-[16px] pr-[16px] justify-between items-center">{formatDate(report.createdAt)}</div>
                 <div className="flex justify-center items-center"><Report report_type={report.type} /></div>
                 <div className="flex justify-center items-center"><ReportOption /></div>

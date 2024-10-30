@@ -8,6 +8,7 @@ import { activityService } from "@/services/activity.service";
 import { useAppSelector } from "@/store/hooks";
 import { ActivityModelResponse, TaskModelResponse } from "@/types/response.type";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function ActivityProgressPage({ params }: {
@@ -16,6 +17,8 @@ export default function ActivityProgressPage({ params }: {
 ){
     const [activity, setActivity] = useState<ActivityModelResponse | null>(null);
     const [perviousActivity, setPreviousActivity] = useState<ActivityModelResponse | null>(null);
+
+    const router = useRouter();
 
     // const [progress, setProgress] = useState<ProgressModelResponse | null>(null);
 
@@ -136,6 +139,7 @@ export default function ActivityProgressPage({ params }: {
             Toast("Progress submitted successfully.", "success");
             fetchActivity(); // Refresh data after submission
             fetchProgress();
+            router.back();
         } catch (error) {
             Toast("Failed to submit progress.", "error");
         }
