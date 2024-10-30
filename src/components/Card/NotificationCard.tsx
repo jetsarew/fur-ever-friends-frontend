@@ -8,9 +8,8 @@ interface NotificationCardProps {
 }
 export default function NotificationCard({ clickHandler, notification }: NotificationCardProps){
     return (
-        <Link
-            href="/activity/123"
-            className="w-full px-6 py-4 flex flex-row gap-4 border-b border-bd-gray hover:bg-[#F8F8F8]"
+        <div
+            className="w-full px-6 py-4 flex flex-row gap-4 border-b border-bd-gray hover:bg-[#F8F8F8] hover:cursor-pointer"
             onClick={clickHandler}
         >
             {/* <Image 
@@ -31,6 +30,6 @@ export default function NotificationCard({ clickHandler, notification }: Notific
                     <span className="text-small text-soft-gray">11:59 AM</span>
                 </div>
             </div>
-        </Link>
+        </div>
     );
 }
