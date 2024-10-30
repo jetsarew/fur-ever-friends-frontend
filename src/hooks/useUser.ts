@@ -16,7 +16,7 @@ export const useUser = () => {
 
 
   const fetchAllUsers = async () => {
-    return await userService.getAllUser();
+    return await userService.getAllUser(``);
   };
 
   const {

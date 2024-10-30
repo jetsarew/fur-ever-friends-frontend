@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import { DefaultAction, BlockedAction, ReportAction, ApplicationAction } from "./UserAction";
 import { OptionIcon } from "@/shared/Icon";
 import useOutSideClick from "@/hooks/useOutsideClick";
+import { UpdateStateFunction } from "../Card/Content";
 
 export function DefaultOption() {
     const [show, setShow] = useState<boolean>(false);
@@ -80,7 +81,9 @@ export function ReportOption() {
     );
 }
 
-export function ApplicationOption() {
+export function ApplicationOption({ handleUpdateState }: {
+    handleUpdateState: UpdateStateFunction;
+}) {
     const [show, setShow] = useState<boolean>(false);
     const buttonRef = useRef<HTMLDivElement>(null);
     const popUpRef = useRef<HTMLDivElement>(null);
@@ -98,7 +101,7 @@ export function ApplicationOption() {
             </div>
             {show && (
                 <div ref={popUpRef} className="w-fit absolute left-[calc(100%+30px)]">
-                    <ApplicationAction />
+                    <ApplicationAction handleUpdateState={handleUpdateState} />
                 </div>
             )}
         </div>

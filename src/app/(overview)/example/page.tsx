@@ -23,7 +23,7 @@ export default function Home() {
   };
 
   const onGetUserButtonClicked = async () => {
-    const response2 = await userService.getAllUser();
+    const response2 = await userService.getAllUser(``);
     console.log(response2);
 
     const response = await userService.getUser(
@@ -44,9 +44,9 @@ export default function Home() {
     const response = await userService.createPetSitter("engfa@gmail.com");
     console.log(response);
   };
-  
+
   const onRejectQualificationClick = async () => {
-    const response = await qualificationService.updateQualification("ddfd9249-a3c3-4b37-8ccb-10c08a7df934", {state: "REJECTED"})
+    const response = await qualificationService.updateQualification("ddfd9249-a3c3-4b37-8ccb-10c08a7df934", { state: "REJECTED" })
     console.log(response);
   };
 
@@ -135,10 +135,10 @@ export default function Home() {
     if (files?.length) {
       setProgressImage(files[0]);
     }
-};
+  };
 
   const onUpdateProgressButtonClicked = async () => {
-    if(!progressImage) return;
+    if (!progressImage) return;
     const response = await activityService.createProgress("f89dce91-dbd1-4d7a-8c38-064f967035b1", {
       progresses: progressImage,
       content: "This is a progress."
@@ -154,7 +154,7 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-10">
       <div className="px-8 py-8 flex flex-col gap-8 items-start border-[2px] border-golden-yellow">
-      <p className="text-header text-golden-yellow">User Service</p>
+        <p className="text-header text-golden-yellow">User Service</p>
         <button
           className="px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green"
           type="button"
@@ -168,7 +168,7 @@ export default function Home() {
           onClick={onGetUserButtonClicked}
         >
           Get User
-        </button>  
+        </button>
       </div>
       <div className="px-8 py-8 flex flex-col gap-8 items-start border-[2px] border-bright-blue">
         <p className="text-header text-bright-blue">Pet Service</p>
@@ -196,8 +196,8 @@ export default function Home() {
         >
           Get customer
         </button>
-    </div>
-    <div className="px-8 py-8 flex flex-col gap-8 items-start border-[2px] border-pink-500">
+      </div>
+      <div className="px-8 py-8 flex flex-col gap-8 items-start border-[2px] border-pink-500">
         <p className="text-header text-pink-500">Admin Service</p>
         <button
           className="px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green"
@@ -268,7 +268,7 @@ export default function Home() {
         >
           Accept Request
         </button>
-        <input 
+        <input
           type="file"
           onChange={onFileUploaded}
         />
@@ -288,6 +288,6 @@ export default function Home() {
         </button>
       </div>
     </div>
-    
+
   );
 }

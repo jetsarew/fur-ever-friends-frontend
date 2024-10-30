@@ -12,11 +12,11 @@ interface PetCardInterface {
     pet: PetModelResponse;
 }
 
-export default function PetCard({ width, padding, border, showActionButton, pet }: PetCardInterface){
+export default function PetCard({ width, padding, border, showActionButton, pet }: PetCardInterface) {
     return (
         <div className={`relative ${width == undefined ? "" : width} ${padding == undefined ? "px-3 py-3" : padding} flex flex-row items-start ${border == undefined ? "" : border}`}>
             <div className="py-3 pr-1 flex flex-col items-center gap-3">
-                <Image 
+                <Image
                     src={getAttachmentSrc(pet.imageUrl)}
                     width={186}
                     height={186}
@@ -30,7 +30,7 @@ export default function PetCard({ width, padding, border, showActionButton, pet 
                     </div>
                     <div className="flex flex-row">
                         <div className={`w-[26px] h-[26px] flex flex-row justify-center items-center rounded-lg ${pet.gender == "MALE" ? "bg-bright-blue" : "bg-[#F576AC]"}`}>
-                            <Image 
+                            <Image
                                 src={pet.gender == "MALE" ? "/male.png" : "/female.png"}
                                 width={18}
                                 height={18}
@@ -68,8 +68,8 @@ export default function PetCard({ width, padding, border, showActionButton, pet 
                 />
             </div>
             {
-                showActionButton && <PetActionButton petId={pet.id}/>
-            }   
+                showActionButton && <PetActionButton petId={pet.id} />
+            }
         </div>
     )
 }
