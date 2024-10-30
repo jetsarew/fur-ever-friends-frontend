@@ -28,7 +28,7 @@ export default function RequestForm({activityId}: {activityId: string}){
                 formik.values
             )
             console.log(response);
-            router.refresh()
+            router.push(`/activity/${activityId}`)
         } catch (error) {
             Toast("Fail to send request", "error");
         }

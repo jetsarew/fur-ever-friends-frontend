@@ -7,11 +7,12 @@ import SlideImage from "@/components/Card/SlideImage";
 import Tag from "@/components/Tag/Tag";
 import { Toast } from "@/components/Toast/Toast";
 import { getAttachmentSrc } from "@/hooks/useImage";
+import { activityService } from "@/services/activity.service";
 import { favoriteService } from "@/services/favorite.service";
 import { userService } from "@/services/user.service";
 import { BirdIcon, CatIcon, DogIcon, ExerciseIcon, FeedingIcon, FishIcon, GroomingIcon, MedicationIcon, RabbitIcon, RelaxationIcon, ReptileIcon, RodentIcon, TrainingIcon } from "@/shared/Icon";
 import { useAppSelector } from "@/store/hooks";
-import { FavoriteModelResponse } from "@/types/response.type";
+import { ActivityModelResponse, FavoriteModelResponse } from "@/types/response.type";
 import { CommonUserModel } from "@/types/user.type";
 import { StarIcon } from "@heroicons/react/16/solid";
 import Image from "next/image";
@@ -24,6 +25,7 @@ export default function ProfilePage({ params }: {
     const myData = useAppSelector((state) => state.auth.user);
     const [userData, setUserData] = useState<CommonUserModel | null>(null);
     const [favorites, setFavorites] = useState<FavoriteModelResponse[]>([]);
+    const [activities, setActivities] = useState<ActivityModelResponse[]>([]);
     const router = useRouter();
 
     const getUser = async () => {
@@ -78,7 +80,23 @@ export default function ProfilePage({ params }: {
     }
 
     useEffect(() => {
+        const fetchMyActivities = async () => {
+            let response;
+            
+            if(userData?.role == "CUSTOMER"){
+                response = await activityService.getMyActivity();
+            }
+            else {
+                response = await activityService.getActivitiesByPetSitter();
+            }
+            
+            console.log(response);
+            setActivities(response.filter((activity) => {
+                return activity.state == "COMPLETED";
+            }));
+        }
         getUser();
+        fetchMyActivities();
     }, [params.id])
     
     return (
@@ -89,79 +107,66 @@ export default function ProfilePage({ params }: {
                     <Tag 
                         icon={<DogIcon />}
                         text="Dogs"
-                        quantity={25}
                         type="animal"
                     />
                     <Tag 
                         icon={<CatIcon />}
                         text="Cats"
-                        quantity={20}
                         type="animal"
                     />
                     <Tag 
                         icon={<RabbitIcon />}
                         text="Rabbits"
-                        quantity={10}
                         type="animal"
                     />
                     <Tag 
                         icon={<RodentIcon />}
                         text="Rodents"
-                        quantity={10}
                         type="animal"
                     />
                     <Tag 
                         icon={<BirdIcon />}
                         text="Birds"
-                        quantity={8}
                         type="animal"
                     />
                     <Tag 
                         icon={<ReptileIcon />}
                         text="Reptiles"
-                        quantity={5}
                         type="animal"
                     />
                     <Tag 
                         icon={<FishIcon />}
                         text="Fish"
-                        quantity={3}
                         type="animal"
                     />
                     <Tag 
                         icon={<FeedingIcon />}
                         text="Feeding"
-                        quantity={25}
                         type="service"
                     />
                     <Tag 
                         icon={<ExerciseIcon />}
                         text="Exercise"
-                        quantity={20}
                         type="service"
                     />
                     <Tag 
                         icon={<GroomingIcon />}
                         text="Grooming"
-                        quantity={10}
                         type="service"
                     />
                     <Tag 
                         icon={<TrainingIcon />}
                         text="Training"
-                        quantity={10}
                         type="service"
                     />
                     <Tag 
                         icon={<RelaxationIcon />}
                         text="Relaxation"
-                        quantity={5}
                         type="service"
                     />
                     <Tag 
                         icon={<MedicationIcon />}
                         text="Administering Medication"
-                        quantity={8}
                         type="service"
                     />
                 </div>
@@ -177,12 +182,26 @@ export default function ProfilePage({ params }: {
                     <div className="flex flex-col">
                         <div className="flex flex-row gap-2 text-subheading text-dark-blue">
                             <p>Reviews</p> 
-                            <p>{`(${99})`}</p>
+                            <p>{`(${userData?.petsitter?.reviews.length})`}</p>
                         </div>
                         <div>
-                            <ReviewCard />
-                            <ReviewCard />
-                            <ReviewCard />
+                            {
+                                userData?.petsitter?.reviews.map((review, index) => {
+                                    return <ReviewCard key={index} review={review}/>
+                                })
+                            }
+                            {
+                                userData?.petsitter?.reviews.length == 0 && 
+                                <div className="pt-[36px] w-full flex flex-col items-center gap-6">
+                                    <Image 
+                                        src={"/empty.svg"}
+                                        width={200}
+                                        height={200}
+                                        alt={"not found"}
+                                    />
+                                    <p className="text-center text-soft-gray text-body-paragraph">{"No reviews available for this pet sitter yet."}</p>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
@@ -200,7 +219,7 @@ export default function ProfilePage({ params }: {
                     </div>
                     <div className="flex-1 p-4 pl-0 pr-6 flex flex-col items-start">
                         <div className="w-full pb-2 flex flex-col items-start gap-1 border-b border-bd-gray">
-                            <p className="h-5 text-subheading text-bright-green">99</p>
+                            <p className="h-5 text-subheading text-bright-green">{userData?.petsitter?.reviews.length}</p>
                             <p className="text-[14px] font-normal leading-[100%]">Reviews</p>
                         </div>
                         <div className="w-full py-2 flex flex-col items-start gap-1 border-b border-bd-gray">
@@ -211,7 +230,7 @@ export default function ProfilePage({ params }: {
                             <p className="text-[14px] font-normal leading-[100%]">Rating</p>
                         </div>
                         <div className="w-full pt-2 flex flex-col items-start gap-1">
-                            <p className="h-5 text-subheading text-bright-blue">200</p>
+                            <p className="h-5 text-subheading text-bright-blue">{activities.length}</p>
                             <p className="text-[14px] font-normal leading-[100%]">Activities done</p>
                         </div>
                     </div>

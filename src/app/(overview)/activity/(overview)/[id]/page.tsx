@@ -26,7 +26,6 @@ export default function ActivityDetailPage({ params }: {
     useEffect(() => {
         const fetchActivity = async () => {
             const response = await activityService.getActivityById(params.id);
-            console.log(response);
             setActivity(response);
         }
 
@@ -95,7 +94,7 @@ export default function ActivityDetailPage({ params }: {
                     }
                 </div>
                 {
-                    getStatePriority(activity.state) >= getStatePriority("IN_PROGRESS") && !hasActivityTerminated(activity.endDateTime) &&
+                    getStatePriority(activity.state) >= getStatePriority("IN_PROGRESS") && (!hasActivityTerminated(activity.endDateTime) || userData?.role != "PETSITTER") &&
                     <div
                         className="pt-4 border-t border-bd-gray "
                     >

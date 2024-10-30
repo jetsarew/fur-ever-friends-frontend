@@ -44,8 +44,7 @@ export default function ActivityReportPage({
         createReportRequest.reportImages = [...reportImages];
       }
 
-      const response = await reportService.createReport(createReportRequest);
-      console.log(response);
+      await reportService.createReport(createReportRequest);
       router.back();
     } catch (error) {
       Toast("Failed to create the report.", "error");
