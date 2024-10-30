@@ -14,6 +14,7 @@ interface ActivityCardProps{
 }
 
 export default function ActivityCard({ role, activity, petSitterRequest}: ActivityCardProps){
+    console.log(petSitterRequest);
     const profileElement = role == "CUSTOMER" ? 
         <div className="pt-4 flex flex-row justify-between items-end">
             <div className="flex flex-row items-end gap-2">
@@ -96,7 +97,7 @@ export default function ActivityCard({ role, activity, petSitterRequest}: Activi
                     <p className="text-body">{timeUntil(activity.endDateTime).unit}</p>
                 </div>
             ) :
-            <p className="h-5 text-subheading text-bright-green">{"$" + activity.price}</p>
+            <p className="h-5 text-subheading text-bright-green">{"$" + (activity.price ?? petSitterRequest?.price)}</p>
         )
     );
 
@@ -139,7 +140,7 @@ export default function ActivityCard({ role, activity, petSitterRequest}: Activi
                 <div className="flex flex-row items-center gap-4">
                     <Link
                         href={`/activity/${activity.id}`}
-                        className="text-subheading text-bright-blue"
+                        className="text-subheading text-bright-blue hover:underline"
                     >{activity.title}</Link>
                     <div className="flex flex-row gap-1">
                         {

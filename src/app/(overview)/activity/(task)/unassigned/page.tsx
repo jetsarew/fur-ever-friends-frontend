@@ -4,14 +4,14 @@ import ActivityCard from "@/components/Card/ActivityCard";
 import { activityService } from "@/services/activity.service";
 import { requestService } from "@/services/request.service";
 import { useAppSelector } from "@/store/hooks";
-import { ActivityModelResponse, RequestModelResponse } from "@/types/response.type";
+import { ActivityModelResponse, FormattedRequestModelResponse } from "@/types/response.type";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function UnassignedActivitiesPage(){
     const [activities, setActivities] = useState<ActivityModelResponse[]>([]);
-    const [requests, setRequests] = useState<RequestModelResponse[]>([]);
+    const [formatted, setFormatted] = useState<FormattedRequestModelResponse[]>([]);
     
     const userData = useAppSelector((state) => state.auth.user);
     
@@ -24,17 +24,22 @@ export default function UnassignedActivitiesPage(){
                 setActivities(response.filter((activity) => {
                     return activity.state == "PENDING";
                 }));
+                console.log(response);
             }
             else {
-                response = await activityService.getActivities();
+                const response = (await activityService.getActivities()).filter((activities) => activities.state === "PENDING");
+                console.log(response);
+
                 const response2 = await requestService.getRequestedActivity();
+                console.log(response2);
+
                 setActivities(response.filter((activity) => {
-                    return activity.requests.some((request) => response2.some((request2) => request2.id == request.id));
+                    return response2.some((activity2) => activity2.id === activity.id);
                 }));
-                setRequests(response2);
+
+                setFormatted(response2);
             }
-            
-            console.log(response);
+        
             // setActivities(response.filter((activity) => {
             //     return activity.state == "PENDING";
             // }));
@@ -54,7 +59,7 @@ export default function UnassignedActivitiesPage(){
             }
             {
                 activities.map((activity, index) => {
-                    return  <ActivityCard key={index} role={userData?.role} activity={activity}/>
+                    return  <ActivityCard key={index} role={userData?.role} activity={activity} petSitterRequest={formatted.filter((act) => act.id == activity.id)[0].request}/>
                 })
             }
             {

@@ -204,4 +204,19 @@ export type BreedTypeModelResponse = {
     animalType: AnimalResponse;
 }
 
+export type FormattedRequestModelResponse = {
+    id: string;
+    title: string;
+    price: number | null;
+    detail: string;
+    startDateTime: string;
+    endDateTime: string;
+    pickupPoint: string;
+    createdAt: string;
+    customer: CustomerModelResponse;
+    state: ActivityState;
+    services: ServiceModelResponse;
+    request: RequestModelResponse;
+}
+
 export type ActivityState = 'PENDING' | 'REJECTED' | 'CANCELLED' | 'ASSIGNED' | 'IN_PROGRESS' | 'RETURNING' | 'FAILED' | 'COMPLETED';
