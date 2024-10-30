@@ -10,7 +10,7 @@ import Link from "next/link";
 import { useAppDispatch } from "@/store/hooks";
 import { setAuthUser } from "@/store/auth/auth.slice";
 import { authService } from "@/services/auth.service";
-import Cookies from "js-cookie";
+//import Cookies from "js-cookie";
 import { Toast } from "@/components/Toast/Toast";
 import { useRouter } from "next/navigation";
 import { getFieldProps } from "@/utils/getFieldProps";
@@ -25,10 +25,15 @@ export default function Login() {
       const response = await authService.login(formik.values);
       console.log(response);
       dispatch(setAuthUser(response.user));
-      Cookies.set("accessToken", response.token.accessToken, { secure: true, sameSite: 'Strict' });
+      //Cookies.set("accessToken", response.token.accessToken, { secure: true, sameSite: 'Strict' });
       router.push("/");
     } catch (error) {
-      Toast("Login failed.", "error");
+      if(error) {
+          Toast(error as string, "error");
+      }
+      else {
+          Toast("Failed to login", "error");
+      }
     }
   };
 

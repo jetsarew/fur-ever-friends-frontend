@@ -38,26 +38,21 @@ export default function FeedCard({ activity }: FeedCardInterface) {
             </p>
 
             <div className="flex gap-1">
-              {/* Wrapper for border styling */}
-              <div className="rounded-full border-[3px] border-bright-blue">
-                <Image
-                  src="/Whiskers.jpg"
-                  width={80}
-                  height={80}
-                  alt="Picture of the author"
-                  className="rounded-full w-[40px] h-[40px] object-cover"
-                />
-              </div>
-
-              <div className="rounded-full border-[3px] border-bright-blue">
-                <Image
-                  src="/Whiskers.jpg"
-                  width={80}
-                  height={80}
-                  alt="Picture of the author"
-                  className="rounded-full w-[40px] h-[40px] object-cover"
-                />
-              </div>
+              {
+                activity.services.map((service, index) => {
+                  return (
+                    <div key={index} className="rounded-full border-[3px] border-bright-blue">
+                      <Image
+                        src={getAttachmentSrc(service.pet.imageUrl)}
+                        width={80}
+                        height={80}
+                        alt="Picture of the author"
+                        className="rounded-full w-[40px] h-[40px] object-cover"
+                      />
+                    </div>
+                  )
+                })
+              }
             </div>
           </div>
 

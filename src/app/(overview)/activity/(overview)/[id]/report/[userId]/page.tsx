@@ -24,7 +24,7 @@ import { useEffect, useState } from "react";
 export default function ActivityReportPage({
   params,
 }: {
-  params: { id: string };
+  params: { id: string, userId: string };
 }) {
   const [reportedUserData, setReportedUserData] =
     useState<CommonUserModel | null>(null);
@@ -44,11 +44,15 @@ export default function ActivityReportPage({
         createReportRequest.reportImages = [...reportImages];
       }
 
-      const response = await reportService.createReport(createReportRequest);
-      console.log(response);
+      await reportService.createReport(createReportRequest);
       router.back();
     } catch (error) {
-      Toast("Failed to create the report.", "error");
+        if(error) {
+            Toast(error as string, "error");
+        }
+        else {
+            Toast("Failed to create the report.", "error");
+        }
     }
   };
 
@@ -81,7 +85,8 @@ export default function ActivityReportPage({
   const formik = useFormik<CreateReportValues>({
     initialValues: {
       ...emptyCreateReportValues,
-      reportedId: params.id,
+      activityId: params.id,
+      reportedId: params.userId,
       reporterId: userData?.id ?? "",
     },
     validateOnChange: false,
@@ -93,7 +98,7 @@ export default function ActivityReportPage({
   useEffect(() => {
     const fetchReportedUser = async () => {
       try {
-        const response = await userService.getUser(params.id);
+        const response = await userService.getUser(params.userId);
         setReportedUserData(response);
       } catch (error) {
         Toast("You can not report this account.", "error");

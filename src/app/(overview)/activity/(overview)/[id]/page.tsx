@@ -26,7 +26,6 @@ export default function ActivityDetailPage({ params }: {
     useEffect(() => {
         const fetchActivity = async () => {
             const response = await activityService.getActivityById(params.id);
-            console.log(response);
             setActivity(response);
         }
 
@@ -74,8 +73,8 @@ export default function ActivityDetailPage({ params }: {
                         </div>
                     </div>
                 </div>
-                {(userData?.role == "CUSTOMER" || activity.requests.some((request) => request.petsitter.id == userData?.petsitter?.id) || activity.petsitter?.userId == userData?.id) && <ActivityStateBar activity={activity} />}
-                {userData?.role == "PETSITTER" && activity.state == "PENDING" && <RequestForm />}
+                {(userData?.role == "CUSTOMER" || activity.requests.some((request) => request.petsitter.id == userData?.petsitter?.id) || activity.petsitter?.userId == userData?.id) && <ActivityStateBar activity={activity}/>}
+                {userData?.role == "PETSITTER" && activity.state == "PENDING" && !activity.requests.some((request) => request.petsitter.id == userData?.petsitter?.id) && <RequestForm activityId={params.id}/>}
             </div>
             <div className="py-6 px-4 flex flex-col gap-4 border border-bd-gray rounded-lg">
                 <h3 className="text-subheading text-dark-blue">Pet Activities</h3>
@@ -95,7 +94,7 @@ export default function ActivityDetailPage({ params }: {
                     }
                 </div>
                 {
-                    getStatePriority(activity.state) >= getStatePriority("IN_PROGRESS") && !hasActivityTerminated(activity.endDateTime) &&
+                    getStatePriority(activity.state) >= getStatePriority("IN_PROGRESS") && (!hasActivityTerminated(activity.endDateTime) || userData?.role != "PETSITTER") &&
                     <div
                         className="pt-4 border-t border-bd-gray "
                     >
@@ -107,7 +106,7 @@ export default function ActivityDetailPage({ params }: {
                 }
             </div>
             {
-                activity.state == "PENDING" &&
+                activity.state == "PENDING" && userData?.role == "CUSTOMER" &&
                 <Link
                     href={`/compose/delete-activity/${activity.id}`}
                     className="px-6 py-4 flex flex-row justify-center items-center rounded-lg border-[2px] border-bright-red text-body-bold text-bright-red"

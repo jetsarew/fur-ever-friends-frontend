@@ -23,13 +23,6 @@ export type UpdateActivityStateDto = {
     state: ActivityState;
 }
 
-export type CreateReviewDto = {
-    activityId: string;
-    petsitterId: string;
-    content: string;
-    rating: number;
-}
-
 export type InvitePetSitterDto = {
     petsitterId: string;
 }
