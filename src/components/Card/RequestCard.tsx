@@ -14,16 +14,21 @@ export default function RequestCard({ request, activityId, border }: RequestCard
     return (
         <div className={`w-full px-4 py-6 flex flex-col gap-4 ${border}`}>
             <div className="flex flex-row gap-4">
-                <Image
-                    src={request.petsitter.user.avatar ? getAttachmentSrc(request.petsitter.user.avatar) : "/default_profile.jpg"}
-                    width={250}
-                    height={250}
-                    alt={"pet sitter profile"}
-                    className="w-[125px] h-[125px] rounded-lg object-cover"
-                />
+                <Link href={`/profile/${request.petsitter?.user.id}`}>
+                    <Image
+                        src={request.petsitter.user.avatar ? getAttachmentSrc(request.petsitter.user.avatar) : "/default_profile.jpg"}
+                        width={250}
+                        height={250}
+                        alt={"pet sitter profile"}
+                        className="w-[125px] h-[125px] rounded-lg object-cover"
+                    />
+                </Link>
                 <div className="flex-1 flex flex-col gap-4">
                     <div className="flex flex-row justify-between items-center">
-                        <p className="text-subheading">{request.petsitter.user.firstname + " " + request.petsitter.user.lastname}</p>
+                        <Link 
+                            href={`/profile/${request.petsitter?.user.id}`} 
+                            className="text-subheading hover:underline"
+                        >{request.petsitter.user.firstname + " " + request.petsitter.user.lastname}</Link>
                         <p className="text-subheading2 text-dark-blue">{`$${request.price}`}</p>
                     </div>
                     <div className="flex flex-col gap-2">

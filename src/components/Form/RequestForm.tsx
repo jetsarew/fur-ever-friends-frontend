@@ -7,12 +7,9 @@ import { createRequestValidationSchema, createRequestvalues, emptyCreateRequestV
 import ValidatedInput from "../Input/ValidatedInput";
 import { getFieldProps } from "@/utils/getFieldProps";
 import { Toast } from "../Toast/Toast";
-import { useRouter } from "next/navigation";
 
 export default function RequestForm({activityId}: {activityId: string}){
     const [applyClicked, setApplyClicked] = useState<boolean>(false);
-
-    const router=useRouter()
 
     const onApplyButtonClicked = () => {
         setApplyClicked(true);
@@ -28,7 +25,7 @@ export default function RequestForm({activityId}: {activityId: string}){
                 formik.values
             )
             console.log(response);
-            router.push(`/activity/${activityId}`)
+            window.location.reload();
         } catch (error) {
             Toast("Fail to send request", "error");
         }

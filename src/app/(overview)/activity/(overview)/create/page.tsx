@@ -141,7 +141,7 @@ export default function CreateActivityPage() {
       Toast("Create activity success.", "success");
       router.push("/activity/unassigned");
     } catch(error) {
-      Toast("Failed to create activity.", "error");
+      Toast(error as string, "error");
     }
   }
 
