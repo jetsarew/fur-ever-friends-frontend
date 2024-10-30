@@ -1,4 +1,6 @@
+import { ServiceType } from "@/dto/activity.dto";
 import { ReviewModelResponse } from "./response.type";
+import { AnimalTypeTag } from "@/dto/auth.dto";
 
 export type CommonUserModel = {
     id: string;
@@ -34,6 +36,8 @@ export type PetSitter = {
     rating: number;
     certificateUrl: string;
     reviews: ReviewModelResponse[];
+    serviceTags: ServiceType[];
+    petTags: AnimalTypeTag[];
 }
 
 export type Admin = {

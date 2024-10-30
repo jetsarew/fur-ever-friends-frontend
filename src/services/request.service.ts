@@ -12,5 +12,8 @@ export const requestService = {
         requestId: string
     ) => {
         return await apiController(`/requests/${requestId}/accept`, "patch");
+    },
+    getRequestedActivity: async (): Promise<RequestModelResponse[]> => {
+        return await apiController(`/requests/petsitter`, "get");
     }
 }
