@@ -47,7 +47,12 @@ export default function PetOwnerEditProfilePage() {
       console.log(response);
       Toast("Your profile has been updated.", "success");
     } catch (error) {
-      Toast("Failed to update profile.", "error");
+      if(error) {
+          Toast(error as string, "error");
+      }
+      else {
+          Toast("Failed to update profile.", "error");
+      }
     }
   };
 

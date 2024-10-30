@@ -1,6 +1,6 @@
 import { apiController } from "@/controllers/api.controller";
-import { CreateActivityDto, CreateProgressDto, CreateReviewDto, InvitePetSitterDto, UpdateActivityStateDto, UpdateTaskStatusDto } from "@/dto/activity.dto";
-import { ActivityModelResponse, ProgressModelResponse, ReviewModelResponse } from "@/types/response.type";
+import { CreateActivityDto, CreateProgressDto, InvitePetSitterDto, UpdateActivityStateDto, UpdateTaskStatusDto } from "@/dto/activity.dto";
+import { ActivityModelResponse, ProgressModelResponse } from "@/types/response.type";
 
 export const activityService = {
     createActivity: async (
@@ -27,16 +27,6 @@ export const activityService = {
         updateActivityStateRequest: UpdateActivityStateDto,
     ) => {
         await apiController(`/activities/${activityId}`, "patch", updateActivityStateRequest);
-    },
-    reviewActivity: async (
-        reviewActivityRequest: CreateReviewDto
-    ): Promise<ReviewModelResponse> => {
-        return apiController(`/activities/review`, "post", reviewActivityRequest)
-    },
-    getReviewByActivityId: async (
-        activityId: string,
-    ): Promise<ReviewModelResponse[]> => {
-       return await apiController(`/activities/${activityId}/review`, "get");
     },
     invitePetSitter: async (
         activityId: string,

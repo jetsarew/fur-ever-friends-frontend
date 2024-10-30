@@ -1,6 +1,6 @@
 import { apiController } from "@/controllers/api.controller";
 import { PetDto, UpdatePetDto } from "@/dto/pet.dto";
-import { PetModelResponse } from "@/types/response.type";
+import { AnimalTypeModelResponse, BreedTypeModelResponse, PetModelResponse } from "@/types/response.type";
 
 export const petService = {
     createPet: async (
@@ -41,5 +41,11 @@ export const petService = {
         petId: string
     ) => {
         await apiController(`/pets/${petId}`, "delete");
+    },
+    getAnimalType: async (): Promise<AnimalTypeModelResponse[]> => {
+        return await apiController("/animal-types", "get");
+    },
+    getBreeds: async (): Promise<BreedTypeModelResponse[]> => {
+        return await apiController("breeds", "get");
     }
 }

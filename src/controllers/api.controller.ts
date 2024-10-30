@@ -1,7 +1,9 @@
-import { CreateActivityDto, CreateReviewDto, InvitePetSitterDto, UpdateActivityStateDto, UpdateTaskStatusDto } from "@/dto/activity.dto";
+import { CreateActivityDto, InvitePetSitterDto, UpdateActivityStateDto, UpdateTaskStatusDto } from "@/dto/activity.dto";
 import { LoginDto, RegisterDto, UpdateQualificationStateDto, UpdateUserWithRoleDto } from "@/dto/auth.dto";
+import { CreateFavoriteDto } from "@/dto/favorite.dto";
 import { CreateReportDto } from "@/dto/report.dto";
 import { CreateRequestDto } from "@/dto/request.dto";
+import { CreateReviewDto } from "@/dto/review.dto";
 import axiosInstance from "@/services/api.service";
 import { AxiosError } from "axios";
 
@@ -20,6 +22,7 @@ export async function apiController<T>(
     | CreateRequestDto
     | CreateReportDto
     | UpdateTaskStatusDto
+    | CreateFavoriteDto
     | FormData,
 ): Promise<T> {
   try {
@@ -37,13 +40,12 @@ export async function apiController<T>(
     }
     return response.data;
   } catch (error) {
-    let message = '';
-    if (error instanceof AxiosError && error.response?.data.message) {
-      message = error.response?.data.message[0];
-    } else {
-      message = (error as Error).message;
+    let message = (error as Error).message;
+    if(error instanceof AxiosError && error.response?.data?.message) {
+      message = Array.isArray(error.response.data.message)
+        ? error.response.data.message[0]
+        : error.response.data.message;
     }
-    console.log("test", message);
     return Promise.reject(message);
   }
 }

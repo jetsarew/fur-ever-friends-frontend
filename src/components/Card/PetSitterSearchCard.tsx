@@ -1,22 +1,25 @@
+import { getAttachmentSrc } from "@/hooks/useImage";
+import { PetSitterModelResponse } from "@/types/response.type";
 import { StarIcon } from "@heroicons/react/16/solid";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function PetSitterSearchCard(){
+export default function PetSitterSearchCard({ petSitter }: {petSitter: PetSitterModelResponse}){
+
     return (
         <Link
-            href={"/profile/1234"}
+            href={`/profile/${petSitter.user.id}`}
             className="w-[205px] flex flex-col border border-bd-gray rounded-lg overflow-hidden hover:shadow-custom"
         >
             <Image 
-                src="/pet-sitter.jpg"
+                src={petSitter.user.avatar ? getAttachmentSrc(petSitter.user.avatar) : "/default_profile.jpg"}
                 width={410}
                 height={344}
                 alt="sitter profile image"
                 className="w-[205px] h-[172px] object-cover"
             />
             <div className="px-4 py-2 flex flex-col gap-3">
-                <p className="text-body">Kirana Jasmine Chewter</p>
+                <p className="text-body">{petSitter.user.firstname + " " + petSitter.user.lastname}</p>
                 <div className="flex flex-row justify-between items-baseline">
                     <div className="flex flex-row items-baseline gap-1">
                         <p className="text-body-bold text-bright-blue">200</p>
