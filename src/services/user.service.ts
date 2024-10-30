@@ -49,5 +49,8 @@ export const userService = {
     },
     getAllUser: async (path: string): Promise<CommonUserModel[]> => {
         return await apiController(`/users` + path, "get");
+    },
+    getPetSitter: async (): Promise<CommonUserModel[]> => {
+        return await apiController("/users/petsitter", "get");
     }
 }

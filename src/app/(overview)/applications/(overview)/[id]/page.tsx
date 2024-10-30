@@ -5,6 +5,7 @@ import { QualificationModelResponse } from "@/types/user.type";
 import { userService } from "@/services/user.service";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { getAttachmentSrc } from "@/hooks/useImage";
 
 export default function ApplicationPage({ params }: {
     params: { id: string }
@@ -108,7 +109,7 @@ export default function ApplicationPage({ params }: {
                 </div>
                 <div className="border border-bd-gray rounded-[8px] p-[8px]">
                     <Image
-                        src={`http://localhost:3000/attachments/${qualification?.certificateUrl}`}
+                        src={qualification?.certificateUrl ? getAttachmentSrc(qualification?.certificateUrl) : "/empty.svg"}
                         width={194}
                         height={121}
                         alt="Upload file"
