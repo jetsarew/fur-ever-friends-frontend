@@ -251,7 +251,7 @@ export default function CreatePet() {
                     />
                     <ValidatedInput 
                         {...otherDetailInputProps}
-                        label="OtherDetail"
+                        label="Other Detail"
                         containerStyle="relative w-full flex flex-col gap-3"
                         labelStyle="text-subheading2 text-bright-blue"
                         height="h-[96px]"

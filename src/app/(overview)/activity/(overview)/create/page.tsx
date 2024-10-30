@@ -7,20 +7,21 @@ import ValidatedInput from "@/components/Input/ValidatedInput";
 import { Toast } from "@/components/Toast/Toast";
 import { CreateActivityDto, CreateServiceDto, ServiceType } from "@/dto/activity.dto";
 import { convertToUTC } from "@/hooks/useConvertTime";
-import { usePets } from "@/hooks/usePets";
 import { activityService } from "@/services/activity.service";
+import { petService } from "@/services/pet.service";
 import { useAppSelector } from "@/store/hooks";
+import { PetModelResponse } from "@/types/response.type";
 import { getFieldProps } from "@/utils/getFieldProps";
 import { useFormik } from "formik";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function CreateActivityPage() {
   const [services, setServices] =  useState<CreateServiceDto[]>([]);
+  const [petList, setPetList] = useState<PetModelResponse[]>([]);
 
   const userData = useAppSelector((state) => state.auth.user);
-  const { petList } = usePets();
   const router = useRouter();
 
   const isAllowed =
@@ -182,6 +183,19 @@ export default function CreateActivityPage() {
     validationSchema: createActivityValidationSchema,
     onSubmit: handleCreateActivity,
   });
+
+  useEffect(() => {
+    const fetchPets = async () => {
+        try {
+            const response = await petService.getPetsByOwner();
+            setPetList(response);
+        } catch(error) {
+
+        }
+    }
+    
+    fetchPets();
+}, []);
 
   const nameInputProps = getFieldProps(formik, "title");
   const detailInputProps = getFieldProps(formik, "detail");
