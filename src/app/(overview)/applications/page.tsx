@@ -2,14 +2,16 @@
 
 import { ViewApplicationsHeader } from "@/components/Admin/Card/Header"
 import { ViewApplicationsContent } from "@/components/Admin/Card/Content"
-import SearchBar from "@/components/Admin/Input/SearchBar"
+// import SearchBar from "@/components/Admin/Input/SearchBar"
 import { FilterIcon } from "@/shared/Icon"
 import { qualificationService } from "@/services/qualification.service";
 import { useState, useEffect } from "react";
 import { QualificationModelResponse } from "@/types/user.type";
+import InputField from "@/components/Input/InputField";
 
 export default function ApplicationsPage() {
     const [qualifications, setQualifications] = useState<QualificationModelResponse[]>([]);
+    const [inputValue, setInputValue] = useState("");
 
     useEffect(() => {
         const fetchQualifications = async () => {
@@ -24,15 +26,27 @@ export default function ApplicationsPage() {
         fetchQualifications();
     }, []);
 
-    console.log("A")
-    console.log(typeof (qualifications));
-    console.log(qualifications);
-    console.log("B")
+    const handleInputChange = (value: string) => {
+        setInputValue(value);
+    };
+
+    // console.log("A")
+    // console.log(typeof (qualifications));
+    // console.log(qualifications);
+    // console.log("B")
 
     return (
         <div className="flex flex-col w-max top-[112px] left-[143px] gap-[32px]">
             <div className="flex gap-[16px] items-center">
-                <SearchBar />
+                <InputField
+                    label=""
+                    placeholder="Search"
+                    value={inputValue}
+                    onChange={handleInputChange}
+                    width="w-80"
+                    height="h-12"
+                />
+                {/* <SearchBar /> */}
                 <div>
                     <FilterIcon />
                 </div>
