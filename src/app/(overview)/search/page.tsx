@@ -1,29 +1,41 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FeedCard from "@/components/Card/FeedCard";
 import Image from "next/image";
+import { ActivityModelResponse } from "@/types/response.type";
+import { activityService } from "@/services/activity.service";
 
 
 export default function FeedPage() {
-  const [searchQuery, setSearchQuery] = useState(""); // Search query state
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activities, setActivities] = useState<ActivityModelResponse[]>([]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value); // Update search query state when the user types
   };
 
-  const filteredFeed = fakeFeedData.filter((item) =>
-    item.title.toLowerCase().includes(searchQuery.toLowerCase())
-  ); // Filtering logic
+
+  useEffect(() => {
+    const fetchActivities = async () => {
+      try {
+        const response = await activityService.getActivities();
+        setActivities(response.filter((activity) => activity.state == "PENDING"));
+        console.log(response);
+      } catch(error) {
+
+      }
+    }
+
+    fetchActivities();
+  }, []);
 
   return (
     <div>
      
       <div className="w-full">
         <div className="flex justify-center">
-          <div className="items-center"></div>
-
-          <div className="justify-self-center">
+          <div className="w-[680px]">
             <div className="flex items-center gap-4">
               <div className="bg-white flex border-2 border-bright-blue rounded-md w-full ">
                 <Image
@@ -51,23 +63,26 @@ export default function FeedPage() {
               </button>
             </div>
 
-            <div className="mt-8 grid gap-8">
-              
-              {filteredFeed.map((item, index) => (
-                <FeedCard key={index}/>
+            <div className="mt-8 grid gap-8"> 
+              {activities.map((activity, index) => (
+                <FeedCard key={index} activity={activity}/>
               ))}
             </div>
+            {
+                activities.length == 0 &&
+                <div className="pt-[56px] w-full flex flex-col items-center gap-6">
+                    <Image 
+                        src={"/match-not-found.svg"}
+                        width={300}
+                        height={300}
+                        alt={"not found"}
+                    />
+                    <p className="text-center text-soft-gray text-body-paragraph">{"Looks like it's quiet here."}<br/>{"We'll update this feed when new activities are posted."}</p>
+                </div>
+            }
           </div>
         </div>
       </div>
     </div>
   );
 }
-
-// Dummy feed data for demonstration
-const fakeFeedData = [
-  { title: "Adopt a Cat" },
-  { title: "Best Dog Parks" },
-  { title: "Pet Care Tips" },
-  { title: "Adopt a Dog" },
-];

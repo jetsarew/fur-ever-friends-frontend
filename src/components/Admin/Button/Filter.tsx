@@ -4,18 +4,26 @@ import { useState } from 'react';
 import { CheckboxIcon, NullCheckboxIcon, FilterIcon } from '@/shared/Icon';
 import { UserStatusDropdown, UserRoleDropdown } from './Dropdown';
 import CalendarCard from '../Card/CalendarCard';
+import { isFilterRoleType, isFilterStatusType, filterRoleByType, filterStatusByType } from '@/app/(overview)/users/page';
 
-export function UsersFilter() {
+export function UsersFilter({ handleFilterStatusChange, handleFilterRoleChange, handleFilterStatusBy, handleFilterRoleBy }: {
+    handleFilterStatusChange: isFilterRoleType;
+    handleFilterRoleChange: isFilterStatusType;
+    handleFilterStatusBy: filterStatusByType;
+    handleFilterRoleBy: filterRoleByType;
+}) {
     const [isStatusChecked, setIsStatusChecked] = useState(false);
     const [isRoleChecked, setIsRoleChecked] = useState(false);
     const [isClosed, setIsClosed] = useState(true);
 
     const handleStatusChange = () => {
         setIsStatusChecked(!isStatusChecked);
+        handleFilterStatusChange(!isStatusChecked);
     };
 
     const handleRoleChange = () => {
         setIsRoleChecked(!isRoleChecked);
+        handleFilterRoleChange(!isRoleChecked);
     };
 
     const handleState = () => {
@@ -47,7 +55,7 @@ export function UsersFilter() {
                                         only
                                     </div>
                                     <div>
-                                        <UserStatusDropdown />
+                                        <UserStatusDropdown handleFilterStatusBy={handleFilterStatusBy} />
                                     </div>
                                     <div className='text-body text-dark pt-[14px]'>
                                         user
@@ -75,7 +83,7 @@ export function UsersFilter() {
                                         only
                                     </div>
                                     <div>
-                                        <UserRoleDropdown />
+                                        <UserRoleDropdown handleFilterRoleBy={handleFilterRoleBy} />
                                     </div>
                                 </div>
                             }
@@ -125,13 +133,13 @@ export function ReportsFilter() {
                                         <div className='text-body text-dark'>
                                             from
                                         </div>
-                                        <CalendarCard defaultDate={3} />
+                                        <CalendarCard defaultDate={1} />
                                     </div>
                                     <div className='flex justify-between items-center'>
                                         <div className='text-body text-dark'>
                                             to
                                         </div>
-                                        <CalendarCard defaultDate={5} />
+                                        <CalendarCard defaultDate={1} />
                                     </div>
                                 </div>
                             }

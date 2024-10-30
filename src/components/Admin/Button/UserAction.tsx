@@ -4,11 +4,12 @@ import { useContext } from "react";
 import { UsersContext, ReportsContext, ApplicationsContext } from "../Card/Content";
 import { userService } from "@/services/user.service";
 import { qualificationService } from "@/services/qualification.service";
+import { UpdateStateFunction } from "../Card/Content";
 
 export function DefaultAction() {
     const router = useRouter();
-    const [user, userId] = useContext(UsersContext);
-    // const userId = user?.customer?.userId || user?.petsitter?.userId;
+    const user = useContext(UsersContext);
+    console.log("HEHE", user?.id)
 
     return (user &&
         <div className="border border-light-gray2 w-max h-[80px] pr-[18px] pl-[18px] rounded-[16px] grid grid-rows-[40px_40px] shadow-custom cursor-pointer select-none">
@@ -21,7 +22,7 @@ export function DefaultAction() {
                 </div>
             </div>
 
-            <div onClick={() => router.push(`/users/id=${user.id}$&userId=${userId}`)} className="w-fit flex items-center">
+            <div onClick={() => router.push(`/users/${user.id}`)} className="w-fit flex items-center">
                 <div className="w-[16px] h-[16px]">
                     <PersonIcon />
                 </div>
@@ -36,7 +37,6 @@ export function DefaultAction() {
 export function BlockedAction() {
     const router = useRouter();
     const user = useContext(UsersContext);
-    const userId = user?.customer?.userId || user?.petsitter?.userId;
 
     return (user &&
         <div className="border border-light-gray2 w-max h-[80px] pr-[18px] pl-[18px] rounded-[16px] grid grid-rows-[40px_40px] shadow-custom cursor-pointer select-none">
@@ -49,7 +49,7 @@ export function BlockedAction() {
                 </div>
             </div>
 
-            <div onClick={() => router.push(`/users/id=${user.id}$&userId=${userId}`)} className="w-fit flex items-center">
+            <div onClick={() => router.push(`/users/${user.id}`)} className="w-fit flex items-center">
                 <div className="w-[16px] h-[16px]">
                     <PersonIcon />
                 </div>
@@ -88,52 +88,74 @@ export function ReportAction() {
     );
 }
 
-export function ApplicationAction() {
+export function ApplicationAction({ handleUpdateState }: {
+    handleUpdateState: UpdateStateFunction;
+}) {
     const router = useRouter();
     const qualification = useContext(ApplicationsContext);
 
     const onAcceptQualificationClick = async () => {
         if (qualification) {
+            handleUpdateState("ACCEPTED");
             return await userService.createPetSitter(qualification.email);
         }
     };
 
     const onRejectQualificationClick = async () => {
         if (qualification) {
+            handleUpdateState("REJECTED");
             return await qualificationService.updateQualification(qualification.id, { state: "REJECTED" })
         }
     };
 
-    return (
-        <div className="border border-light-gray2 w-max h-[120px] pr-[18px] pl-[18px] rounded-[16px] grid grid-rows-[40px_40px_40px] shadow-custom cursor-pointer select-none">
-            <div onClick={() => router.push(`/applications/${qualification?.id}`)} className="w-fit flex items-center">
-                <div className="w-[16px] h-[16px] pt-[2px]">
-                    <MoreIcon />
+
+    if (qualification) {
+        if (qualification.state == "PENDING") {
+            return (
+                <div className="border border-light-gray2 w-max h-[120px] pr-[18px] pl-[18px] rounded-[16px] grid grid-rows-[40px_40px_40px] shadow-custom cursor-pointer select-none">
+                    <div onClick={() => router.push(`/applications/${qualification?.id}`)} className="w-fit flex items-center">
+                        <div className="w-[16px] h-[16px] pt-[2px]">
+                            <MoreIcon />
+                        </div>
+                        <div className="text-body-bold text-soft-gray pl-[16px]">
+                            More
+                        </div>
+                    </div>
+                    <div className="w-fit flex items-center">
+                        <div className="w-[16px] h-[16px]">
+                            <AcceptIcon />
+                        </div>
+                        <div
+                            className="text-body-bold text-soft-gray pl-[16px]"
+                            onClick={onAcceptQualificationClick}>
+                            Accept
+                        </div>
+                    </div>
+                    <div className="w-fit flex items-center">
+                        <div className="w-[16px] h-[16px]">
+                            <RejectIcon />
+                        </div>
+                        <div
+                            className="text-body-bold text-soft-gray pl-[16px]"
+                            onClick={onRejectQualificationClick}>
+                            Reject
+                        </div>
+                    </div>
                 </div>
-                <div className="text-body-bold text-soft-gray pl-[16px]">
-                    More
+            );
+        } else {
+            return (
+                <div className="border border-light-gray2 w-max h-[40px] pr-[18px] pl-[18px] rounded-[16px] grid grid-rows-[40px] shadow-custom cursor-pointer select-none">
+                    <div onClick={() => router.push(`/applications/${qualification?.id}`)} className="w-fit flex items-center">
+                        <div className="w-[16px] h-[16px] pt-[2px]">
+                            <MoreIcon />
+                        </div>
+                        <div className="text-body-bold text-soft-gray pl-[16px]">
+                            More
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div className="w-fit flex items-center">
-                <div className="w-[16px] h-[16px]">
-                    <AcceptIcon />
-                </div>
-                <div
-                    className="text-body-bold text-soft-gray pl-[16px]"
-                    onClick={onAcceptQualificationClick}>
-                    Accept
-                </div>
-            </div>
-            <div className="w-fit flex items-center">
-                <div className="w-[16px] h-[16px]">
-                    <RejectIcon />
-                </div>
-                <div
-                    className="text-body-bold text-soft-gray pl-[16px]"
-                    onClick={onRejectQualificationClick}>
-                    Reject
-                </div>
-            </div>
-        </div>
-    );
+            )
+        }
+    }
 }

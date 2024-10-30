@@ -1,23 +1,20 @@
 "use client";
 
-import TableUserCard from "./TableUserCard";
+import TableUserCard, { ApplicationUserCard } from "./TableUserCard";
 import Report from "./Report";
 import Role from "./Role";
+import ApplicationStatus from "./Application";
 import AccountStatus from "./AccountStatus";
 import { DefaultOption, BlockedOption, ReportOption, ApplicationOption } from "../Button/Option";
-import React, { createContext } from 'react';
+import React, { createContext, useState } from 'react';
 import { QualificationModelResponse } from "@/types/user.type";
 import { ReportModelResponse } from "@/types/response.type";
 import { CommonUserModel } from "@/types/user.type";
 
-interface UsersContextType {
-    user: CommonUserModel,
-    userId: string;
-}
-
-export const UsersContext = createContext<UsersContextType | undefined>(undefined);
+export const UsersContext = createContext<CommonUserModel | undefined>(undefined);
 export const ReportsContext = createContext<ReportModelResponse | undefined>(undefined);
 export const ApplicationsContext = createContext<QualificationModelResponse | undefined>(undefined);
+export type UpdateStateFunction = (state: string) => void;
 
 function formatDate(dateString: string) {
     const date = new Date(dateString);
@@ -29,17 +26,14 @@ function formatDate(dateString: string) {
     return `${day}/${month}/${year}`;
 }
 
-export function ManageUsersContent({ user, userId }: {
+export function ManageUsersContent({ user }: {
     user: CommonUserModel
-    userId: string
 }) {
-    console.log(userId);
-
     return (
-        <UsersContext.Provider value={{ user, userId }}>
+        <UsersContext.Provider value={user}>
             <div className="w-fit h-[72px] border border-t-0 border-bd-gray grid grid-cols-[174px_270px_240px_140px_135px_115px_80px]">
-                <div className="flex text-body text-standard-gray pl-[16px] pr-[16px] justify-between items-center">{userId}</div>
-                <TableUserCard src={""} firstname={user.firstname} lastname={user.lastname} />
+                <div className="flex text-body text-standard-gray pl-[16px] pr-[16px] justify-between items-center">{user.id.substring(0, 14)}</div>
+                <TableUserCard src={`http://localhost:3000/attachments/${user.avatar}` || "/profile.jpg"} firstname={user.firstname} lastname={user.lastname} />
                 <div className="flex text-body text-standard-gray pl-[16px] pr-[16px] justify-between items-center">{user.email}</div>
                 <div className="flex text-body text-standard-gray pl-[16px] pr-[16px] justify-between items-center">{formatDate(user.createdAt)}</div>
                 <div className="flex justify-center items-center"><Role role_id={user.role} /></div>
@@ -54,11 +48,12 @@ export function ViewReportsContent({ report }: {
     report: ReportModelResponse
 }) {
     return (
+
         <ReportsContext.Provider value={report}>
             <div className="w-fit h-[72px] border border-t-0 border-bd-gray grid grid-cols-[174px_270px_270px_140px_220px_80px]">
                 <div className="flex text-body text-standard-gray pl-[16px] pr-[16px] justify-between items-center">{report.id}</div>
-                <TableUserCard src={""} firstname={report.reporter.firstname} lastname={report.reporter.lastname} />
-                <TableUserCard src={""} firstname={report.reported.firstname} lastname={report.reported.lastname} />
+                <TableUserCard src={`http://localhost:3000/attachments/${report.reporter.avatar}` || "/profile.jpg"} firstname={report.reporter.firstname} lastname={report.reporter.lastname} />
+                <TableUserCard src={`http://localhost:3000/attachments/${report.reported.avatar}` || "/profile.jpg"} firstname={report.reported.firstname} lastname={report.reported.lastname} />
                 <div className="flex text-body text-standard-gray  pl-[16px] pr-[16px] justify-between items-center">{formatDate(report.createdAt)}</div>
                 <div className="flex justify-center items-center"><Report report_type={report.type} /></div>
                 <div className="flex justify-center items-center"><ReportOption /></div>
@@ -70,16 +65,25 @@ export function ViewReportsContent({ report }: {
 export function ViewApplicationsContent({ qualification }: {
     qualification: QualificationModelResponse
 }) {
+    const [state, setState] = useState<string>("PENDING");
+
+    const handleUpdateState = (state: string) => {
+        setState(state);
+    }
+    console.log(state);
 
     return (
         <ApplicationsContext.Provider value={qualification} >
-            <div className="w-fit h-[72px] border border-t-0 border-bd-gray grid grid-cols-[174px_270px_270px_220px_140px_80px]">
+            <div className="w-fit h-[72px] border border-t-0 border-bd-gray grid grid-cols-[174px_240px_200px_210px_140px_110px_80px]">
                 <div className="flex text-body text-standard-gray pl-[16px] pr-[16px] justify-between items-center">{qualification.id.substring(0, 14)}</div>
-                <TableUserCard firstname={qualification.firstname} lastname={qualification.lastname} />
+                <ApplicationUserCard firstname={qualification.firstname} lastname={qualification.lastname} />
                 <div className="flex text-body text-standard-gray pl-[16px] pr-[16px] justify-between items-center">{qualification.email}</div>
                 <div className="flex text-body text-standard-gray pl-[16px] pr-[16px] justify-between items-center">{qualification.phone}</div>
                 <div className="flex text-body text-standard-gray pl-[16px] pr-[16px] justify-between items-center">{formatDate(qualification.createdAt)}</div>
-                <div className="flex justify-center items-center"><ApplicationOption /></div>
+                <div className="flex justify-center items-center px-[16px]">
+                    <ApplicationStatus application_status={qualification.state} />
+                </div>
+                <div className="flex justify-center items-center"><ApplicationOption handleUpdateState={handleUpdateState} /></div>
             </div>
         </ApplicationsContext.Provider>
     );

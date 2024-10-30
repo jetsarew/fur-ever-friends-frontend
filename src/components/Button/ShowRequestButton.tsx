@@ -15,7 +15,7 @@ export default function ShowRequestButton({ activityId, requests }: ShowRequestB
         setClicked(!clicked);
     }
 
-    // if (requests.length === 0) return null;
+    if (requests.length == 0) return null;
 
     return (
         <div className="w-full flex flex-col items-start gap-4">
@@ -28,7 +28,7 @@ export default function ShowRequestButton({ activityId, requests }: ShowRequestB
                 <div className="w-full flex flex-col gap-4">
                     {
                         requests.map((request, index) => {
-                            return <RequestCard key={index} activityId={activityId} request={request} />
+                            return <RequestCard key={index} activityId={activityId} request={request} border="border border-bd-gray rounded-lg" />
                         })
                     }
                 </div>

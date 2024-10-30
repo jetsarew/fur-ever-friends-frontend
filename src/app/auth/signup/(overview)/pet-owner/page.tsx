@@ -12,7 +12,7 @@ import { getFieldProps } from "@/utils/getFieldProps";
 import { setAuthUser } from "@/store/auth/auth.slice";
 import { useAppDispatch } from "@/store/hooks";
 import { useFormik } from "formik";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 
 export default function PetOwnerSignUpPage() {
@@ -23,15 +23,15 @@ export default function PetOwnerSignUpPage() {
 
   const handleRegister = async () => {
     try {
-        const { confirmPassword, ...parsedFormik} = formik.values;
-        console.log(confirmPassword);
-        const response = await registerMutation.mutateAsync(parsedFormik);
-        console.log(response);
-        dispatch(setAuthUser(response.user));
-        Cookies.set("accessToken", response.token.accessToken, { secure: true, sameSite: 'Strict' });
-        router.push("/");
+      const { confirmPassword, ...parsedFormik } = formik.values;
+      console.log(confirmPassword);
+      const response = await registerMutation.mutateAsync(parsedFormik);
+      console.log(response);
+      dispatch(setAuthUser(response.user));
+      // Cookies.set("accessToken", response.token.accessToken, { secure: true, sameSite: 'Strict' });
+      router.push("/");
     } catch (error) {
-        Toast("Register failed.", "error");
+      Toast("Register failed.", "error");
     }
   };
 
@@ -44,7 +44,7 @@ export default function PetOwnerSignUpPage() {
     validationSchema: registerValidationSchema,
     onSubmit: handleRegister,
   });
-  
+
   const emailInputProps = getFieldProps(formik, "email");
   const passwordInputProps = getFieldProps(formik, "password");
   const confirmPasswordInputProps = getFieldProps(formik, "confirmPassword");
@@ -58,7 +58,7 @@ export default function PetOwnerSignUpPage() {
       className="flex flex-col items-stretch gap-6 w-[442px]"
       onSubmit={formik.handleSubmit}
     >
-      <ValidatedInput 
+      <ValidatedInput
         {...firstNameInputProps}
         label="First Name"
         containerStyle="relative flex flex-col gap-2"
@@ -67,7 +67,7 @@ export default function PetOwnerSignUpPage() {
         onChange={(e) => formik.setFieldValue("firstname", e.target.value)}
         type="text"
       />
-      <ValidatedInput 
+      <ValidatedInput
         {...lastNameInputProps}
         label="Last Name"
         containerStyle="relative flex flex-col gap-2"
@@ -76,7 +76,7 @@ export default function PetOwnerSignUpPage() {
         onChange={(e) => formik.setFieldValue("lastname", e.target.value)}
         type="text"
       />
-      <ValidatedInput 
+      <ValidatedInput
         {...emailInputProps}
         label="Email"
         containerStyle="relative flex flex-col gap-2"
@@ -85,7 +85,7 @@ export default function PetOwnerSignUpPage() {
         onChange={(e) => formik.setFieldValue("email", e.target.value)}
         type="email"
       />
-      <ValidatedInput 
+      <ValidatedInput
         {...passwordInputProps}
         label="Password"
         containerStyle="relative flex flex-col gap-2"
@@ -94,7 +94,7 @@ export default function PetOwnerSignUpPage() {
         onChange={(e) => formik.setFieldValue("password", e.target.value)}
         type="password"
       />
-      <ValidatedInput 
+      <ValidatedInput
         {...confirmPasswordInputProps}
         label="Confirm Password"
         containerStyle="relative flex flex-col gap-2"
@@ -103,7 +103,7 @@ export default function PetOwnerSignUpPage() {
         onChange={(e) => formik.setFieldValue("confirmPassword", e.target.value)}
         type="password"
       />
-      <ValidatedInput 
+      <ValidatedInput
         {...phoneInputProps}
         label="Phone Number"
         containerStyle="relative flex flex-col gap-2"

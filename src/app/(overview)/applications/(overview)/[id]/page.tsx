@@ -11,6 +11,7 @@ export default function ApplicationPage({ params }: {
 }) {
     const [qualification, setQualification] = useState<QualificationModelResponse>();
     const [previewCertificateImage, setPreviewCertificateImage] = useState<string>("/Upload file.svg");
+    const [state, setState] = useState("");
 
     useEffect(() => {
         const fetchQualification = async () => {
@@ -33,6 +34,7 @@ export default function ApplicationPage({ params }: {
 
     const onAcceptQualificationClick = async () => {
         if (qualification) {
+            setState("ACCEPTED");
             console.log('accepted');
             return await userService.createPetSitter(qualification.email);
         }
@@ -40,6 +42,7 @@ export default function ApplicationPage({ params }: {
 
     const onRejectQualificationClick = async () => {
         if (qualification) {
+            setState("REJECTED");
             console.log('rejected');
             return await qualificationService.updateQualification(qualification.id, { state: "REJECTED" })
         }
@@ -54,16 +57,23 @@ export default function ApplicationPage({ params }: {
                     Application
                 </div>
                 <div className="flex gap-[16px]">
-                    <button
-                        className="bg-bright-green text-button text-white py-[8px] px-[24px] rounded-[8px]"
-                        onClick={onAcceptQualificationClick}>
-                        Accept
-                    </button>
-                    <button
-                        className="text-button text-bright-red border border-bright-red py-[8px] px-[24px] rounded-[8px]"
-                        onClick={onRejectQualificationClick}>
-                        Reject
-                    </button>
+                    {qualification?.state === "PENDING" && state === "" ?
+                        <>
+                            <button
+                                className="bg-bright-green text-button text-white py-[8px] px-[24px] rounded-[8px]"
+                                onClick={onAcceptQualificationClick}>
+                                Accept
+                            </button>
+                            <button
+                                className="text-button text-bright-red border border-bright-red py-[8px] px-[24px] rounded-[8px]"
+                                onClick={onRejectQualificationClick}>
+                                Reject
+                            </button>
+                        </> :
+                        <div className="text-body-bold text-medium-gray">
+                            {state ? state : qualification?.state}
+                        </div>
+                    }
                 </div>
             </div>
             <div className="grid grid-cols-3">

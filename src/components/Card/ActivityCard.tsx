@@ -4,7 +4,7 @@ import ShowRequestButton from "../Button/ShowRequestButton";
 import Link from "next/link";
 import { Role } from "@/types/user.type";
 import { ActivityModelResponse } from "@/types/response.type";
-import { formatUTCDate, timeUntil } from "@/hooks/useConvertTime";
+import { formatUTCDate, hasActivityTerminated, timeUntil } from "@/hooks/useConvertTime";
 
 interface ActivityCardProps{
     role?: Role,
@@ -54,11 +54,17 @@ export default function ActivityCard({ role, activity}: ActivityCardProps){
         </div> : 
         (
             activity.state == "IN_PROGRESS" ?
-            <div className="flex flex-row items-baseline gap-1 text-dark-blue">
-                <p className="text-body">end in</p>
-                <p className="text-subheading">{timeUntil(activity.endDateTime).diffTime}</p>
-                <p className="text-body">{timeUntil(activity.endDateTime).unit}</p>
-            </div>
+            (
+                hasActivityTerminated(activity.endDateTime) ? 
+                <div className="flex flex-row items-baseline gap-1 text-dark-blue">
+                    <p className="text-body">Ended</p>
+                </div> :
+                <div className="flex flex-row items-baseline gap-1 text-dark-blue">
+                    <p className="text-body">end in</p>
+                    <p className="text-subheading">{timeUntil(activity.endDateTime).diffTime}</p>
+                    <p className="text-body">{timeUntil(activity.endDateTime).unit}</p>
+                </div>
+            )
             :
             <></>
         )
@@ -72,11 +78,17 @@ export default function ActivityCard({ role, activity}: ActivityCardProps){
         </div> :
         (
             activity.state == "IN_PROGRESS" ?
-            <div className="flex flex-row items-baseline gap-1 text-dark-blue">
-                <p className="text-body">end in</p>
-                <p className="text-subheading">{timeUntil(activity.endDateTime).diffTime}</p>
-                <p className="text-body">{timeUntil(activity.endDateTime).unit}</p>
-            </div> :
+            (
+                hasActivityTerminated(activity.endDateTime) ? 
+                <div className="flex flex-row items-baseline gap-1 text-dark-blue">
+                    <p className="text-body">Ended</p>
+                </div> :
+                <div className="flex flex-row items-baseline gap-1 text-dark-blue">
+                    <p className="text-body">end in</p>
+                    <p className="text-subheading">{timeUntil(activity.endDateTime).diffTime}</p>
+                    <p className="text-body">{timeUntil(activity.endDateTime).unit}</p>
+                </div>
+            ) :
             <p className="h-5 text-subheading text-bright-green">{"$" + activity.price}</p>
         )
     );
@@ -87,15 +99,18 @@ export default function ActivityCard({ role, activity}: ActivityCardProps){
         (
             activity.state == "RETURNING" ?
             <div className="w-full flex flex-row gap-8">
-                <button className="flex-1 px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green">I have received my pets</button>
+                <Link 
+                    href={`/compose/confirm-pet-receipt/${activity.id}`}
+                    className="flex-1 px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green"
+                >I have received my pets</Link>
                 <Link
-                    href={"/activity/123456/report"} 
+                    href={`/compose/missing-pet/${activity.id}`} 
                     className="flex-1 px-6 py-4 flex flex-row justify-center items-center border-[2px] border-bright-red rounded-lg text-body-bold text-bright-red"
-                >Report an issue</Link>
+                >Report Missing Pet(s)</Link>
             </div> : (
-                activity.state == "COMPLETED" ?
+                activity.state == "COMPLETED" && activity.review == null ?
                 <Link
-                    href={"/activity/123456/review/1234687"}
+                    href={`/activity/${activity.id}/review/${activity.petsitter?.user.id}`}
                     className="w-full px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-golden-yellow"
                 >Rate pet sitter</Link> : 
                 <></>
@@ -103,7 +118,12 @@ export default function ActivityCard({ role, activity}: ActivityCardProps){
         )
     ):
     (
-        activity.state == "RETURNING" && <button className="w-full px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green">I have returned all pets</button>
+        activity.state == "IN_PROGRESS" && hasActivityTerminated(activity.endDateTime) ?
+        <Link
+            href={`/compose/confirm-pet-return/${activity.id}`}
+            className="w-full px-6 py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green"
+        >I have returned all pets</Link>
+        :<></>
     );
     
     return (

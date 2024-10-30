@@ -122,7 +122,7 @@ export default function ActivityReportPage({
             className="w-[60px] h-[60px] rounded-full border-[3px] border-bright-blue object-cover"
           />
           <p className="text-subheading text-bright-blue">
-            Kirana Jasmine Chewter
+            {reportedUserData?.firstname + " " + reportedUserData?.lastname}
           </p>
         </div>
       </div>

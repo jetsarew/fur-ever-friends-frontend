@@ -39,7 +39,7 @@ export default function ApplicationsPage() {
             </div>
             <div>
                 <ViewApplicationsHeader />
-                {qualifications.length && qualifications.map((qualification) => (
+                {qualifications.map((qualification) => (
                     <ViewApplicationsContent
                         key={qualification.id}
                         qualification={qualification}

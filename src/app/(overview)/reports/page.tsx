@@ -26,9 +26,11 @@ export default function ReportsPage() {
 
     return (
         <div className="flex flex-col w-max top-[112px] left-[143px] gap-[32px]">
-            <div className="flex gap-[16px] items-center">
-                <SearchBar />
+            <div className="flex gap-[16px]">
                 <div>
+                    <SearchBar />
+                </div>
+                <div className="pt-[16px]">
                     <ReportsFilter />
                 </div>
             </div>

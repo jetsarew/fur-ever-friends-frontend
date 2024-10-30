@@ -1,25 +1,39 @@
 import { AdminPetOwnerCard, AdminPetSitterCard } from "@/components/Admin/Card/AccountUserCard"
+import { CommonUserModel } from "@/types/user.type";
+import ReviewCard from "@/components/Card/ReviewCard";
+import { usePets } from "@/hooks/usePets";
+import PetCard from "@/components/Card/PetCard";
 
-export function PetOwnerPage() {
+export function PetOwnerPage({ user }: {
+    user: CommonUserModel
+}) {
+    const { petList } = usePets();
+
     return (
         <>
-            <AdminPetOwnerCard />
+            <AdminPetOwnerCard user={user} />
             <div className="border border-bd-gray py-[24px] px-[16px] rounded-[8px] h-fit grid gap-[16px]">
                 <div className="text-subheading text-dark-blue">
                     Pets
                 </div>
-                <div className="flex justify-between">
-                    Pet cards
+                <div className={`flex flex-wrap justify-between gap-[32px]`}>
+                    {
+                        petList?.map((pet, index) => {
+                            return <PetCard key={index} width={"w-[427px]"} border={"border border-bd-gray rounded-lg"} padding={"px-6 py-3"} showActionButton={false} pet={pet} />
+                        })
+                    }
                 </div>
             </div>
         </>
     );
 }
 
-export function PetSitterPage() {
+export function PetSitterPage({ user }: {
+    user: CommonUserModel
+}) {
     return (
         <>
-            <AdminPetSitterCard />
+            <AdminPetSitterCard user={user} />
             <div className="border border-bd-gray py-[24px] px-[16px] rounded-[8px] h-fit grid gap-[16px]">
                 <div className="text-subheading text-dark-blue">
                     Profile Information
@@ -30,7 +44,8 @@ export function PetSitterPage() {
                             Quote
                         </div>
                         <div className="text-body-paragraph text-dark">
-                            Your pet’s happiness is my top priority, and I treat them like family every time.                                    </div>
+                            {user.petsitter?.quote}
+                        </div>
                     </div>
 
                     <div className="grid gap-[8px] border-b border-bd-gray py-[16px]">
@@ -38,15 +53,16 @@ export function PetSitterPage() {
                             About
                         </div>
                         <div className="text-body-paragraph text-dark">
-                            Hi, I’m Kirana, a passionate pet lover with 5 years of experience in pet sitting. Caring for animals has always been a joy for me, and I’m dedicated to providing your pets with the same love and attention they get at home. Whether it’s a fun walk in the park, playtime, or some quiet cuddles, I’m here to make sure your furry friends are happy, healthy, and well-cared for. I’m reliable, responsible, and always go the extra mile to ensure peace of mind for pet owners.                                    </div>
+                            {user.petsitter?.about}
+                        </div>
                     </div>
 
-                    <div className="grid gap-[8px] border-b border-bd-gray pt-[16px]">
+                    <div className="grid gap-[8px] border-b border-bd-gray py-[16px]">
                         <div className="text-body-bold text-black">
                             Experience
                         </div>
                         <div className="text-body-paragraph text-dark">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque pariatur aliquam minima suscipit tenetur, quam voluptate dignissimos cum accusantium sapiente adipisci necessitatibus alias ipsa, maxime eligendi impedit sint mollitia atque?
+                            {user.petsitter?.experience}
                         </div>
                     </div>
                 </div>
@@ -54,11 +70,11 @@ export function PetSitterPage() {
 
             <div>
                 <div className="text-subheading text-dark-blue">
-                    Reviews(99)
+                    Reviews({user.petsitter?.reviews.length})
                 </div>
-                <div>
-                    Reviewsss
-                </div>
+                {
+                    user.petsitter?.reviews.map((review) => (<ReviewCard key={review.id} />))
+                }
             </div>
         </>
     );

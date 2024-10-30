@@ -4,18 +4,16 @@ import { useRouter } from "next/navigation";
 import Modal from "./Modal";
 import { activityService } from "@/services/activity.service";
 import { Toast } from "../Toast/Toast";
-
-interface ConfirmPetReceiptInterface {
+interface MissingPetModalInterface {
     activityId: string;
 }
-
-export default function ConfirmPetReceiptModal({ activityId }: ConfirmPetReceiptInterface){
+export default function MissingPetModal({ activityId }: MissingPetModalInterface){
     const router = useRouter()
 
     const onConfirmButtonClicked = async () => {
         try {
             await activityService.updateActivityState(activityId, {
-                state: "COMPLETED"
+                state: "FAILED"
             })
             Toast("Success", "success");
             router.back();
@@ -26,25 +24,25 @@ export default function ConfirmPetReceiptModal({ activityId }: ConfirmPetReceipt
 
     return ( 
         <Modal
-            modalId="confirm-pet-receipt" 
+            modalId="missing-pet" 
         >
             <div
                 className="w-[300px] mx-auto p-8 flex flex-col gap-2 border-bd-gray rounded-xl bg-white"
             >
-                <h1 className="text-subheading2">Confirm pet receipt?</h1>
+                <h1 className="text-subheading2">Mark pet as missing?</h1>
                 <div className="flex flex-col gap-6">
-                    <p className="text-small-paragraph text-soft-gray">Please confirm that you have received your pets. This will finalize the return process.</p>
+                    <p className="text-small-paragraph text-soft-gray">Marking the pet as missing will notify the necessary contacts and record the status on your account.</p>
                     <div className="flex flex-col gap-2">
                         <button 
                             type="button"
                             onClick={onConfirmButtonClicked}
-                            className="w-full py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-green"
-                        >Yes, confirm</button>
+                            className="w-full py-4 flex flex-row justify-center items-center rounded-lg text-button text-white bg-bright-red"
+                        >Confirm</button>
                         <button 
                             type="button"
                             onClick={() => {router.back();}}
                             className="w-full py-4 flex flex-row justify-center items-center border border-soft-gray rounded-lg text-body-bold text-soft-gray"
-                        >No, cancel</button>
+                        >Cancel</button>
                     </div>
                 </div>
             </div>
