@@ -1,6 +1,6 @@
 import { apiController } from "@/controllers/api.controller";
 import { CreateRequestDto } from "@/dto/request.dto";
-import { RequestModelResponse } from "@/types/response.type";
+import { FormattedRequestModelResponse, RequestModelResponse } from "@/types/response.type";
 
 export const requestService = {
     createRequest: async (
@@ -13,7 +13,7 @@ export const requestService = {
     ) => {
         return await apiController(`/requests/${requestId}/accept`, "patch");
     },
-    getRequestedActivity: async (): Promise<RequestModelResponse[]> => {
+    getRequestedActivity: async (): Promise<FormattedRequestModelResponse[]> => {
         return await apiController(`/requests/petsitter`, "get");
     }
 }
