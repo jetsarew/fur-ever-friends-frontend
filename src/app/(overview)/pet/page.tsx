@@ -16,7 +16,7 @@ export default function PetPage() {
     if (!isAllowed) {
         router.push("/");
     }
-    
+
     return (
         <div>
             <div className="h-fit bg-white flex justify-center">

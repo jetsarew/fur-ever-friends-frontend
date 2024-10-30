@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import { DropdownArrowIcon } from "@/shared/Icon";
+import { filterRoleByType, filterStatusByType } from "@/app/(overview)/users/page";
 
-export function Dropdown({ width, options, defaultOption }: {
+export function Dropdown({ width, options, defaultOption, onOptionSelect }: {
     width: number;
     options: string[];
     defaultOption: string;
+    onOptionSelect: (selectedOption: string) => void;
 }) {
     const [isClosed, setIsClosed] = useState(true);
     const [option, setOption] = useState(defaultOption);
@@ -18,6 +20,7 @@ export function Dropdown({ width, options, defaultOption }: {
     const handleOptionClick = (option: string) => {
         setOption(option);
         setIsClosed(true);
+        onOptionSelect(option);
     };
 
     return (
@@ -41,14 +44,14 @@ export function Dropdown({ width, options, defaultOption }: {
     );
 }
 
-export function UserStatusDropdown() {
+export function UserStatusDropdown({ handleFilterStatusBy }: { handleFilterStatusBy: filterStatusByType }) {
     return (
-        <Dropdown width={128} options={["enabled", "disabled"]} defaultOption={"enabled"} />
+        <Dropdown width={128} options={["enabled", "disabled"]} defaultOption={"enabled"} onOptionSelect={handleFilterStatusBy} />
     );
 }
 
-export function UserRoleDropdown() {
+export function UserRoleDropdown({ handleFilterRoleBy }: { handleFilterRoleBy: filterRoleByType }) {
     return (
-        <Dropdown width={144} options={["pet sitter", "pet owner"]} defaultOption={"pet sitter"} />
+        <Dropdown width={144} options={["pet sitter", "pet owner"]} defaultOption={"pet sitter"} onOptionSelect={handleFilterRoleBy} />
     );
 }

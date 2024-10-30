@@ -18,7 +18,7 @@ import { getStatePriority } from "@/hooks/useStatePriority";
 export default function ActivityDetailPage({ params }: {
     params: { id: string }
 }
-){
+) {
     const [activity, setActivity] = useState<ActivityModelResponse | null>(null);
 
     const userData = useAppSelector((state) => state.auth.user);
@@ -30,22 +30,22 @@ export default function ActivityDetailPage({ params }: {
         }
 
         fetchActivity();
-    }, [params.id]);
+    }, []);
 
-    if(!activity) return null;
+    if (!activity) return null;
 
     return (
         <div className="flex flex-col items-start gap-8">
             <h1 className="text-header text-bright-blue">{activity.title}</h1>
             <div className="w-full flex flex-row justify-between items-start">
                 <div className="w-[561px] flex flex-col gap-8">
-                    { userData?.role == "CUSTOMER" && activity.petsitter != null && <PetSitterCard activity={activity} /> }
-                    { userData?.role == "PETSITTER" && <PetOwnerCard activity={activity}/> }
+                    {userData?.role == "CUSTOMER" && activity.petsitter != null && <PetSitterCard activity={activity} />}
+                    {userData?.role == "PETSITTER" && <PetOwnerCard activity={activity} />}
                     <div className="py-6 px-4 flex flex-col gap-4 border border-bd-gray rounded-lg">
                         <h3 className="text-subheading text-dark-blue">Duration</h3>
                         <div>
                             <div className="pb-2 flex flex-row items-start gap-2 border-b border-bd-gray">
-                                <CalendarIcon/>
+                                <CalendarIcon />
                                 <div className="pt-2 flex flex-col gap-2">
                                     <p className="text-body-bold">Start</p>
                                     <p className="text-small text-soft-gray">{formatUTCDate(activity.startDateTime)}</p>
@@ -82,7 +82,7 @@ export default function ActivityDetailPage({ params }: {
                     {
                         activity.services.map((service, index) => {
                             return (
-                                <PetActivityCard 
+                                <PetActivityCard
                                     key={index}
                                     service={service}
                                     showCheckBox={false}
@@ -98,8 +98,8 @@ export default function ActivityDetailPage({ params }: {
                     <div
                         className="pt-4 border-t border-bd-gray "
                     >
-                        <Link 
-                            href={`/activity/${activity.id}/progress`} 
+                        <Link
+                            href={`/activity/${activity.id}/progress`}
                             className="px-6 py-2 w-fit flex flex-row justify-center items-center rounded-lg bg-bright-blue text-button text-white"
                         >{userData?.role == "CUSTOMER" ? "See progress" : "Update progress"}</Link>
                     </div>
@@ -112,7 +112,7 @@ export default function ActivityDetailPage({ params }: {
                     className="px-6 py-4 flex flex-row justify-center items-center rounded-lg border-[2px] border-bright-red text-body-bold text-bright-red"
                 >Delete this activity</Link>
             }
-            
+
         </div>
     )
 }
