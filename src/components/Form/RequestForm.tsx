@@ -27,7 +27,12 @@ export default function RequestForm({activityId}: {activityId: string}){
             console.log(response);
             window.location.reload();
         } catch (error) {
-            Toast("Fail to send request", "error");
+            if(error) {
+                Toast(error as string, "error");
+            }
+            else {
+                Toast("Fail to send request.", "error");
+            }
         }
     }
 

@@ -13,7 +13,7 @@ const UploadCertificate = () => {
   const [previewCertificateImage, setPreviewCertificateImage] = useState<string>("/Upload file.svg");
 
   const { email, firstName, lastName, phone } = useAppSelector((state) => state.qualification);
-  const { resetStateStore }=  useQualificationStep();
+  const { resetStateStore } = useQualificationStep();
   const router = useRouter();
 
   const onFileUploaded = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,7 +39,12 @@ const UploadCertificate = () => {
       resetStateStore();
       router.push("/auth/signup/upload-done");
     } catch (error) {
-      Toast("Failed to send qualification.", "error");
+      if(error) {
+          Toast(error as string, "error");
+      }
+      else {
+          Toast("Failed to send qualification.", "error");
+      }
     }
   };
 
@@ -76,11 +81,10 @@ const UploadCertificate = () => {
               width={194}
               height={121}
               alt="Upload file"
-              className={`${
-                previewCertificateImage != "/Upload file.svg"
-                  ? "w-[208px] h-[161px] object-cover"
-                  : ""
-              }`}
+              className={`${previewCertificateImage != "/Upload file.svg"
+                ? "w-[208px] h-[161px] object-cover"
+                : ""
+                }`}
             />
             <div className="text-body text-dark-blue items-center">
               Click here to upload

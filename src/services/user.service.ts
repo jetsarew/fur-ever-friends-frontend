@@ -19,7 +19,7 @@ export const userService = {
         const { avatarFile, ...parsedUpdateRequest } = updatePetOwnerRequest;
         formData.append("json", JSON.stringify(parsedUpdateRequest));
         console.log(parsedUpdateRequest);
-        if(avatarFile) {
+        if (avatarFile) {
             formData.append("avatar", avatarFile);
         }
         return await apiController(`/users/customer/me`, "patch", formData);
@@ -31,10 +31,10 @@ export const userService = {
         const { avatarFile, coverImageFile, ...parsedUpdateRequest } = updatePetSitterRequest;
         formData.append("json", JSON.stringify(parsedUpdateRequest));
         console.log(parsedUpdateRequest);
-        if(avatarFile) {
+        if (avatarFile) {
             formData.append("avatar", avatarFile);
         }
-        if(coverImageFile) {
+        if (coverImageFile) {
             coverImageFile.forEach((file) => {
                 formData.append("coverImage", file);
             })
@@ -47,7 +47,7 @@ export const userService = {
     ): Promise<CommonUserModel> => {
         return await apiController(`/users/${userId}`, "get");
     },
-    getAllUser: async (): Promise<CommonUserModel[]> => {
-        return await apiController(`/users`, "get");
+    getAllUser: async (path: string): Promise<CommonUserModel[]> => {
+        return await apiController(`/users` + path, "get");
     }
 }

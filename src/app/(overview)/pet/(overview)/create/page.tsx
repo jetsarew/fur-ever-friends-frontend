@@ -45,7 +45,12 @@ export default function CreatePet() {
             router.back();
             Toast("Create pet successfully.", "success");
         } catch (error) {
-            Toast("Failed to create pet.", "error");
+            if(error) {
+                Toast(error as string, "error");
+            }
+            else {
+                Toast("Failed to create pet.", "error");
+            }
         }
     }
 
@@ -246,7 +251,7 @@ export default function CreatePet() {
                     />
                     <ValidatedInput 
                         {...otherDetailInputProps}
-                        label="OtherDetail"
+                        label="Other Detail"
                         containerStyle="relative w-full flex flex-col gap-3"
                         labelStyle="text-subheading2 text-bright-blue"
                         height="h-[96px]"

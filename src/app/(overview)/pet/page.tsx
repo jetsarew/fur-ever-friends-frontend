@@ -4,18 +4,34 @@ import Link from "next/link";
 import PetCard from "@/components/Card/PetCard";
 import { useAppSelector } from "@/store/hooks";
 import { useRouter } from "next/navigation";
-import { usePets } from "@/hooks/usePets";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { PetModelResponse } from "@/types/response.type";
+import { petService } from "@/services/pet.service";
 
 export default function PetPage() {
     const userData = useAppSelector((state) => state.auth.user);
-    const { petList } = usePets();
+    const [petList, setPetList] = useState<PetModelResponse[]>([]);
+
     const router = useRouter();
     const isAllowed = userData && userData.customer && userData?.role == "CUSTOMER";
 
     if (!isAllowed) {
         router.push("/");
     }
+
+    useEffect(() => {
+        const fetchPets = async () => {
+            try {
+                const response = await petService.getPetsByOwner();
+                setPetList(response);
+            } catch(error) {
+
+            }
+        }
+        
+        fetchPets();
+    }, []);
     
     return (
         <div>

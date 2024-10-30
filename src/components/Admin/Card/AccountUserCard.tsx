@@ -1,6 +1,21 @@
+import { CommonUserModel } from "@/types/user.type";
 import { BlockButton, UnblockButton } from "../Button/BlockButton";
+import { getAttachmentSrc } from "@/hooks/useImage";
+import Image from "next/image";
 
-export function AdminPetOwnerCard() {
+function formatDate(dateString: string) {
+    const date = new Date(dateString);
+
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+    const year = date.getFullYear();
+
+    return `${day}/${month}/${year}`;
+}
+
+export function AdminPetOwnerCard({ user }: {
+    user: CommonUserModel
+}) {
     return (
         <div className="w-fit rounded-[8px] py-[24px] px-[16px] border border-bd-gray">
             <div className="w-[886px] grid gap-[16px]">
@@ -8,13 +23,18 @@ export function AdminPetOwnerCard() {
                     <div className="text-subheading text-dark-blue">
                         Account
                     </div>
-                    {/* <BlockButton /> */}
-                    <UnblockButton />
+                    {
+                        user.accountStatus === "ACTIVE" ? <BlockButton /> : <UnblockButton />
+                    }
                 </div>
                 <div className="w-fill grid grid-cols-[100px_1fr] gap-[64px]">
-                    <div className="w-[100px] h-[100px] rounded-[50px] border-[3px] border-bright-blue">
-
-                    </div>
+                    <Image
+                        src={getAttachmentSrc(user.avatar)}
+                        width={186}
+                        height={186}
+                        alt={"/default_profile.jpg"}
+                        className="w-[100px] h-[100px] border-[3px] border-bright-blue rounded-full object-cover"
+                    />
                     <div className="grid gap-[32px]">
 
                         <div className="grid grid-cols-3 h-fit">
@@ -23,7 +43,7 @@ export function AdminPetOwnerCard() {
                                     ID
                                 </div>
                                 <div className="text-body text-dark">
-                                    0123456789
+                                    {user.id}
                                 </div>
                             </div>
                             <div className="grid gap-[8px] h-fit">
@@ -31,7 +51,7 @@ export function AdminPetOwnerCard() {
                                     Created at
                                 </div>
                                 <div className="text-body text-dark">
-                                    10/10/2024
+                                    {formatDate(user.createdAt)}
                                 </div>
                             </div>
                             <div className="grid gap-[8px] h-fit">
@@ -39,7 +59,7 @@ export function AdminPetOwnerCard() {
                                     Status
                                 </div>
                                 <div className="text-body text-dark">
-                                    enabled
+                                    {user.accountStatus === "ACTIVE" ? "Enabled" : "Disabled"}
                                 </div>
                             </div>
                         </div>
@@ -50,7 +70,7 @@ export function AdminPetOwnerCard() {
                                     Username
                                 </div>
                                 <div className="text-body text-dark">
-                                    Anntonia Porsild
+                                    {user.firstname} {user.lastname}
                                 </div>
                             </div>
                             <div className="grid gap-[8px] h-fit">
@@ -58,7 +78,7 @@ export function AdminPetOwnerCard() {
                                     Email
                                 </div>
                                 <div className="text-body text-dark">
-                                    porsild@gmail.com
+                                    {user.email}
                                 </div>
                             </div>
                             <div className="grid gap-[8px] h-fit">
@@ -66,7 +86,7 @@ export function AdminPetOwnerCard() {
                                     Role
                                 </div>
                                 <div className="text-body text-dark">
-                                    pet owner
+                                    {user.role === "CUSTOMER" ? "pet owner" : "pet sitter"}
                                 </div>
                             </div>
                         </div>
@@ -77,7 +97,7 @@ export function AdminPetOwnerCard() {
                                     Phone number
                                 </div>
                                 <div className="text-body text-dark">
-                                    0123456789
+                                    {user.phone}
                                 </div>
                             </div>
                             <div className="grid gap-[8px] h-fit">
@@ -97,7 +117,9 @@ export function AdminPetOwnerCard() {
     );
 }
 
-export function AdminPetSitterCard() {
+export function AdminPetSitterCard({ user }: {
+    user: CommonUserModel
+}) {
     return (
         <div className="w-fit rounded-[8px] py-[24px] px-[16px] border border-bd-gray">
             <div className="w-[886px] grid gap-[16px]">
@@ -105,13 +127,18 @@ export function AdminPetSitterCard() {
                     <div className="text-subheading text-dark-blue">
                         Account
                     </div>
-                    <BlockButton />
-                    {/* <UnblockButton /> */}
+                    {
+                        user.accountStatus === "ACTIVE" ? <BlockButton /> : <UnblockButton />
+                    }
                 </div>
                 <div className="w-fill grid grid-cols-[100px_1fr] gap-[64px]">
-                    <div className="w-[100px] h-[100px] rounded-[50px] border-[3px] border-bright-blue">
-
-                    </div>
+                    <Image
+                        src={getAttachmentSrc(user.avatar)}
+                        width={186}
+                        height={186}
+                        alt={"/default_profile.jpg"}
+                        className="w-[100px] h-[100px] border-[3px] border-bright-blue rounded-full object-cover"
+                    />
                     <div className="grid gap-[32px]">
 
                         <div className="grid grid-cols-3 h-fit">
@@ -120,7 +147,7 @@ export function AdminPetSitterCard() {
                                     ID
                                 </div>
                                 <div className="text-body text-dark">
-                                    0123456789
+                                    {user.id}
                                 </div>
                             </div>
                             <div className="grid gap-[8px] h-fit">
@@ -128,7 +155,7 @@ export function AdminPetSitterCard() {
                                     Created at
                                 </div>
                                 <div className="text-body text-dark">
-                                    10/10/2024
+                                    {formatDate(user.createdAt)}
                                 </div>
                             </div>
                             <div className="grid gap-[8px] h-fit">
@@ -136,7 +163,7 @@ export function AdminPetSitterCard() {
                                     Status
                                 </div>
                                 <div className="text-body text-dark">
-                                    enabled
+                                    {user.accountStatus === "ACTIVE" ? "Enabled" : "Disabled"}
                                 </div>
                             </div>
                         </div>
@@ -147,7 +174,7 @@ export function AdminPetSitterCard() {
                                     Username
                                 </div>
                                 <div className="text-body text-dark">
-                                    Kirana Jasmine Chewter
+                                    {user.firstname} {user.lastname}
                                 </div>
                             </div>
                             <div className="grid gap-[8px] h-fit">
@@ -155,7 +182,7 @@ export function AdminPetSitterCard() {
                                     Email
                                 </div>
                                 <div className="text-body text-dark">
-                                    kirana@gmail.com
+                                    {user.email}
                                 </div>
                             </div>
                             <div className="grid gap-[8px] h-fit">
@@ -163,7 +190,7 @@ export function AdminPetSitterCard() {
                                     Role
                                 </div>
                                 <div className="text-body text-dark">
-                                    pet sitter
+                                    {user.role === "CUSTOMER" ? "pet owner" : "pet sitter"}
                                 </div>
                             </div>
                         </div>
@@ -174,7 +201,7 @@ export function AdminPetSitterCard() {
                                     Phone number
                                 </div>
                                 <div className="text-body text-dark">
-                                    0123456789
+                                    {user.phone}
                                 </div>
                             </div>
                             <div className="grid gap-[8px] h-fit">
@@ -201,7 +228,7 @@ export function AdminPetSitterCard() {
                                     Reviews
                                 </div>
                                 <div className="text-body text-dark">
-                                    99
+                                    {user.petsitter?.reviews.length}
                                 </div>
                             </div>
                             <div className="grid gap-[8px] h-fit">
@@ -209,7 +236,7 @@ export function AdminPetSitterCard() {
                                     Rating
                                 </div>
                                 <div className="text-body text-dark">
-                                    4.5
+                                    {user.petsitter?.rating}
                                 </div>
                             </div>
                             <div className="grid gap-[8px] h-fit">

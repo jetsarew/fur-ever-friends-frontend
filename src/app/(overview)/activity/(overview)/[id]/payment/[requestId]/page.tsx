@@ -28,7 +28,12 @@ export default function PaymentPage({ params }: {
             router.push(`/activity/assigned`);
             Toast(`The activity has assigned to ${request?.petsitter.user?.firstname + " " + request?.petsitter.user?.lastname}`, "success");
         } catch(error) {
-            Toast("Failed to accept request.", "error");
+            if(error) {
+                Toast(error as string, "error");
+            }
+            else {
+                Toast("Failed to accept request.", "error");
+            }  
         }
     }
 
@@ -66,7 +71,7 @@ export default function PaymentPage({ params }: {
                 <div className="flex flex-col items-start gap-4 self-stretch p-6 px-4 rounded-lg border border-bd-gray">
                 <div className='flex justify-between items-end self-stretch'>
                     <div className='flex items-end' style={{ gap: 'var(--Space-200, 8px)' }}>
-                    <Image src="/pet-sitter.jpg" width={80} height={80} alt="Pet Sitter" className="w-10 h-10 rounded-[40px] border-[3px] border-bright-blue object-cover object-center"/>
+                    <Image src={request?.petsitter.user.avatar ? getAttachmentSrc(request.petsitter.user.avatar) : "/default_profile.jpg"} width={80} height={80} alt="Pet Sitter" className="w-10 h-10 rounded-[40px] border-[3px] border-bright-blue object-cover object-center"/>
                     <p className='text-dark-blue text-subheading'>{request?.petsitter.user?.firstname + " " + request?.petsitter.user?.lastname}</p>
                     </div>
                     <p className='text-bright-green text-subheading'>{`$${request?.price}`}</p>

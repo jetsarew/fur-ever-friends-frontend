@@ -47,7 +47,12 @@ export default function ActivityReportPage({
       await reportService.createReport(createReportRequest);
       router.back();
     } catch (error) {
-      Toast("Failed to create the report.", "error");
+        if(error) {
+            Toast(error as string, "error");
+        }
+        else {
+            Toast("Failed to create the report.", "error");
+        }
     }
   };
 
