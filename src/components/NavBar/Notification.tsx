@@ -25,7 +25,12 @@ export default function Notification() {
         setNotifications(response);
         console.log(response);
       } catch(error) {
-        Toast("Failed to get notifications", "error");
+        if(error) {
+            Toast(error as string, "error");
+        }
+        else {
+            Toast("Failed to get notifications.", "error");
+        }
       }
     }
 

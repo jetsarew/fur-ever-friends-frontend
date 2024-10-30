@@ -45,7 +45,12 @@ export default function CreatePet() {
             router.back();
             Toast("Create pet successfully.", "success");
         } catch (error) {
-            Toast("Failed to create pet.", "error");
+            if(error) {
+                Toast(error as string, "error");
+            }
+            else {
+                Toast("Failed to create pet.", "error");
+            }
         }
     }
 

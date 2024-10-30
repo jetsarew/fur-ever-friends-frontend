@@ -39,7 +39,12 @@ const UploadCertificate = () => {
       resetStateStore();
       router.push("/auth/signup/upload-done");
     } catch (error) {
-      Toast("Failed to send qualification.", "error");
+      if(error) {
+          Toast(error as string, "error");
+      }
+      else {
+          Toast("Failed to send qualification.", "error");
+      }
     }
   };
 
