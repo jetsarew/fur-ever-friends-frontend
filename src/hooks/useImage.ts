@@ -1,1 +1,1 @@
-export const getAttachmentSrc = (filename: string) => `http://localhost:3000/attachments/${filename}`;
+export const getAttachmentSrc = (filename: string) => `https://api.f4th.dev/attachments/${filename}`;

@@ -1,15 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-      domains: ['localhost'],
-      remotePatterns: [
-        {
-          protocol: 'http',
-          hostname: 'localhost',
-          port: '3000',
-          pathname: '/attachments/**',
-        },
-      ],
+      domains: ['api.f4th.dev']
     },
     output: 'standalone',
 };
