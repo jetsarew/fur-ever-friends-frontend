@@ -1,7 +1,7 @@
 import { DotIcon } from "@/shared/Icon";
 import { NotificationModelResponse } from "@/types/response.type";
 //import Image from "next/image";
-import Link from "next/link";
+//import Link from "next/link";
 interface NotificationCardProps {
     clickHandler: () => void,
     notification: NotificationModelResponse

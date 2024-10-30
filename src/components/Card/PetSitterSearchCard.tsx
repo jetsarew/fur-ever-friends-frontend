@@ -1,5 +1,4 @@
 import { getAttachmentSrc } from "@/hooks/useImage";
-import { PetSitterModelResponse } from "@/types/response.type";
 import { StarIcon } from "@heroicons/react/16/solid";
 import Image from "next/image";
 import Link from "next/link";

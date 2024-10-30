@@ -2,14 +2,16 @@
 
 import ActivityCard from "@/components/Card/ActivityCard";
 import { activityService } from "@/services/activity.service";
+import { requestService } from "@/services/request.service";
 import { useAppSelector } from "@/store/hooks";
-import { ActivityModelResponse } from "@/types/response.type";
+import { ActivityModelResponse, RequestModelResponse } from "@/types/response.type";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function UnassignedActivitiesPage(){
     const [activities, setActivities] = useState<ActivityModelResponse[]>([]);
+    const [requests, setRequests] = useState<RequestModelResponse[]>([]);
     
     const userData = useAppSelector((state) => state.auth.user);
     
@@ -19,15 +21,23 @@ export default function UnassignedActivitiesPage(){
             
             if(userData?.role == "CUSTOMER"){
                 response = await activityService.getMyActivity();
+                setActivities(response.filter((activity) => {
+                    return activity.state == "PENDING";
+                }));
             }
             else {
-                response = await activityService.getActivitiesByPetSitter();
+                response = await activityService.getActivities();
+                const response2 = await requestService.getRequestedActivity();
+                setActivities(response.filter((activity) => {
+                    return activity.requests.some((request) => response2.some((request2) => request2.id == request.id));
+                }));
+                setRequests(response2);
             }
             
             console.log(response);
-            setActivities(response.filter((activity) => {
-                return activity.state == "PENDING";
-            }));
+            // setActivities(response.filter((activity) => {
+            //     return activity.state == "PENDING";
+            // }));
         }
 
         fetchMyActivities();

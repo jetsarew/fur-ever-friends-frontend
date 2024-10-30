@@ -18,9 +18,9 @@ export default function ShowFavoriteButton({ activityId, favorites }: ShowFavori
 
     useOutSideClick(buttonRef, popUpRef, setShow);
 
-    const onButtonClicked = () => {
-        setShow(!show);
-    }
+    // const onButtonClicked = () => {
+    //     setShow(!show);
+    // }
 
     return (
         <div className="relative">

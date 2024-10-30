@@ -10,13 +10,14 @@ import {
 } from "@/app/constants/formik/updateProfile.formik";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { getFieldProps } from "@/utils/getFieldProps";
-import { CloseIcon } from "@/shared/Icon";
+import { BirdIcon, CatIcon, CloseIcon, DogIcon, ExerciseIcon, FeedingIcon, FishIcon, GroomingIcon, MedicationIcon, RabbitIcon, RelaxationIcon, ReptileIcon, RodentIcon, TrainingIcon } from "@/shared/Icon";
 import { getAttachmentSrc } from "@/hooks/useImage";
 import { useUser } from "@/hooks/useUser";
 import { Toast } from "../Toast/Toast";
 import { setAuthUser } from "@/store/auth/auth.slice";
-import { UpdatePetSitterDto } from "@/dto/auth.dto";
+import { AnimalTypeTag, UpdatePetSitterDto } from "@/dto/auth.dto";
 import { useRouter } from "next/navigation";
+import { ServiceType } from "@/dto/activity.dto";
 
 export default function PetSitterEditProfilePage() {
   const [profileImage, setProfileImage] = useState<File | null>(null);
@@ -81,7 +82,9 @@ export default function PetSitterEditProfilePage() {
           quote: formik.values.quote,
           about: formik.values.about,
           experience: formik.values.experience,
-          coverImages: formik.values.coverImages
+          coverImages: formik.values.coverImages,
+          petTags: formik.values.petTags ?? [],
+          serviceTags: formik.values.serviceTags ?? [],
         }
       }
       if(profileImage){
@@ -90,6 +93,7 @@ export default function PetSitterEditProfilePage() {
       if(coverImages.length){
         updateData.coverImageFile = [...coverImages];
       }
+
       const response = await updatePetSitterMutation.mutateAsync(updateData);
       if (response) {
         dispatch(setAuthUser(response));
@@ -107,6 +111,24 @@ export default function PetSitterEditProfilePage() {
     }
   };
 
+  const onPetTagsChange = (type: AnimalTypeTag) => {
+    if(formik.values.petTags?.some((petType) => petType == type)){
+      formik.setFieldValue("petTags", formik.values.petTags.filter((petType) => petType != type));
+    }
+    else {
+      formik.setFieldValue("petTags", [...formik.values.petTags ?? [], type])
+    }
+  }
+
+  const onServiceTagsChange = (type: ServiceType) => {
+    if(formik.values.serviceTags?.some((tag) => tag == type)){
+      formik.setFieldValue("serviceTags", formik.values.serviceTags.filter((tag) => tag != type));
+    }
+    else {
+      formik.setFieldValue("serviceTags", [...formik.values.serviceTags ?? [], type])
+    }
+  }
+
   const formik = useFormik<UpdateProfileValues>({
     initialValues: {
       firstname: userData?.firstname ?? "",
@@ -118,6 +140,8 @@ export default function PetSitterEditProfilePage() {
       about: userData?.petsitter?.about ?? "",
       experience: userData?.petsitter?.experience ?? "",
       coverImages: userData?.petsitter?.coverImages ?? [],
+      petTags: userData?.petsitter?.petTags,
+      serviceTags: userData?.petsitter?.serviceTags
     },
     validationSchema: updateProfileValidationSchema,
     validateOnChange: false,
@@ -234,6 +258,124 @@ export default function PetSitterEditProfilePage() {
           }
           type="textarea"
         />
+        <div className="w-[680px] flex flex-col gap-3">
+          <label className="text-subheading2 text-dark-blue">
+            Pet tags
+          </label>
+          <div className="px-6 py-8 flex flex-row flex-wrap gap-4 gap-y-3 border-2 border-dashed border-bd-gray rounded-lg">
+            <button 
+              type="button"
+              onClick={() => onPetTagsChange("Dog")}
+              className={`h-9 px-4 py-2 flex flex-row items-center gap-2 border-[2px] rounded-full ${formik.values.petTags?.some((type) => type == "Dog") ? "bg-bright-blue text-white" : "border-bright-blue text-bright-blue"}`}
+            >
+                <DogIcon active={formik.values.petTags?.some((type) => type == "Dog")}/>
+                <p className={`text-body`}>Dogs</p>   
+            </button>
+            <button 
+              type="button"
+              onClick={() => onPetTagsChange("Cat")}
+              className={`h-9 px-4 py-2 flex flex-row items-center gap-2 border-[2px] rounded-full ${formik.values.petTags?.some((type) => type == "Cat") ? "bg-bright-blue text-white" : "border-bright-blue text-bright-blue"}`}
+            >
+                <CatIcon active={formik.values.petTags?.some((type) => type == "Cat")}/>
+                <p className={`text-body`}>Cats</p>   
+            </button>
+            <button 
+              type="button"
+              onClick={() => onPetTagsChange("Rabbit")}
+              className={`h-9 px-4 py-2 flex flex-row items-center gap-2 border-[2px] rounded-full ${formik.values.petTags?.some((type) => type == "Rabbit") ? "bg-bright-blue text-white" : "border-bright-blue text-bright-blue"}`}
+            >
+                <RabbitIcon active={formik.values.petTags?.some((type) => type == "Rabbit")}/>
+                <p className={`text-body`}>Rabbits</p>   
+            </button>
+            <button 
+              type="button"
+              onClick={() => onPetTagsChange("Hamster")}
+              className={`h-9 px-4 py-2 flex flex-row items-center gap-2 border-[2px] rounded-full ${formik.values.petTags?.some((type) => type == "Hamster") ? "bg-bright-blue text-white" : "border-bright-blue text-bright-blue"}`}
+            >
+                <RodentIcon active={formik.values.petTags?.some((type) => type == "Hamster")}/>
+                <p className={`text-body`}>Rodents</p>   
+            </button>
+            <button 
+              type="button"
+              onClick={() => onPetTagsChange("Bird")}
+              className={`h-9 px-4 py-2 flex flex-row items-center gap-2 border-[2px] rounded-full ${formik.values.petTags?.some((type) => type == "Bird") ? "bg-bright-blue text-white" : "border-bright-blue text-bright-blue"}`}
+            >
+                <BirdIcon active={formik.values.petTags?.some((type) => type == "Bird")}/>
+                <p className={`text-body`}>Birds</p>   
+            </button>
+            <button 
+              type="button"
+              onClick={() => onPetTagsChange("Reptile")}
+              className={`h-9 px-4 py-2 flex flex-row items-center gap-2 border-[2px] rounded-full ${formik.values.petTags?.some((type) => type == "Reptile") ? "bg-bright-blue text-white" : "border-bright-blue text-bright-blue"}`}
+            >
+                <ReptileIcon active={formik.values.petTags?.some((type) => type == "Reptile")}/>
+                <p className={`text-body`}>Reptiles</p>   
+            </button>
+            <button 
+              type="button"
+              onClick={() => onPetTagsChange("Fish")}
+              className={`h-9 px-4 py-2 flex flex-row items-center gap-2 border-[2px] rounded-full ${formik.values.petTags?.some((type) => type == "Fish") ? "bg-bright-blue text-white" : "border-bright-blue text-bright-blue"}`}
+            >
+                <FishIcon active={formik.values.petTags?.some((type) => type == "Fish")}/>
+                <p className={`text-body`}>Fish</p>   
+            </button>
+          </div>
+        </div>
+        <div className="w-[680px] flex flex-col gap-3">
+          <label className="text-subheading2 text-dark-blue">
+            Service tags
+          </label>
+          <div className="px-6 py-8 flex flex-row flex-wrap gap-4 gap-y-3 border-2 border-dashed border-bd-gray rounded-lg">
+            <button 
+              type="button"
+              onClick={() => onServiceTagsChange("FEEDING")}
+              className={`h-9 px-4 py-2 flex flex-row items-center gap-2 border-[2px] rounded-full ${formik.values.serviceTags?.some((type) => type == "FEEDING") ? "bg-dark-blue text-white" : "border-dark-blue text-dark-blue"}`}
+            >
+                <FeedingIcon active={formik.values.serviceTags?.some((type) => type == "FEEDING")}/>
+                <p className={`text-body`}>Feeding</p>   
+            </button>
+            <button 
+              type="button"
+              onClick={() => onServiceTagsChange("EXERCISING")}
+              className={`h-9 px-4 py-2 flex flex-row items-center gap-2 border-[2px] rounded-full ${formik.values.serviceTags?.some((type) => type == "EXERCISING") ? "bg-dark-blue text-white" : "border-dark-blue text-dark-blue"}`}
+            >
+                <ExerciseIcon active={formik.values.serviceTags?.some((type) => type == "EXERCISING")}/>
+                <p className={`text-body`}>Exercising</p>   
+            </button>
+            <button 
+              type="button"
+              onClick={() => onServiceTagsChange("GROOMING")}
+              className={`h-9 px-4 py-2 flex flex-row items-center gap-2 border-[2px] rounded-full ${formik.values.serviceTags?.some((type) => type == "GROOMING") ? "bg-dark-blue text-white" : "border-dark-blue text-dark-blue"}`}
+            >
+                <GroomingIcon active={formik.values.serviceTags?.some((type) => type == "GROOMING")}/>
+                <p className={`text-body`}>Grooming</p>   
+            </button>
+            <button 
+              type="button"
+              onClick={() => onServiceTagsChange('TRAINING')}
+              className={`h-9 px-4 py-2 flex flex-row items-center gap-2 border-[2px] rounded-full ${formik.values.serviceTags?.some((type) => type == "TRAINING") ? "bg-dark-blue text-white" : "border-dark-blue text-dark-blue"}`}
+            >
+                <TrainingIcon active={formik.values.serviceTags?.some((type) => type == "TRAINING")}/>
+                <p className={`text-body`}>Training</p>   
+            </button>
+            <button 
+              type="button"
+              onClick={() => onServiceTagsChange("ADMINISTERING_MEDICATION")}
+              className={`h-9 px-4 py-2 flex flex-row items-center gap-2 border-[2px] rounded-full ${formik.values.serviceTags?.some((type) => type == "ADMINISTERING_MEDICATION") ? "bg-dark-blue text-white" : "border-dark-blue text-dark-blue"}`}
+            >
+                <MedicationIcon active={formik.values.serviceTags?.some((type) => type == "ADMINISTERING_MEDICATION")}/>
+                <p className={`text-body`}>Administering Medication</p>   
+            </button>
+            <button 
+              type="button"
+              onClick={() => onServiceTagsChange("RELAXATION")}
+              className={`h-9 px-4 py-2 flex flex-row items-center gap-2 border-[2px] rounded-full ${formik.values.serviceTags?.some((type) => type == "RELAXATION") ? "bg-dark-blue text-white" : "border-dark-blue text-dark-blue"}`}
+            >
+                <RelaxationIcon active={formik.values.serviceTags?.some((type) => type == "RELAXATION")}/>
+                <p className={`text-body`}>Relaxation</p>   
+            </button>
+          </div>
+        </div>
         <div className="w-[680px] flex flex-col gap-3">
           <label className="text-subheading2 text-dark-blue">
             Cover Images
