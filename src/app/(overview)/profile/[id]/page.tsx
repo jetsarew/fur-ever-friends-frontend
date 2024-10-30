@@ -83,17 +83,21 @@ export default function ProfilePage({ params }: {
         const fetchMyActivities = async () => {
             let response;
             
-            if(userData?.role == "CUSTOMER"){
+            if(myData?.role == "CUSTOMER"){
                 response = await activityService.getMyActivity();
+                setActivities(response.filter((activity) => {
+                    return activity.state == "PENDING";
+                }));
             }
             else {
                 response = await activityService.getActivitiesByPetSitter();
+                setActivities(response.filter((activity) => {
+                    return activity.state == "COMPLETED";
+                }));
             }
             
             console.log(response);
-            setActivities(response.filter((activity) => {
-                return activity.state == "COMPLETED";
-            }));
+            
         }
         getUser();
         fetchMyActivities();
@@ -242,9 +246,9 @@ export default function ProfilePage({ params }: {
                         <p className="text-body text-medium-gray">{userData?.petsitter?.location}</p>
                     </div>
                     {
-                        myData?.role == "CUSTOMER" &&
+                        myData?.role == "CUSTOMER" && userData?.petsitter &&
                         <div className="pt-4 flex flex-row justify-between gap-5">
-                            <InviteButton />
+                            <InviteButton activities={activities} petSitterId={userData.id}/>
                             <FavoriteButton isAdded={favorites.some((favorite) => favorite.petsitter.id == userData?.petsitter?.id)} onFavoriteButtonClick={onFavoriteButtonClick}/>
                         </div>
                     }

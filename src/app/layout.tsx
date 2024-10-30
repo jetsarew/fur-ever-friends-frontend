@@ -30,7 +30,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="antialiased">
+      <body className="antialiased bg-white">
         <TanstackProvider>
           <StoreProvider>
             <Toaster />
