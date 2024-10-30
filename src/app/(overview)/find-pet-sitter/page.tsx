@@ -37,7 +37,7 @@ export default function FeedPage(){
             <div className="flex flex-row items-start justify-start flex-wrap gap-8">
                 {
                     petSitters.map((petSitter, index) => {
-                        return <PetSitterSearchCard key={index} petSitter={petSitter}/>
+                        return <PetSitterSearchCard key={index} userId={petSitter.id} name={petSitter.firstname + " " + petSitter.lastname} rating={petSitter.petsitter?.rating} avatar={petSitter.avatar}/>
                     })
                 }
             </div>

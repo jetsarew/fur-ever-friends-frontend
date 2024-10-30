@@ -1,4 +1,5 @@
 import { Role } from "@/types/user.type";
+import { ServiceType } from "./activity.dto";
 
 export type LoginDto = {
   email: string;
@@ -49,8 +50,11 @@ export type PetSitterData = {
   about?: string;
   experience?: string;
   coverImages?: string[];
-  serviceTags?: [];
+  serviceTags?: ServiceType[];
+  petTags?: AnimalTypeTag[];
 }
+
+export type AnimalTypeTag = 'Dog' | 'Cat' | 'Rabbit' | 'Hamster' | 'Bird' | 'Fish' | 'Reptile' | 'Other';
 
 // export type UpdatePetSitterDto = {
 //   password?: string;

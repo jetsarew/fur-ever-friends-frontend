@@ -1,3 +1,5 @@
+import { ServiceType } from "@/dto/activity.dto";
+import { AnimalTypeTag } from "@/dto/auth.dto";
 import { stringNotEmptyValidator, telValidator } from "@/utils/validator";
 import * as yup from "yup";
 
@@ -11,6 +13,8 @@ export type UpdateProfileValues = {
     about?: string;
     experience?: string;
     avatar?: string;
+    serviceTags?: ServiceType[];
+    petTags?: AnimalTypeTag[];
     coverImages?: string[];
 };
 

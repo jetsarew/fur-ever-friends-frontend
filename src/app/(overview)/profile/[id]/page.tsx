@@ -6,6 +6,8 @@ import ReviewCard from "@/components/Card/ReviewCard";
 import SlideImage from "@/components/Card/SlideImage";
 import Tag from "@/components/Tag/Tag";
 import { Toast } from "@/components/Toast/Toast";
+import { ServiceType } from "@/dto/activity.dto";
+import { AnimalTypeTag } from "@/dto/auth.dto";
 import { getAttachmentSrc } from "@/hooks/useImage";
 import { activityService } from "@/services/activity.service";
 import { favoriteService } from "@/services/favorite.service";
@@ -102,77 +104,124 @@ export default function ProfilePage({ params }: {
         getUser();
         fetchMyActivities();
     }, [params.id])
+
+    const containPetTags = (tag: AnimalTypeTag) => {
+        return userData?.petsitter?.petTags.some((type) => type == tag);
+    }
+
+    const containServiceTags = (tag: ServiceType) => {
+        return userData?.petsitter?.serviceTags.some((type) => type == tag);
+    }
     
     return (
         <div className="w-[918px] mx-auto flex flex-row items-start gap-8">
             <div className="w-[562px] flex flex-col gap-8">
                 <SlideImage coverImages={userData?.petsitter?.coverImages ?? []}/>
                 <div className="pb-8 flex flex-row flex-wrap gap-x-6 gap-y-2 border-b border-bd-gray">
-                    <Tag 
-                        icon={<DogIcon />}
-                        text="Dogs"
-                        type="animal"
-                    />
-                    <Tag 
-                        icon={<CatIcon />}
-                        text="Cats"
-                        type="animal"
-                    />
-                    <Tag 
-                        icon={<RabbitIcon />}
-                        text="Rabbits"
-                        type="animal"
-                    />
-                    <Tag 
-                        icon={<RodentIcon />}
-                        text="Rodents"
-                        type="animal"
-                    />
-                    <Tag 
-                        icon={<BirdIcon />}
-                        text="Birds"
-                        type="animal"
-                    />
-                    <Tag 
-                        icon={<ReptileIcon />}
-                        text="Reptiles"
-                        type="animal"
-                    />
-                    <Tag 
-                        icon={<FishIcon />}
-                        text="Fish"
-                        type="animal"
-                    />
-                    <Tag 
-                        icon={<FeedingIcon />}
-                        text="Feeding"
-                        type="service"
-                    />
-                    <Tag 
-                        icon={<ExerciseIcon />}
-                        text="Exercise"
-                        type="service"
-                    />
-                    <Tag 
-                        icon={<GroomingIcon />}
-                        text="Grooming"
-                        type="service"
-                    />
-                    <Tag 
-                        icon={<TrainingIcon />}
-                        text="Training"
-                        type="service"
-                    />
-                    <Tag 
-                        icon={<RelaxationIcon />}
-                        text="Relaxation"
-                        type="service"
-                    />
-                    <Tag 
-                        icon={<MedicationIcon />}
-                        text="Administering Medication"
-                        type="service"
-                    />
+                    {
+                        containPetTags("Dog") &&
+                        <Tag 
+                            icon={<DogIcon />}
+                            text="Dogs"
+                            type="animal"
+                        />
+                    }
+                    {
+                        containPetTags("Cat") &&
+                        <Tag 
+                            icon={<CatIcon />}
+                            text="Cats"
+                            type="animal"
+                        />
+                    }
+                    {
+                        containPetTags("Rabbit") &&
+                        <Tag 
+                            icon={<RabbitIcon />}
+                            text="Rabbits"
+                            type="animal"
+                        />
+                    }
+                    {
+                        containPetTags("Hamster") &&
+                        <Tag 
+                            icon={<RodentIcon />}
+                            text="Rodents"
+                            type="animal"
+                        />
+                    }
+                    {
+                        containPetTags("Bird") &&
+                        <Tag 
+                            icon={<BirdIcon />}
+                            text="Birds"
+                            type="animal"
+                        />
+                    } 
+                    {
+                        containPetTags("Reptile") &&
+                        <Tag 
+                            icon={<ReptileIcon />}
+                            text="Reptiles"
+                            type="animal"
+                        />
+                    }
+                    {
+                        containPetTags("Fish") &&
+                        <Tag 
+                            icon={<FishIcon />}
+                            text="Fish"
+                            type="animal"
+                        />
+                    }
+                    {
+                        containServiceTags("EXERCISING") &&
+                        <Tag 
+                            icon={<ExerciseIcon />}
+                            text="Exercise"
+                            type="service"
+                        />
+                    }
+                    {
+                        containServiceTags("FEEDING") &&
+                        <Tag 
+                            icon={<FeedingIcon />}
+                            text="Feeding"
+                            type="service"
+                        />
+                    }
+                    {
+                        containServiceTags("GROOMING") &&
+                        <Tag 
+                            icon={<GroomingIcon />}
+                            text="Grooming"
+                            type="service"
+                        />
+                    }
+                    {
+                        containServiceTags("TRAINING") &&
+                        <Tag 
+                            icon={<TrainingIcon />}
+                            text="Training"
+                            type="service"
+                        />
+                    }
+                    {
+                        containServiceTags("RELAXATION") &&
+                        <Tag 
+                            icon={<RelaxationIcon />}
+                            text="Relaxation"
+                            type="service"
+                        />
+                    }
+                    {
+                        containServiceTags("ADMINISTERING_MEDICATION") &&
+                        <Tag 
+                            icon={<MedicationIcon />}
+                            text="Administering Medication"
+                            type="service"
+                        />
+                    }
                 </div>
                 <div className="flex flex-col gap-8">
                     <div className="flex flex-col gap-4">

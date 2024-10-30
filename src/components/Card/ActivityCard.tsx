@@ -3,16 +3,17 @@ import Image from "next/image";
 import ShowRequestButton from "../Button/ShowRequestButton";
 import Link from "next/link";
 import { Role } from "@/types/user.type";
-import { ActivityModelResponse } from "@/types/response.type";
+import { ActivityModelResponse, RequestModelResponse } from "@/types/response.type";
 import { getAttachmentSrc } from "@/hooks/useImage";
 import { formatUTCDate, hasActivityTerminated, timeUntil } from "@/hooks/useConvertTime";
 
 interface ActivityCardProps{
     role?: Role,
     activity: ActivityModelResponse;
+    petSitterRequest?: RequestModelResponse;
 }
 
-export default function ActivityCard({ role, activity}: ActivityCardProps){
+export default function ActivityCard({ role, activity, petSitterRequest}: ActivityCardProps){
     const profileElement = role == "CUSTOMER" ? 
         <div className="pt-4 flex flex-row justify-between items-end">
             <div className="flex flex-row items-end gap-2">
@@ -30,7 +31,7 @@ export default function ActivityCard({ role, activity}: ActivityCardProps){
                     className="text-body-bold text-dark-blue hover:underline"
                 >{activity.petsitter?.user.firstname + " " + activity.petsitter?.user.lastname}</Link>
             </div>
-            <p className="h-5 text-subheading text-bright-green">{"$" + activity.price}</p>
+            <p className="h-5 text-subheading text-bright-green">{"$" + (activity.price ?? petSitterRequest?.price)}</p>
         </div> :
         <div className="pt-4 flex flex-row justify-between items-end">
             <div className="flex flex-row items-end gap-2">
