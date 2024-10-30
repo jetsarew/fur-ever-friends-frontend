@@ -93,6 +93,7 @@ export type ReportModelResponse = {
     reportedId: string;
     reporter: UserModelResponse;
     reported: UserModelResponse;
+    activity: ActivityModelResponse;
 }
 
 export type ActivityModelResponse = {
