@@ -2,7 +2,8 @@
 
 import { ViewReportsHeader } from "@/components/Admin/Card/Header"
 import { ViewReportsContent } from "@/components/Admin/Card/Content"
-import SearchBar from "@/components/Admin/Input/SearchBar"
+// import SearchBar from "@/components/Admin/Input/SearchBar"
+import InputField from "@/components/Input/InputField"
 import { ReportsFilter } from "@/components/Admin/Button/Filter"
 import { useState, useEffect } from "react"
 import { ReportModelResponse } from "@/types/response.type"
@@ -10,6 +11,7 @@ import { reportService } from "@/services/report.service"
 
 export default function ReportsPage() {
     const [reports, setReports] = useState<ReportModelResponse[]>([]);
+    const [inputValue, setInputValue] = useState("");
 
     useEffect(() => {
         const fetchReports = async () => {
@@ -24,11 +26,23 @@ export default function ReportsPage() {
         fetchReports();
     }, []);
 
+    const handleInputChange = (value: string) => {
+        setInputValue(value);
+    };
+
     return (
         <div className="flex flex-col w-max top-[112px] left-[143px] gap-[32px]">
             <div className="flex gap-[16px]">
                 <div>
-                    <SearchBar />
+                    <InputField
+                        label=""
+                        placeholder="Search"
+                        value={inputValue}
+                        onChange={handleInputChange}
+                        width="w-80"
+                        height="h-12"
+                    />
+                    {/* <SearchBar /> */}
                 </div>
                 <div className="pt-[16px]">
                     <ReportsFilter />

@@ -2,11 +2,12 @@
 
 import { ManageUsersHeader } from "@/components/Admin/Card/Header"
 import { ManageUsersContent } from "@/components/Admin/Card/Content"
-import SearchBar from "@/components/Admin/Input/SearchBar"
+// import SearchBar from "@/components/Admin/Input/SearchBar"
 import { UsersFilter } from "@/components/Admin/Button/Filter"
 import { useState, useEffect } from "react";
 import { CommonUserModel } from "@/types/user.type"
 import { userService } from "@/services/user.service";
+import InputField from "@/components/Input/InputField"
 
 export type isFilterStatusType = (isFilterStatus: boolean) => void;
 export type isFilterRoleType = (isFilterRole: boolean) => void;
@@ -17,9 +18,9 @@ export default function UsersPage() {
     const [users, setUsers] = useState<CommonUserModel[]>([]);
     const [isFilterStatus, setIsFilterStatus] = useState<boolean>(false);
     const [filterStatusBy, setFilterStatusBy] = useState<string>("enabled");
-
     const [isFilterRole, setIsFilterRole] = useState<boolean>(false);
     const [filterRoleBy, setFilterRoleBy] = useState<string>("pet sitter");
+    const [inputValue, setInputValue] = useState("");
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -38,7 +39,7 @@ export default function UsersPage() {
                     filterStatus = "INACTIVE";
 
 
-                if (isFilterStatus || isFilterRole) {
+                if (isFilterStatus || isFilterRole || inputValue) {
                     let path = "?";
 
                     if (isFilterStatus) {
@@ -49,7 +50,11 @@ export default function UsersPage() {
                         path += (isFilterStatus ? "&" : "") + `role=${filterRole}`;
                     }
 
-                    console.log(path);
+                    if (inputValue) {
+                        path += (isFilterStatus || isFilterRole ? "&" : "") + `searchType=name&search=${inputValue}`;
+                    }
+
+                    // console.log(path);
                     const response = await userService.getAllUser(path);
                     setUsers(response);
 
@@ -62,7 +67,7 @@ export default function UsersPage() {
             }
         };
         fetchUsers();
-    }, [isFilterStatus, isFilterRole, filterStatusBy, filterRoleBy]);
+    }, [isFilterStatus, isFilterRole, filterStatusBy, filterRoleBy, inputValue]);
 
     const handleFilterStatusChange: isFilterStatusType = (isFilterStatus: boolean) => {
         setIsFilterStatus(isFilterStatus);
@@ -80,11 +85,23 @@ export default function UsersPage() {
         setFilterRoleBy(filterRoleBy);
     }
 
+    const handleInputChange = (value: string) => {
+        setInputValue(value);
+    };
+
     return (
         <div className="flex flex-col w-max top-[112px] left-[143px] gap-[32px]">
             <div className="flex gap-[16px]">
                 <div>
-                    <SearchBar />
+                    <InputField
+                        label=""
+                        placeholder="Search"
+                        value={inputValue}
+                        onChange={handleInputChange}
+                        width="w-80"
+                        height="h-12"
+                    />
+                    {/* <SearchBar /> */}
                 </div>
                 <div className="pt-[16px]">
                     <UsersFilter
