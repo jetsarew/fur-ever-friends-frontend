@@ -1,4 +1,4 @@
-import { emailValidator, stringNotEmptyValidator, telValidator } from "@/utils/validator";
+import { confirmPasswordValidator, emailValidator, passwordValidator, stringNotEmptyValidator, telValidator } from "@/utils/validator";
 import * as yup from "yup";
 import { Role } from "@/types/user.type";
 
@@ -26,5 +26,7 @@ export const PetSitterRegisterValidationSchema = yup.object({
   email: emailValidator,
   firstname: stringNotEmptyValidator,
   lastname: stringNotEmptyValidator,
-  phone: telValidator
+  phone: telValidator,
+  password: passwordValidator,
+  confirmPassword: confirmPasswordValidator,
 });

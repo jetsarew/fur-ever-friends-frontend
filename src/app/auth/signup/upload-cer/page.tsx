@@ -12,7 +12,7 @@ const UploadCertificate = () => {
   const [file, setFile] = useState<File | null>(null);
   const [previewCertificateImage, setPreviewCertificateImage] = useState<string>("/Upload file.svg");
 
-  const { email, firstName, lastName, phone } = useAppSelector((state) => state.qualification);
+  const { email, firstName, lastName, phone, password } = useAppSelector((state) => state.qualification);
   const { resetStateStore } = useQualificationStep();
   const router = useRouter();
 
@@ -26,10 +26,10 @@ const UploadCertificate = () => {
   const handleSendQualification = async () => {
     if (!file || !email || !firstName || !lastName || !phone) return;
 
-    try {
+    try {  
       const response = await qualificationService.sendQualification({
         email: email,
-        password: "12345678",
+        password: password,
         firstname: firstName,
         lastname: lastName,
         phone: phone,
