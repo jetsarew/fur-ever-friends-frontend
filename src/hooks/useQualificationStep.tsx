@@ -10,6 +10,8 @@ import {
   setFirstName,
   setLastName,
   setPhone,
+  setPassword,
+  setConfirmPassword,
 } from "@/store/qualification/qualification.slice";
 
 export const useQualificationStep = () => {
@@ -50,6 +52,14 @@ export const useQualificationStep = () => {
     dispatch(resetState());
   };
 
+  const setPasswordStore = (password: string) => {
+    dispatch(setPassword(password));
+  }
+
+  const setConfirmPasswordStore = (password: string) => {
+    dispatch(setConfirmPassword(password));
+  }
+
   return {
     setStepStore,
     resetStepStore,
@@ -59,6 +69,8 @@ export const useQualificationStep = () => {
     setFirstNameStore,
     setLastNameStore,
     setPhoneStore,
+    setPasswordStore,
+    setConfirmPasswordStore,
     step,
     certificateImage,
     email,
