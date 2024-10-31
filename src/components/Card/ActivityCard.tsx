@@ -10,7 +10,7 @@ import { formatUTCDate, hasActivityTerminated, timeUntil } from "@/hooks/useConv
 interface ActivityCardProps{
     role?: Role,
     activity: ActivityModelResponse;
-    petSitterRequest?: RequestModelResponse;
+    petSitterRequest?: RequestModelResponse | null;
 }
 
 export default function ActivityCard({ role, activity, petSitterRequest}: ActivityCardProps){

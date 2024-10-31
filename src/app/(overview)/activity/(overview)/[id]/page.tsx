@@ -35,7 +35,7 @@ export default function ActivityDetailPage({ params }: {
     if (!activity) return null;
 
     return (
-        <div className="flex flex-col items-start gap-8">
+        <div className="flex flex-col items-start gap-8 mb-9">
             <h1 className="text-header text-bright-blue">{activity.title}</h1>
             <div className="w-full flex flex-row justify-between items-start">
                 <div className="w-[561px] flex flex-col gap-8">
