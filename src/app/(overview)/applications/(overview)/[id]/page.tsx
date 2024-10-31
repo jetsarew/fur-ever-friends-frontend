@@ -12,7 +12,6 @@ export default function ApplicationPage({ params }: {
 }) {
     const [qualification, setQualification] = useState<QualificationModelResponse>();
     const [previewCertificateImage, setPreviewCertificateImage] = useState<string>("/Upload file.svg");
-    const [state, setState] = useState("");
 
     useEffect(() => {
         const fetchQualification = async () => {
@@ -35,17 +34,15 @@ export default function ApplicationPage({ params }: {
 
     const onAcceptQualificationClick = async () => {
         if (qualification) {
-            setState("ACCEPTED");
-            console.log('accepted');
-            return await userService.createPetSitter(qualification.email);
+            await userService.createPetSitter(qualification.email);
+            window.location.reload();
         }
     };
 
     const onRejectQualificationClick = async () => {
         if (qualification) {
-            setState("REJECTED");
-            console.log('rejected');
-            return await qualificationService.updateQualification(qualification.id, { state: "REJECTED" })
+            await qualificationService.updateQualification(qualification.id, { state: "REJECTED" })
+            window.location.reload();
         }
     };
 
@@ -58,7 +55,7 @@ export default function ApplicationPage({ params }: {
                     Application
                 </div>
                 <div className="flex gap-[16px]">
-                    {qualification?.state === "PENDING" && state === "" ?
+                    {qualification?.state === "PENDING" ?
                         <>
                             <button
                                 className="bg-bright-green text-button text-white py-[8px] px-[24px] rounded-[8px]"
@@ -72,7 +69,7 @@ export default function ApplicationPage({ params }: {
                             </button>
                         </> :
                         <div className="text-body-bold text-medium-gray">
-                            {state ? state : qualification?.state}
+                            {qualification?.state == "ACCEPTED" ? "Accepted" : "Rejected"}
                         </div>
                     }
                 </div>
@@ -109,7 +106,7 @@ export default function ApplicationPage({ params }: {
                 </div>
                 <div className="border border-bd-gray rounded-[8px] p-[8px]">
                     <Image
-                        src={qualification?.certificateUrl ? getAttachmentSrc(qualification?.certificateUrl) : "/empty.svg"}
+                        src={qualification?.certificateUrl ? getAttachmentSrc(qualification.certificateUrl) : "/empty.svg"}
                         width={194}
                         height={121}
                         alt="Upload file"

@@ -7,6 +7,8 @@ export interface QualificationAppState {
   lastName: string | null;
   email: string | null;
   phone: string | null;
+  password: string;
+  confirmedPassword: string;
 }
 
 const initialState: QualificationAppState = {
@@ -16,6 +18,8 @@ const initialState: QualificationAppState = {
   lastName: "",
   email: "",
   phone: "",
+  password: "",
+  confirmedPassword: "",
 };
 
 export const qualificationSlice = createSlice({
@@ -40,6 +44,12 @@ export const qualificationSlice = createSlice({
     setPhone: (state, action: PayloadAction<string>) => {
       state.phone = action.payload;
     },
+    setPassword: (state, action: PayloadAction<string>) => {
+      state.password= action.payload;
+    },
+    setConfirmPassword: (state, action: PayloadAction<string>) => {
+      state.confirmedPassword= action.payload;
+    },
     resetStep: (state) => {
       state.step = 0;
     },
@@ -50,6 +60,8 @@ export const qualificationSlice = createSlice({
       state.firstName = initialState.firstName;
       state.lastName = initialState.lastName;
       state.phone = initialState.phone;
+      state.password = initialState.password;
+      state.confirmedPassword = initialState.confirmedPassword;
     },
   },
 });
@@ -61,6 +73,8 @@ export const {
   setLastName,
   setEmail,
   setPhone,
+  setPassword,
+  setConfirmPassword,
   resetStep,
   resetState,
 } = qualificationSlice.actions;

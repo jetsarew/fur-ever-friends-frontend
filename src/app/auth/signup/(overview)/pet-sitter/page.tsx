@@ -10,9 +10,9 @@ import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
 
 export default function PetSitterSignUpPage() {
-  const { email, firstName, lastName, phone } = useAppSelector((state) => state.qualification);
+  const { email, firstName, lastName, phone, password, confirmedPassword } = useAppSelector((state) => state.qualification);
 
-  const { setEmailStore, setFirstNameStore, setLastNameStore, setPhoneStore } = useQualificationStep();
+  const { setEmailStore, setFirstNameStore, setLastNameStore, setPhoneStore, setPasswordStore, setConfirmPasswordStore } = useQualificationStep();
   const router = useRouter();
 
   const onContinueButtonClicked = () => {
@@ -25,6 +25,10 @@ export default function PetSitterSignUpPage() {
     setFirstNameStore(formik.values.firstname);
     setLastNameStore(formik.values.lastname);
     setPhoneStore(formik.values.phone);
+    if(formik.values.password)
+      setPasswordStore(formik.values.password);
+    if(formik.values.confirmPassword)
+      setConfirmPasswordStore(formik.values.confirmPassword);
 
     router.push("/auth/signup/upload-cer");
   };
@@ -36,6 +40,8 @@ export default function PetSitterSignUpPage() {
       lastname: lastName ?? "",
       phone: phone ?? "",
       email: email ?? "",
+      password: password ?? "",
+      confirmPassword: confirmedPassword ?? "",
     },
     validateOnChange: false,
     enableReinitialize: true,
@@ -47,6 +53,8 @@ export default function PetSitterSignUpPage() {
   const firstNameInputProps = getFieldProps(formik, "firstname");
   const lastNameInputProps = getFieldProps(formik, "lastname");
   const phoneInputProps = getFieldProps(formik, "phone");
+  const passwordInputProps = getFieldProps(formik, "password");
+  const confirmPasswordInputProps = getFieldProps(formik, "confirmPassword");
 
   return (
     <form 
@@ -80,6 +88,24 @@ export default function PetSitterSignUpPage() {
         value={formik.values.email}
         onChange={(e) => formik.setFieldValue("email", e.target.value)}
         type="email"
+      />
+      <ValidatedInput
+        {...passwordInputProps}
+        label="Password"
+        containerStyle="relative flex flex-col gap-2"
+        labelStyle="text-subheading2 text-dark-blue"
+        value={formik.values.password}
+        onChange={(e) => formik.setFieldValue("password", e.target.value)}
+        type="password"
+      />
+      <ValidatedInput
+        {...confirmPasswordInputProps}
+        label="Confirm Password"
+        containerStyle="relative flex flex-col gap-2"
+        labelStyle="text-subheading2 text-dark-blue"
+        value={formik.values.confirmPassword}
+        onChange={(e) => formik.setFieldValue("confirmPassword", e.target.value)}
+        type="password"
       />
       <ValidatedInput 
         {...phoneInputProps}
