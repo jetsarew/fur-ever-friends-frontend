@@ -1,4 +1,5 @@
 import BackButton from "@/components/Button/BackButton";
+import Footer from "@/components/Footer/Footer";
 
 export default function Layout({
   children,
@@ -10,6 +11,7 @@ export default function Layout({
         <BackButton />
         <div className="pt-9">
             {children}
+            <Footer />
         </div>
     </div>
   );

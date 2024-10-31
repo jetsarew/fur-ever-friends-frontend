@@ -8,9 +8,10 @@ interface PetSitterSearchCardInterface {
     avatar: string | null;
     name: string;
     rating?: number;
+    taskDone: number;
 }
 
-export default function PetSitterSearchCard({ userId, avatar, name, rating }: PetSitterSearchCardInterface){
+export default function PetSitterSearchCard({ userId, avatar, name, rating, taskDone }: PetSitterSearchCardInterface){
 
     return (
         <Link
@@ -28,7 +29,7 @@ export default function PetSitterSearchCard({ userId, avatar, name, rating }: Pe
                 <p className="text-body">{name}</p>
                 <div className="flex flex-row justify-between items-baseline">
                     <div className="flex flex-row items-baseline gap-1">
-                        <p className="text-body-bold text-bright-blue">200</p>
+                        <p className="text-body-bold text-bright-blue">{taskDone}</p>
                         <p className="text-[14px] font-normal leading-[100%] text-soft-gray">done</p>
                     </div>
                     <div className="flex flex-row text-golden-yellow items-end">

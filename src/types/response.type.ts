@@ -49,6 +49,8 @@ export type PetSitterModelResponse = {
     id: string;
     userId: string;
     user: UserModelResponse;
+    activities: ActivityModelResponse[];
+    rating: number;
 }
 
 export type Gender = "MALE" | "FEMALE";

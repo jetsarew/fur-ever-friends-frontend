@@ -14,6 +14,7 @@ export default function FeedPage(){
         const fetchPetSitters = async () => {
             try {
                 const response = await userService.getPetSitter();
+                console.log(response);
                 setPetSitters(response);
             } catch(error) {
 
@@ -37,7 +38,7 @@ export default function FeedPage(){
             <div className="flex flex-row items-start justify-start flex-wrap gap-8">
                 {
                     petSitters.map((petSitter, index) => {
-                        return <PetSitterSearchCard key={index} userId={petSitter.id} name={petSitter.firstname + " " + petSitter.lastname} rating={petSitter.petsitter?.rating} avatar={petSitter.avatar}/>
+                        return <PetSitterSearchCard key={index} userId={petSitter.id} name={petSitter.firstname + " " + petSitter.lastname} rating={petSitter.petsitter?.rating} avatar={petSitter.avatar} taskDone={petSitter.petsitter?.activities.filter((activity) => activity.state == "COMPLETED").length ?? 0}/>
                     })
                 }
             </div>
