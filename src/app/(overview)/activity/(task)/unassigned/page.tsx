@@ -59,7 +59,7 @@ export default function UnassignedActivitiesPage(){
             }
             {
                 activities.map((activity, index) => {
-                    return  <ActivityCard key={index} role={userData?.role} activity={activity} petSitterRequest={formatted.filter((act) => act.id == activity.id)[0].request}/>
+                    return  <ActivityCard key={index} role={userData?.role} activity={activity} petSitterRequest={formatted.find((act) => act.id === activity.id)?.request || null}/>
                 })
             }
             {
