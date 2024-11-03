@@ -114,7 +114,7 @@ export default function ProfilePage({ params }: {
     }
     
     return (
-        <div className="w-[918px] mx-auto flex flex-row items-start gap-8">
+        <div className="w-[918px] mx-auto pb-9 flex flex-row items-start gap-8">
             <div className="w-[562px] flex flex-col gap-8">
                 <SlideImage coverImages={userData?.petsitter?.coverImages ?? []}/>
                 <div className="pb-8 flex flex-row flex-wrap gap-x-6 gap-y-2 border-b border-bd-gray">

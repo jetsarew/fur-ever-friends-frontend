@@ -24,7 +24,7 @@ export default function PetActionButton({ petId }: PetActionButtonInterface) {
       { visible &&
         <div ref={popUpRef} className="absolute top-0 left-0 flex flex-col border border-bd-gray rounded-xl bg-white shadow-custom z-[5]">
           <Link
-            href={""}
+            href={`/pet/edit/${petId}`}
             className="px-4 py-3 flex flex-row gap-3 hover:bg-[#F8F8F8]"
           >
             <PencilIcon />

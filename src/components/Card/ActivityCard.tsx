@@ -43,7 +43,7 @@ export default function ActivityCard({ role, activity, petSitterRequest}: Activi
                     alt="pet picture"
                     className="w-6 h-6 border-[2px] border-bright-blue rounded-full object-cover"
                 />
-                <p className="text-body-bold text-dark-blue">{activity.customer.user.firstname + activity.customer.user.lastname}</p>
+                <p className="text-body-bold text-dark-blue">{activity.customer.user.firstname + " " + activity.customer.user.lastname}</p>
             </div>
             {
                 activity.state == "ASSIGNED" || activity.state == "IN_PROGRESS" ?
