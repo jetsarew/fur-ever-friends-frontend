@@ -72,7 +72,7 @@ export default function ActivityReviewPage({ params }: {
     }, [params.id])
 
     return (
-        <form className="w-[680px] mx-auto flex flex-col items-center gap-8" onSubmit={formik.handleSubmit} noValidate>
+        <form className="w-[680px] mx-auto pb-9 flex flex-col items-center gap-8" onSubmit={formik.handleSubmit} noValidate>
             <div className="w-full flex flex-col items-start gap-8">
                 <div className="flex flex-row items-center gap-4">
                     <Image 

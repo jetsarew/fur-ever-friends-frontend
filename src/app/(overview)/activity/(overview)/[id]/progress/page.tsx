@@ -53,7 +53,7 @@ export default function ActivityProgressPage({ params }: {
         }
     };
 
-    const handleCancle = () =>{
+    const handleCancel = () =>{
         setFile(null);
         setProgressText('');
         setImagePreview(null);
@@ -154,7 +154,7 @@ export default function ActivityProgressPage({ params }: {
 
     return (
         userData?.role == "PETSITTER" ?
-        <div className="w-full flex flex-col items-start gap-8">
+        <div className="w-full pb-9 flex flex-col items-start gap-8">
             <h1 className="text-header text-bright-blue">{activity.title}</h1>
             <div className="py-6 px-4 flex flex-col gap-4 border border-bd-gray rounded-lg">
                 <h3 className="text-subheading text-dark-blue">Pet Activities</h3>
@@ -195,11 +195,11 @@ export default function ActivityProgressPage({ params }: {
                     </div>
                 <div className="h-[250px] flex flex-row gap-8">
                     <Image 
-                        src={imagePreview || "/Upload file.png"}
+                        src={imagePreview || "/empty-cover-image.svg"}
                         width={425}
                         height={250}
                         alt={"uploaded progress picture"}
-                        className={imagePreview ? "w-[425px] h-[250px] object-fit" : "w-[425px] h-[250px] object-none"}
+                        className={imagePreview ? "w-[425px] h-[250px] object-cover" : "p-4 w-[425px] h-[250px] bg-[#F5F5F5]"}
                         // className="w-[425px] h-[250px] "
                         
                     />
@@ -216,13 +216,13 @@ export default function ActivityProgressPage({ params }: {
                     >Submit</button>
                     <button 
                         className="px-8 py-4 flex flex-row justify-center items-center border-[2px] border-soft-gray rounded-lg text-body-bold text-soft-gray"
-                        onClick={handleCancle}
+                        onClick={handleCancel}
                     >Cancel</button>
                 </div>
             </div>
         </div>
         :
-        <div className="w-[918px] mx-auto flex flex-row justify-between items-start flex-wrap gap-8">
+        <div className="w-[918px] mx-auto pb-9 flex flex-row justify-between items-start flex-wrap gap-8">
             {
                 activity.progresses.map((progress, index) => {
                     return <ActivityProgressCard
@@ -230,6 +230,20 @@ export default function ActivityProgressPage({ params }: {
                                 progress={progress}
                             />
                 })
+            }
+            {
+                activity.progresses.length == 0 &&
+                <div className="w-full pt-[50px] pb-[77px] flex flex-col items-center gap-2">
+                    <Image
+                      src={"/empty.svg"}
+                      width={300}
+                      height={300}
+                      alt={"empty"}
+                    />
+                    <p className="text-center text-soft-gray">
+                    Awaiting updates from the pet sitter.<br /> Check back soon!
+                    </p>
+                </div>
             }
         </div> 
     )

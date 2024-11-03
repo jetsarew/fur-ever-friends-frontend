@@ -112,7 +112,7 @@ export default function ActivityReportPage({
   const contentInputProps = getFieldProps(formik, "content");
 
   return (
-    <form noValidate onSubmit={formik.handleSubmit} className="w-[680px] mx-auto flex flex-col items-center gap-8">
+    <form noValidate onSubmit={formik.handleSubmit} className="w-[680px] mx-auto pb-9 flex flex-col items-center gap-8">
       <div className="w-full flex flex-col items-start gap-8">
         <div className="flex flex-row items-center gap-4">
           <Image

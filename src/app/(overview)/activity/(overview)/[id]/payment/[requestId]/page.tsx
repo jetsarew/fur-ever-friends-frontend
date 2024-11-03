@@ -65,7 +65,7 @@ export default function PaymentPage({ params }: {
     const cvcInputProps = getFieldProps(formik, "cvc");
 
     return (
-        <div className="-mt-9 flex flex-col min-h-screen items-center justify-center">
+        <div className="-mt-9 pb-9 flex flex-col min-h-screen items-center justify-center">
             <form noValidate onSubmit={formik.handleSubmit} className="flex flex-col items-center gap-12 w-[680px]">
             <div className="flex flex-col items-start gap-12 self-stretch">
                 <div className="flex flex-col items-start gap-4 self-stretch p-6 px-4 rounded-lg border border-bd-gray">
