@@ -114,7 +114,7 @@ export default function ActivityCard({ role, activity, petSitterRequest}: Activi
                 <Link
                     href={`/compose/missing-pet/${activity.id}`} 
                     className="flex-1 px-6 py-4 flex flex-row justify-center items-center border-[2px] border-bright-red rounded-lg text-body-bold text-bright-red"
-                >Report Missing Pet(s)</Link>
+                >Report missing pet(s)</Link>
             </div> : (
                 activity.state == "COMPLETED" && activity.review == null ?
                 <Link

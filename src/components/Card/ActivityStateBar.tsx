@@ -193,7 +193,7 @@ export default function ActivityStateBar({
           <Link
             href={`/compose/missing-pet/${activity.id}`}
             className="h-8 px-6 py-2 flex flex-row justify-center items-center rounded-lg border-[2px] border-bright-red text-body-bold text-bright-red"
-          >Report Missing Pet(s)
+          >Report missing pet(s)
           </Link>
         </div>
       )}

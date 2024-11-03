@@ -38,6 +38,7 @@ export default function ProfilePage({ params }: {
             else{
                 const response = await userService.getUser(params.id);
                 setUserData(response);
+                setActivities(response.petsitter?.activities.filter((activity) => activity.state == "COMPLETED") ?? [])
                 console.log(response);
                 getFavorites();
             } 
@@ -85,11 +86,8 @@ export default function ProfilePage({ params }: {
         const fetchMyActivities = async () => {
             let response;
             
-            if(myData?.role == "CUSTOMER"){
-                response = await activityService.getMyActivity();
-                setActivities(response.filter((activity) => {
-                    return activity.state == "PENDING";
-                }));
+              if(myData?.role == "CUSTOMER"){
+ 
             }
             else {
                 response = await activityService.getActivitiesByPetSitter();
