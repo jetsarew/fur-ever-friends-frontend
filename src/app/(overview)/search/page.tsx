@@ -33,7 +33,7 @@ export default function FeedPage() {
   return (
     <div>
      
-      <div className="w-full">
+      <div className="w-full pb-9">
         <div className="flex justify-center">
           <div className="w-[680px]">
             <div className="flex items-center gap-4">
