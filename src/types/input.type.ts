@@ -12,4 +12,6 @@ export interface InputProps {
     onBlur?: () => void;
     showPasswordInput?: boolean;
     type?: string;
+    min?: number;
+    max?: number;
 }
