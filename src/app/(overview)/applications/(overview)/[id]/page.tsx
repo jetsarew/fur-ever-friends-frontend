@@ -46,8 +46,6 @@ export default function ApplicationPage({ params }: {
         }
     };
 
-    console.log(previewCertificateImage);
-
     return (
         <div className="absolute flex flex-col gap-[32px] top-[172px] left-[261px] w-[918px] rounded-[8px] border boredr-bd-gray py-[24px] px-[16px]">
             <div className="flex justify-between">

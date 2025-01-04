@@ -44,7 +44,7 @@ export default function PetOwnerEditProfilePage() {
         updateData.avatarFile = profileImage;
       }
       const response = await updateUserMutation.mutateAsync(updateData);
-      console.log(response);
+      ;
       Toast("Your profile has been updated.", "success");
     } catch (error) {
       if(error) {

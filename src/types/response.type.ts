@@ -187,6 +187,7 @@ export type NotificationModelResponse = {
     title: string;
     content: string;
     userId: string;
+    createdAt: string;
 }
 
 export type FavoriteModelResponse = {
@@ -222,3 +223,15 @@ export type FormattedRequestModelResponse = {
 }
 
 export type ActivityState = 'PENDING' | 'REJECTED' | 'CANCELLED' | 'ASSIGNED' | 'IN_PROGRESS' | 'RETURNING' | 'FAILED' | 'COMPLETED';
+
+export type APIResponse<T> = {
+    data?: T;
+    statusCode: number;
+    message: string;
+    errors?: string[];
+}
+
+export type Token = {
+    accessToken: string;
+    refreshToken: string;
+}

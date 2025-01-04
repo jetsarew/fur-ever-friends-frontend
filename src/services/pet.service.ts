@@ -34,7 +34,6 @@ export const petService = {
         if(file) {
             formData.append("file", file);
         }
-        console.log(updatePetRequest);
         return await apiController(`/pets/${petId}`, "patch", formData);
     },
     deletePet: async (

@@ -23,7 +23,7 @@ export default function Notification() {
       try {
         const response = await notificationService.getNotifications();
         setNotifications(response);
-        console.log(response);
+        ;
       } catch(error) {
         if(error) {
             Toast(error as string, "error");

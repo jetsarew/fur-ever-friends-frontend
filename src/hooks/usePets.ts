@@ -18,7 +18,6 @@ export const usePets = () => {
     refetchOnWindowFocus: false,
     enabled: petListStore.length === 0,
     onSuccess: (data) => {
-      console.log(data);
       dispatch(setPets(data));
     },
   });
@@ -53,7 +52,6 @@ export const usePets = () => {
 
   const deletePetMutation = useMutation(petService.deletePet, {
     onSuccess: async () => {
-      console.log("refetch");
       await refetch();
     },
   });

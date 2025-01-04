@@ -71,7 +71,6 @@ export function ViewApplicationsContent({ qualification }: {
     const handleUpdateState = (state: string) => {
         setState(state);
     }
-    console.log(state);
 
     return (
         <ApplicationsContext.Provider value={qualification} >

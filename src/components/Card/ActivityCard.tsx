@@ -14,7 +14,6 @@ interface ActivityCardProps{
 }
 
 export default function ActivityCard({ role, activity, petSitterRequest}: ActivityCardProps){
-    console.log(petSitterRequest);
     const profileElement = role == "CUSTOMER" ? 
         <div className="pt-4 flex flex-row justify-between items-end">
             <div className="flex flex-row items-end gap-2">

@@ -22,6 +22,7 @@ export type Customer = {
     id: string;
     userId: string;
     pet: Pet[];
+    activities: ActivityModelResponse[];
 }
 
 export type PetSitter = {
@@ -49,17 +50,6 @@ export type Admin = {
 export type Pet = {
     id: string;
 }
-
-/*
-"id": "fa116cec-14d9-44e5-8c8c-51fae3114ad9",
-"email": "suzana@gmail.com",
-"password": "$2a$10$hlcPR65ZeCTxWwBF8bTJM.o6wGYZLgVvrXERv.uCukvZ.bKyfC5Ke",
-"firstname": "Suzana",
-"lastname": "Renaud",
-"phone": "0123456789",
-"state": "PENDING",
-"certificateUrl": "93d9ce93-793a-424c-94f1-42848dac7393-Screenshot 2024-10-11 221143.png"
-*/
 
 export type Review = {
     id: string;

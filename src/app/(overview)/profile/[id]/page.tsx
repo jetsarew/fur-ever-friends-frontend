@@ -14,43 +14,41 @@ import { favoriteService } from "@/services/favorite.service";
 import { userService } from "@/services/user.service";
 import { BirdIcon, CatIcon, DogIcon, ExerciseIcon, FeedingIcon, FishIcon, GroomingIcon, MedicationIcon, RabbitIcon, RelaxationIcon, ReptileIcon, RodentIcon, TrainingIcon } from "@/shared/Icon";
 import { useAppSelector } from "@/store/hooks";
-import { ActivityModelResponse, FavoriteModelResponse } from "@/types/response.type";
+import { FavoriteModelResponse } from "@/types/response.type";
 import { CommonUserModel } from "@/types/user.type";
 import { StarIcon } from "@heroicons/react/16/solid";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function ProfilePage({ params }: {
     params: { id: string }
-}){
+}) {
     const myData = useAppSelector((state) => state.auth.user);
     const [userData, setUserData] = useState<CommonUserModel | null>(null);
     const [favorites, setFavorites] = useState<FavoriteModelResponse[]>([]);
-    const [activities, setActivities] = useState<ActivityModelResponse[]>([]);
+    const activities = myData?.customer?.activities.filter((activity) => activity.state === "PENDING") ?? [];
     const router = useRouter();
-
+    const { id: userId } = useParams();
     const getUser = async () => {
         try {
-            if(myData?.id == params.id){
+            if (myData?.id == params.id) {
                 setUserData(myData);
             }
-            else{
-                const response = await userService.getUser(params.id);
+            else {
+                const response = await userService.getUser(userId as string);
                 setUserData(response);
-                setActivities(response.petsitter?.activities.filter((activity) => activity.state == "COMPLETED") ?? [])
-                console.log(response);
                 getFavorites();
-            } 
+            }
         } catch (error) {
             Toast("Profile not founded", "error");
             router.push("/");
         }
     };
+
     const getFavorites = async () => {
         try {
             const response = await favoriteService.getMyFavorite();
-            console.log(response);
             setFavorites(response);
         } catch (error) {
             router.push("/");
@@ -59,45 +57,37 @@ export default function ProfilePage({ params }: {
 
     const onFavoriteButtonClick = async (isAdded: boolean) => {
         try {
-            if(isAdded) {
+            if (isAdded) {
                 const favoriteId = favorites.filter((favorite) => favorite.petsitter.id == userData?.petsitter?.id)[0].id;
-                const response = await favoriteService.removeFromFavorite(favoriteId);
-                console.log(response);
+                await favoriteService.removeFromFavorite(favoriteId);
             }
             else {
-                if(!myData?.customer?.id || !userData?.petsitter?.id) {
+                if (!myData?.customer?.id || !userData?.petsitter?.id) {
                     return;
                 }
-                const response = await favoriteService.addToFavorite({
+                await favoriteService.addToFavorite({
                     customerId: myData?.customer?.id,
                     petsitterId: userData?.petsitter?.id,
                 });
-                console.log(response);
             }
             getUser();
             getFavorites();
             router.refresh();
-        } catch(error) {
-            
+        } catch (error) {
+
         }
     }
 
     useEffect(() => {
         const fetchMyActivities = async () => {
             let response;
-            
-              if(myData?.role == "CUSTOMER"){
- 
+
+            if (myData?.role == "CUSTOMER") {
+
             }
             else {
                 response = await activityService.getActivitiesByPetSitter();
-                setActivities(response.filter((activity) => {
-                    return activity.state == "COMPLETED";
-                }));
             }
-            
-            console.log(response);
-            
         }
         getUser();
         fetchMyActivities();
@@ -110,15 +100,15 @@ export default function ProfilePage({ params }: {
     const containServiceTags = (tag: ServiceType) => {
         return userData?.petsitter?.serviceTags.some((type) => type == tag);
     }
-    
+
     return (
         <div className="w-[918px] mx-auto pb-9 flex flex-row items-start gap-8">
             <div className="w-[562px] flex flex-col gap-8">
-                <SlideImage coverImages={userData?.petsitter?.coverImages ?? []}/>
+                <SlideImage coverImages={userData?.petsitter?.coverImages ?? []} />
                 <div className="pb-8 flex flex-row flex-wrap gap-x-6 gap-y-2 border-b border-bd-gray">
                     {
                         containPetTags("Dog") &&
-                        <Tag 
+                        <Tag
                             icon={<DogIcon />}
                             text="Dogs"
                             type="animal"
@@ -126,7 +116,7 @@ export default function ProfilePage({ params }: {
                     }
                     {
                         containPetTags("Cat") &&
-                        <Tag 
+                        <Tag
                             icon={<CatIcon />}
                             text="Cats"
                             type="animal"
@@ -134,7 +124,7 @@ export default function ProfilePage({ params }: {
                     }
                     {
                         containPetTags("Rabbit") &&
-                        <Tag 
+                        <Tag
                             icon={<RabbitIcon />}
                             text="Rabbits"
                             type="animal"
@@ -142,7 +132,7 @@ export default function ProfilePage({ params }: {
                     }
                     {
                         containPetTags("Hamster") &&
-                        <Tag 
+                        <Tag
                             icon={<RodentIcon />}
                             text="Rodents"
                             type="animal"
@@ -150,15 +140,15 @@ export default function ProfilePage({ params }: {
                     }
                     {
                         containPetTags("Bird") &&
-                        <Tag 
+                        <Tag
                             icon={<BirdIcon />}
                             text="Birds"
                             type="animal"
                         />
-                    } 
+                    }
                     {
                         containPetTags("Reptile") &&
-                        <Tag 
+                        <Tag
                             icon={<ReptileIcon />}
                             text="Reptiles"
                             type="animal"
@@ -166,7 +156,7 @@ export default function ProfilePage({ params }: {
                     }
                     {
                         containPetTags("Fish") &&
-                        <Tag 
+                        <Tag
                             icon={<FishIcon />}
                             text="Fish"
                             type="animal"
@@ -174,7 +164,7 @@ export default function ProfilePage({ params }: {
                     }
                     {
                         containServiceTags("EXERCISING") &&
-                        <Tag 
+                        <Tag
                             icon={<ExerciseIcon />}
                             text="Exercise"
                             type="service"
@@ -182,7 +172,7 @@ export default function ProfilePage({ params }: {
                     }
                     {
                         containServiceTags("FEEDING") &&
-                        <Tag 
+                        <Tag
                             icon={<FeedingIcon />}
                             text="Feeding"
                             type="service"
@@ -190,7 +180,7 @@ export default function ProfilePage({ params }: {
                     }
                     {
                         containServiceTags("GROOMING") &&
-                        <Tag 
+                        <Tag
                             icon={<GroomingIcon />}
                             text="Grooming"
                             type="service"
@@ -198,7 +188,7 @@ export default function ProfilePage({ params }: {
                     }
                     {
                         containServiceTags("TRAINING") &&
-                        <Tag 
+                        <Tag
                             icon={<TrainingIcon />}
                             text="Training"
                             type="service"
@@ -206,7 +196,7 @@ export default function ProfilePage({ params }: {
                     }
                     {
                         containServiceTags("RELAXATION") &&
-                        <Tag 
+                        <Tag
                             icon={<RelaxationIcon />}
                             text="Relaxation"
                             type="service"
@@ -214,7 +204,7 @@ export default function ProfilePage({ params }: {
                     }
                     {
                         containServiceTags("ADMINISTERING_MEDICATION") &&
-                        <Tag 
+                        <Tag
                             icon={<MedicationIcon />}
                             text="Administering Medication"
                             type="service"
@@ -232,19 +222,19 @@ export default function ProfilePage({ params }: {
                     </div>
                     <div className="flex flex-col">
                         <div className="flex flex-row gap-2 text-subheading text-dark-blue">
-                            <p>Reviews</p> 
+                            <p>Reviews</p>
                             <p>{`(${userData?.petsitter?.reviews.length})`}</p>
                         </div>
                         <div>
                             {
                                 userData?.petsitter?.reviews.map((review, index) => {
-                                    return <ReviewCard key={index} review={review}/>
+                                    return <ReviewCard key={index} review={review} />
                                 })
                             }
                             {
-                                userData?.petsitter?.reviews.length == 0 && 
+                                userData?.petsitter?.reviews.length == 0 &&
                                 <div className="pt-[36px] w-full flex flex-col items-center gap-6">
-                                    <Image 
+                                    <Image
                                         src={"/empty.svg"}
                                         width={200}
                                         height={200}
@@ -260,7 +250,7 @@ export default function ProfilePage({ params }: {
             <div className="w-[324px] flex flex-col border border-bd-gray rounded-lg sticky top-[80px] pop-up-shadow">
                 <div className="pt-4 flex flex-row">
                     <div className="p-4 pl-6">
-                        <Image 
+                        <Image
                             src={userData?.avatar ? getAttachmentSrc(userData.avatar) : "/default_profile.jpg"}
                             width={286}
                             height={286}
@@ -276,7 +266,7 @@ export default function ProfilePage({ params }: {
                         <div className="w-full py-2 flex flex-col items-start gap-1 border-b border-bd-gray">
                             <div className="flex flex-row items-end">
                                 <p className="h-5 text-subheading text-golden-yellow">{(userData?.petsitter?.rating ?? 0).toFixed(1)}</p>
-                                <StarIcon className="w-5 h-5 text-golden-yellow"/>
+                                <StarIcon className="w-5 h-5 text-golden-yellow" />
                             </div>
                             <p className="text-[14px] font-normal leading-[100%]">Rating</p>
                         </div>
@@ -295,8 +285,8 @@ export default function ProfilePage({ params }: {
                     {
                         myData?.role == "CUSTOMER" && userData?.petsitter &&
                         <div className="pt-4 flex flex-row justify-between gap-5">
-                            <InviteButton activities={activities} petSitterId={userData.id}/>
-                            <FavoriteButton isAdded={favorites.some((favorite) => favorite.petsitter.id == userData?.petsitter?.id)} onFavoriteButtonClick={onFavoriteButtonClick}/>
+                            <InviteButton activities={activities} petSitterId={userData.id} />
+                            <FavoriteButton isAdded={favorites.some((favorite) => favorite.petsitter.id == userData?.petsitter?.id)} onFavoriteButtonClick={onFavoriteButtonClick} />
                         </div>
                     }
                 </div>

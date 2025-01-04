@@ -23,7 +23,6 @@ export default function CompletedActivitiesPage(){
                 response = await activityService.getActivitiesByPetSitter();
             }
             
-            console.log(response);
             setActivities(response.filter((activity) => {
                 return activity.state == "COMPLETED" || activity.state == "CANCELLED" || activity.state == "FAILED" || activity.state == "REJECTED";
             }));

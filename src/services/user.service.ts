@@ -18,7 +18,6 @@ export const userService = {
         const formData = new FormData();
         const { avatarFile, ...parsedUpdateRequest } = updatePetOwnerRequest;
         formData.append("json", JSON.stringify(parsedUpdateRequest));
-        console.log(parsedUpdateRequest);
         if (avatarFile) {
             formData.append("avatar", avatarFile);
         }
@@ -30,7 +29,6 @@ export const userService = {
         const formData = new FormData();
         const { avatarFile, coverImageFile, ...parsedUpdateRequest } = updatePetSitterRequest;
         formData.append("json", JSON.stringify(parsedUpdateRequest));
-        console.log(parsedUpdateRequest);
         if (avatarFile) {
             formData.append("avatar", avatarFile);
         }
@@ -39,7 +37,6 @@ export const userService = {
                 formData.append("coverImage", file);
             })
         }
-        console.log(formData.values);
         return await apiController(`/users/petsitter/me`, "patch", formData);
     },
     getUser: async (

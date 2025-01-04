@@ -9,7 +9,6 @@ import { UpdateStateFunction } from "../Card/Content";
 export function DefaultAction() {
     const router = useRouter();
     const user = useContext(UsersContext);
-    console.log("HEHE", user?.id)
 
     return (user &&
         <div className="border border-light-gray2 w-max h-[80px] pr-[18px] pl-[18px] rounded-[16px] grid grid-rows-[40px_40px] shadow-custom cursor-pointer select-none">

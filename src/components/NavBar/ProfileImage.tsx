@@ -23,10 +23,8 @@ export default function ProfileImage() {
 
   const onLogOutButtonClicked = async () => {
     try {
-      console.log("logggggggg");
       await authService.logout();
       //Cookies.remove("token");
-      console.log("loeffdssfdggg");
       dispatch(deleteAuthState());
       setShow(false);
       router.push("/");
@@ -39,7 +37,6 @@ export default function ProfileImage() {
     
   };
 
-  console.log(userData);
   return (
     <div className="relative">
       <div ref={buttonRef}>

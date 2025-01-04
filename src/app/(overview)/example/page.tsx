@@ -1,7 +1,7 @@
 "use client";
 
 import { activityService } from "@/services/activity.service";
-import { adminService } from "@/services/adminService";
+import { adminService } from "@/services/admin.service";
 import { customerService } from "@/services/customer.service";
 import { petService } from "@/services/pet.service";
 import { qualificationService } from "@/services/qualification.service";
@@ -19,47 +19,46 @@ export default function Home() {
 
   const onGetAuthUserButtonClicked = async () => {
     const response = await userService.getAuthUser();
-    console.log(response);
+    ;
   };
 
   const onGetUserButtonClicked = async () => {
     const response2 = await userService.getAllUser(``);
-    console.log(response2);
+    ;
 
     const response = await userService.getUser(
       "df5126d5-cb15-463c-84bd-376b94927cfe"
     );
-    console.log(response);
+    ;
   };
 
   const onGetQualificationsClicked = async () => {
     const response = await qualificationService.getQualifications();
-    console.log(response);
+    ;
 
     const response2 = await qualificationService.getQualification("8e945896-ae79-4048-9714-ec2e6bd0a165");
-    console.log(response2);
+    ;
   };
 
   const onAcceptQualificationClick = async () => {
     const response = await userService.createPetSitter("engfa@gmail.com");
-    console.log(response);
+    ;
   };
 
   const onRejectQualificationClick = async () => {
     const response = await qualificationService.updateQualification("ddfd9249-a3c3-4b37-8ccb-10c08a7df934", { state: "REJECTED" })
-    console.log(response);
+    ;
   };
 
   const onGetPetButtonClicked = async () => {
 
     const response = await petService.getPet("e7594d44-569a-4948-bde9-10a99676e6bf");
-    console.log(response);
+    ;
 
     const response2 = await petService.getAllPet();
-    console.log(response2);
+    ;
 
     const response3 = await petService.getPetsByOwner();
-    console.log(response3);
   };
 
   // const onUpdatePetButtonClicked = async () => {
@@ -76,34 +75,34 @@ export default function Home() {
   //       name: "Buddy" + Math.floor(Math.random() * 100),
   //     }
   //   );
-  //   console.log(response);
+  //   ;
   // };
 
   const onCustomerButtonClicked = async () => {
     const response = await customerService.getAllCustomer();
-    console.log(response);
+    ;
     const response2 = await customerService.getCustomer("95d3ccd2-07e9-4ca7-8833-0914ed99bb15");
-    console.log(response2);
+    ;
   }
 
   const onSetAccountStateButtonClicked = async () => {
     const response = await adminService.setAccountState("5116ecb6-3761-4b6c-b097-3dd3614ad49b", "BANNED");
-    console.log(response);
+    ;
   }
 
   const onGetReportButtonClicked = async () => {
     const response = await reportService.getReports();
-    console.log(response);
+    ;
 
     const response2 = await reportService.getReport("c6f96f56-ed59-4010-ba26-789e160dee89");
-    console.log(response2);
+    ;
   }
 
   const onUpdateActivityStateButtonClicked = async () => {
     const response = await activityService.updateActivityState("6107c245-e070-47e1-8762-7ac678ee1527", {
       state: "COMPLETED"
     });
-    console.log(response);
+    ;
   }
 
   const onReviewButtonClicked = async () => {
@@ -113,7 +112,7 @@ export default function Home() {
       content: "Good",
       rating: 4,
     });
-    console.log(response);
+    ;
   }
 
   const onCreateRequestButtonClicked = async () => {
@@ -122,12 +121,12 @@ export default function Home() {
       price: 50,
       message: "Absolutely stunning!",
     })
-    console.log(response);
+    ;
   }
 
   const onAcceptRequestButtonClicked = async () => {
     const response = await requestService.acceptRequest("b53b0e61-1b19-4c76-aaad-651c63f844e4");
-    console.log(response);
+    ;
   }
 
   const onFileUploaded = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -143,12 +142,12 @@ export default function Home() {
       progresses: progressImage,
       content: "This is a progress."
     });
-    console.log(response);
+    ;
   }
 
   const onGetProgressButtonClicked = async () => {
     const response = await activityService.getProgressesByActivityId("17db7094-814c-4f86-86c1-692df717c90f");
-    console.log(response);
+    ;
   }
 
   return (

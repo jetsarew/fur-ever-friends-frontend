@@ -10,7 +10,6 @@ export const qualificationService = {
         const { file, ...parsedQualification } = qualificationRequest;
         formData.append("json", JSON.stringify(parsedQualification));
         formData.append("file", file);
-        console.log(formData);
         return await apiController("/qualifications", "post", formData);
     },
     getQualifications: async (): Promise<QualificationModelResponse[]> => {

@@ -24,14 +24,13 @@ export default function UnassignedActivitiesPage(){
                 setActivities(response.filter((activity) => {
                     return activity.state == "PENDING";
                 }));
-                console.log(response);
+                ;
             }
             else {
                 const response = (await activityService.getActivities()).filter((activities) => activities.state === "PENDING");
-                console.log(response);
+                ;
 
                 const response2 = await requestService.getRequestedActivity();
-                console.log(response2);
 
                 setActivities(response.filter((activity) => {
                     return response2.some((activity2) => activity2.id === activity.id);

@@ -7,7 +7,6 @@ import { useAppSelector } from "@/store/hooks";
 
 export default function NavBar(){
     const userData = useAppSelector((state) => state.auth.user)
-    console.log(userData);
 
     return (
         <div className="fixed top-0 left-0 right-0 w-full h-16 px-[111px] flex flex-row justify-between items-center border-b border-bd-gray bg-white z-10">

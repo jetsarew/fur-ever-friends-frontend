@@ -1,56 +1,8 @@
 'use client'
 
-// import Image from "next/image";
-// import { useState, useEffect } from "react";
-// import { reportService } from "@/services/report.service";
-// import { ActivityModelResponse, ReportModelResponse } from "@/types/response.type";
-// import ActivityCard from "@/components/Card/ActivityCard";
-// import { activityService } from "@/services/activity.service";
-
-// function reportMap(report_type: string) {
-//   switch (report_type) {
-//     case "SERVICE_QUALITY":
-//       return "Service Quality";
-//     case "CUSTOMER_BEHAVIOR":
-//       return "Neglet/Abuse";
-//     case "UNPROFESSIONAL_CONDUCT":
-//       return "Unprofessional behavior";
-//     case "INAPPROPRIATE_COMMUNICATION":
-//       return "Inappropriate Communication";
-//     case "OTHER":
-//       return "No Show";
-//   }
-// }
-
-// function formatDate(dateString: string) {
-//   const date = new Date(dateString);
-
-//   const day = String(date.getDate()).padStart(2, '0');
-//   const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
-//   const year = date.getFullYear();
-
-//   return `${day}/${month}/${year}`;
-// }
-
 export default function ReportPage({ params }: {
   params: { id: string }
 }) {
-  console.log(params.id)
-  // const [report, setReport] = useState<ReportModelResponse>();
-  // const [activity, setActivity] = useState<ActivityModelResponse>();
-
-  // useEffect(() => {
-  //   const fetchReport = async () => {
-  //     try {
-  //       const response = await reportService.getReport(params.id);
-  //       setReport(response);
-  //     } catch (error) {
-  //       console.error("Failed to fetch reports:", error);
-  //     }
-  //   };
-
-  //   fetchReport();
-  // }, []);
   const report = "a";
 
   return (

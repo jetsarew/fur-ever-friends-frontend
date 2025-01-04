@@ -59,7 +59,7 @@ import {
   
         try {
           const response = await axios.post(`${baseUrl}auth/refresh`, {}, { withCredentials: true });
-          console.log(response);
+          ;
 
           const { data } = response.data;
 
@@ -78,34 +78,7 @@ import {
       return Promise.reject(error);
     }
   );
-  
-  // const errorInterceptor = async (error: AxiosError) => {
-  //   const originalRequest = error.config;
-  
-  //   if (
-  //     error.response?.status === 401 &&
-  //     store.getState().auth.user != null &&
-  //     originalRequest
-  //   ) {
-  //     const refreshToken = store.getState().auth.refreshToken;
-  //     console.log(store.getState().auth);
-  //     if (refreshToken) {
-  //       try {
-  //         const accessToken = await refreshAccessToken(refreshToken);
-  //         originalRequest.headers["Authorization"] = `Bearer ${accessToken}`;
-  //         return axios(originalRequest);
-  //       } catch (refreshError) {
-  //         console.error("Failed to refresh token:", refreshError);
-  //       }
-  //     } else {
-  //       store.dispatch(deleteAuthState());
-  //       console.error("Refresh token not found in storage");
-  //     }
-  //   }
-  
-  //   return Promise.reject(error);
-  // };
-  
+ 
   axiosInstance.interceptors.request.use(requestInterceptor);
   
   export default axiosInstance;

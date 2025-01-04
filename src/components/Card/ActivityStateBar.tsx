@@ -32,16 +32,16 @@ export default function ActivityStateBar({
 
   useEffect(() => {
     const getFavorites = async () => {
-        try {
-            const response = await favoriteService.getMyFavorite();
-            console.log(response);
-            setFavorite(response);
-        } catch (error) {
-            
-        }
+      try {
+        const response = await favoriteService.getMyFavorite();
+        ;
+        setFavorite(response);
+      } catch (error) {
+
+      }
     };
 
-    if(userData?.role == "CUSTOMER") {
+    if (userData?.role == "CUSTOMER") {
       getFavorites();
     }
 
@@ -66,9 +66,8 @@ export default function ActivityStateBar({
 
   const activeUnassignedElement = (
     <div className="h-[151px] pt-[2px] flex flex-col items-end gap-4">
-      <p className="text-subheading text-bright-blue">{`${
-        userData?.role == "PETSITTER" ? "Requested" : "Unassigned"
-      }`}</p>
+      <p className="text-subheading text-bright-blue">{`${userData?.role == "PETSITTER" ? "Requested" : "Unassigned"
+        }`}</p>
       {userData?.role == "PETSITTER" ? (
         <div className="flex flex-col items-end gap-1">
           <p className="text-end text-body-paragraph">
@@ -83,7 +82,7 @@ export default function ActivityStateBar({
           </p>
           <div className="flex flex-row gap-2">
             <ShowFavoriteButton activityId={activity.id} favorites={favorite} />
-            <ShowRequestPopUpButton activityId={activity.id} requests={activity.requests}/>
+            <ShowRequestPopUpButton activityId={activity.id} requests={activity.requests} />
           </div>
         </div>
       )}
@@ -92,9 +91,8 @@ export default function ActivityStateBar({
   const startTimeRemaining = convertUTCToTimeRemaining(activity.startDateTime);
   const activeAssignedElement = (
     <div className="h-[151px] pt-[2px] flex flex-col items-end gap-4">
-      <p className="text-subheading text-bright-blue">{`${
-        userData?.role == "PETSITTER" ? "Scheduled" : "Assigned"
-      }`}</p>
+      <p className="text-subheading text-bright-blue">{`${userData?.role == "PETSITTER" ? "Scheduled" : "Assigned"
+        }`}</p>
       <div className="flex flex-row justify-end flex-wrap items-baseline gap-1 gap-y-2 text-body">
         <p>The activity starts in</p>
         <div className="flex flex-row justify-end items-baseline gap-1 text-body">
@@ -103,19 +101,19 @@ export default function ActivityStateBar({
               <p className="text-subheading">{startTimeRemaining.day}</p>
               <p>{`day${startTimeRemaining.day > 1 ? "s" : ""}${startTimeRemaining.hour ? " and" : ""}`}</p>
             </div>
-          ): null}
+          ) : null}
           {startTimeRemaining.hour ? (
             <div className="flex flex-row justify-end items-baseline gap-1 text-body">
               <p className="text-subheading">{startTimeRemaining.hour}</p>
               <p>{`hour${startTimeRemaining.hour > 1 ? "s" : ""}${startTimeRemaining.minute ? " and" : ""}`}</p>
             </div>
-          ): null}
+          ) : null}
           {startTimeRemaining.minute ? (
             <div className="flex flex-row justify-end items-baseline gap-1 text-body">
               <p className="text-subheading">{startTimeRemaining.minute}</p>
               <p>{`minute${startTimeRemaining.minute > 1 ? "s" : ""}`}</p>
             </div>
-          ): null}
+          ) : null}
         </div>
       </div>
     </div>
@@ -125,7 +123,7 @@ export default function ActivityStateBar({
   const activeInProgressElement = (
     <div className="h-[151px] pt-[2px] flex flex-col items-end gap-4">
       <p className="text-subheading text-bright-blue">In progress</p>
-      { !hasActivityTerminated(activity.endDateTime) ? 
+      {!hasActivityTerminated(activity.endDateTime) ?
         <div className="flex flex-row justify-end flex-wrap items-baseline gap-1 gap-y-2 text-body">
           <p>The activity ends in</p>
           <div className="flex flex-row justify-end items-baseline gap-1 text-body">
@@ -134,39 +132,39 @@ export default function ActivityStateBar({
                 <p className="text-subheading">{endTimeRemaining.day}</p>
                 <p>{`day${endTimeRemaining.day > 1 ? "s" : ""}${endTimeRemaining.hour ? " and" : ""}`}</p>
               </div>
-            ): null}
+            ) : null}
             {endTimeRemaining.hour ? (
               <div className="flex flex-row justify-end items-baseline gap-1 text-body">
                 <p className="text-subheading">{endTimeRemaining.hour}</p>
                 <p>{`hour${endTimeRemaining.hour > 1 ? "s" : ""}${endTimeRemaining.minute ? " and" : ""}`}</p>
               </div>
-            ): null}
+            ) : null}
             {endTimeRemaining.minute ? (
               <div className="flex flex-row justify-end items-baseline gap-1 text-body">
                 <p className="text-subheading">{endTimeRemaining.minute}</p>
                 <p>{`minute${endTimeRemaining.minute > 1 ? "s" : ""}`}</p>
               </div>
-            ): null}
+            ) : null}
           </div>
         </div> :
         (
           userData?.role == "PETSITTER" ?
-          <div className="flex flex-col items-end gap-1">
+            <div className="flex flex-col items-end gap-1">
+              <p className="text-end text-body-paragraph">
+                Have you returned all the pets to the owner yet?
+              </p>
+              <Link
+                href={`/compose/confirm-pet-return/${activity.id}`}
+                className="px-6 py-2 rounded-lg bg-bright-green text-button text-white"
+              >
+                I have returned all pets
+              </Link>
+            </div> :
             <p className="text-end text-body-paragraph">
-              Have you returned all the pets to the owner yet?
+              Waiting for the pet sitter to return the pet
             </p>
-            <Link 
-              href={`/compose/confirm-pet-return/${activity.id}`}
-              className="px-6 py-2 rounded-lg bg-bright-green text-button text-white"
-            >
-              I have returned all pets
-            </Link>
-          </div> :
-          <p className="text-end text-body-paragraph">
-            Waiting for the pet sitter to return the pet
-          </p>
         )
-      }   
+      }
     </div>
   );
 
@@ -210,12 +208,12 @@ export default function ActivityStateBar({
           </p>
         </div>
       ) : (
-        activity.review == null ? 
+        activity.review == null ?
           <div className="flex flex-col items-end gap-1">
             <p className="text-end text-body-paragraph">
               Please review the pet sitter
             </p>
-            <Link 
+            <Link
               href={`/activity/${activity.id}/review/${activity.petsitter?.user.id}`}
               className="px-6 py-2 rounded-lg bg-golden-yellow text-button text-white">
               Rate pet sitter
@@ -231,11 +229,10 @@ export default function ActivityStateBar({
   const inactiveUnassignedElement = (
     <div className="h-[68px]">
       <p
-        className={`text-body ${
-          statePriority[activity.state] < statePriority["PENDING"]
+        className={`text-body ${statePriority[activity.state] < statePriority["PENDING"]
             ? "text-soft-gray"
             : "text-dark-blue"
-        }`}
+          }`}
       >{`${userData?.role == "PETSITTER" ? "Requested" : "Unassigned"}`}</p>
     </div>
   );
@@ -243,11 +240,10 @@ export default function ActivityStateBar({
   const inactiveAssignedElement = (
     <div className="h-[68px]">
       <p
-        className={`text-body ${
-          statePriority[activity.state] < statePriority["ASSIGNED"]
+        className={`text-body ${statePriority[activity.state] < statePriority["ASSIGNED"]
             ? "text-soft-gray"
             : "text-dark-blue"
-        }`}
+          }`}
       >{`${userData?.role == "PETSITTER" ? "Scheduled" : "Assigned"}`}</p>
     </div>
   );
@@ -255,11 +251,10 @@ export default function ActivityStateBar({
   const inactiveInProgressElement = (
     <div className="h-[68px]">
       <p
-        className={`text-body ${
-          statePriority[activity.state] < statePriority["IN_PROGRESS"]
+        className={`text-body ${statePriority[activity.state] < statePriority["IN_PROGRESS"]
             ? "text-soft-gray"
             : "text-dark-blue"
-        }`}
+          }`}
       >
         In progress
       </p>
@@ -269,11 +264,10 @@ export default function ActivityStateBar({
   const inactiveReturningElement = (
     <div className="h-[68px]">
       <p
-        className={`text-body ${
-          statePriority[activity.state] < statePriority["RETURNING"]
+        className={`text-body ${statePriority[activity.state] < statePriority["RETURNING"]
             ? "text-soft-gray"
             : "text-dark-blue"
-        }`}
+          }`}
       >
         Returning
       </p>

@@ -2,7 +2,6 @@
 
 import { ManageUsersHeader } from "@/components/Admin/Card/Header"
 import { ManageUsersContent } from "@/components/Admin/Card/Content"
-// import SearchBar from "@/components/Admin/Input/SearchBar"
 import { UsersFilter } from "@/components/Admin/Button/Filter"
 import { useState, useEffect } from "react";
 import { CommonUserModel } from "@/types/user.type"
@@ -16,16 +15,15 @@ export type filterRoleByType = (filterRoleBy: string) => void;
 
 export default function UsersPage() {
     const [users, setUsers] = useState<CommonUserModel[]>([]);
+    const [inputValue, setInputValue] = useState("");
     const [isFilterStatus, setIsFilterStatus] = useState<boolean>(false);
     const [filterStatusBy, setFilterStatusBy] = useState<string>("enabled");
     const [isFilterRole, setIsFilterRole] = useState<boolean>(false);
     const [filterRoleBy, setFilterRoleBy] = useState<string>("pet sitter");
-    const [inputValue, setInputValue] = useState("");
 
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-
                 let filterRole;
                 if (filterRoleBy == "pet sitter")
                     filterRole = "PETSITTER";
@@ -38,36 +36,46 @@ export default function UsersPage() {
                 else if (filterStatusBy == "disabled")
                     filterStatus = "INACTIVE";
 
+                let path = "?";
+                let isSearchAdded = false;
 
-                if (isFilterStatus || isFilterRole || inputValue) {
-                    let path = "?";
-
-                    if (isFilterStatus) {
-                        path += `accountState=${filterStatus}`;
-                    }
-
-                    if (isFilterRole) {
-                        path += (isFilterStatus ? "&" : "") + `role=${filterRole}`;
-                    }
-
-                    if (inputValue) {
-                        path += (isFilterStatus || isFilterRole ? "&" : "") + `searchType=name&search=${inputValue}`;
-                    }
-
-                    // console.log(path);
-                    const response = await userService.getAllUser(path);
-                    setUsers(response);
-
-                } else {
-                    const response = await userService.getAllUser(``);
-                    setUsers(response);
+                if (isFilterStatus) {
+                    path += `accountState=${filterStatus}`;
                 }
+
+                if (isFilterRole) {
+                    path += (isFilterStatus ? "&" : "") + `role=${filterRole}`;
+                }
+
+                if (inputValue) {
+                    path += (isFilterStatus || isFilterRole ? "&" : "") + `search=${inputValue}`;
+                    isSearchAdded = true;
+                }
+
+                if (isSearchAdded) {
+                    path += `&searchType=id,firstname,lastname,email`;
+                }
+
+                const response = await userService.getAllUser(path);
+                setUsers(response);
+
             } catch (error) {
-                console.error("Failed to fetch qualifications:", error);
+                console.error("Failed to fetch users:", error);
             }
         };
-        fetchUsers();
+
+        const handler = setTimeout(() => {
+            fetchUsers();
+        }, 300);
+
+        return () => {
+            clearTimeout(handler);
+        };
     }, [isFilterStatus, isFilterRole, filterStatusBy, filterRoleBy, inputValue]);
+
+    const handleInputChange = (value: string) => {
+        setInputValue(value);
+    };
 
     const handleFilterStatusChange: isFilterStatusType = (isFilterStatus: boolean) => {
         setIsFilterStatus(isFilterStatus);
@@ -85,24 +93,29 @@ export default function UsersPage() {
         setFilterRoleBy(filterRoleBy);
     }
 
-    const handleInputChange = (value: string) => {
-        setInputValue(value);
-    };
+    const filteredUsers = users.filter((user) => {
+        const searchQuery = inputValue.toLowerCase();
+        const { id, firstname, lastname, email, phone } = user;
+        return (
+            id.toString().includes(searchQuery) ||
+            (firstname && firstname.toLowerCase().includes(searchQuery)) ||
+            (lastname && lastname.toLowerCase().includes(searchQuery)) ||
+            (email && email.toLowerCase().includes(searchQuery)) ||
+            (phone && phone.toString().includes(searchQuery))
+        );
+    });
 
     return (
         <div className="flex flex-col w-max top-[112px] left-[143px] gap-[32px]">
-            <div className="flex gap-[16px]">
-                <div>
-                    <InputField
-                        label=""
-                        placeholder="Search"
-                        value={inputValue}
-                        onChange={handleInputChange}
-                        width="w-80"
-                        height="h-12"
-                    />
-                    {/* <SearchBar /> */}
-                </div>
+            <div className="flex gap-[16px] items-center">
+                <InputField
+                    label=""
+                    placeholder="Search by ID, Name, Email, or Phone Number"
+                    value={inputValue}
+                    onChange={handleInputChange}
+                    width="w-80"
+                    height="h-12"
+                />
                 <div className="pt-[16px]">
                     <UsersFilter
                         handleFilterStatusChange={handleFilterStatusChange}
@@ -113,7 +126,7 @@ export default function UsersPage() {
             </div>
             <div>
                 <ManageUsersHeader />
-                {users.map((user) => (
+                {filteredUsers.map((user) => (
                     <ManageUsersContent
                         key={user.id}
                         user={user}
@@ -121,5 +134,5 @@ export default function UsersPage() {
                 ))}
             </div>
         </div>
-    )
+    );
 }
