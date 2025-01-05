@@ -3,18 +3,32 @@ import "./globals.css";
 import TanstackProvider from "@/provider/tanstack.provider";
 import StoreProvider from "@/provider/store.provider";
 import { Toaster } from "react-hot-toast";
+import { headers } from "next/headers";
+import { CommonUserModel } from "@/types/user.type";
 
 export const metadata: Metadata = {
   title: "Fur-ever-friends",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   compose
 }: Readonly<{
   children: React.ReactNode;
   compose: React.ReactNode;
 }>) {
+
+  const getUser = async () => {
+    const header = await headers();
+    const user = header.get("x-user");
+    if (user) {
+      return JSON.parse(user);
+    }
+
+    return undefined;
+  }
+
+  const user = await getUser() as CommonUserModel;
   return (
     <html lang="en">
       <head>
@@ -31,7 +45,7 @@ export default function RootLayout({
       </head>
       <body className="antialiased bg-white">
         <TanstackProvider>
-          <StoreProvider>
+          <StoreProvider initialUser={user}>
             <Toaster />
             <main className="w-[1154px] mx-auto mt-16 pt-9">
               {children}

@@ -21,7 +21,6 @@ export default function EditPet({ params }: {
     const router = useRouter();
 
     const onFileUploaded = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e);
         const files = e.target.files;
         if (files?.length) {
           formik.setFieldValue("file", files[0]);
@@ -31,12 +30,10 @@ export default function EditPet({ params }: {
 
     const handleUpdatePet = async () => {
         try {
-            console.log(formik.values);
             const updatePetDto = { ... formik.values };
             if(formik.values.file) {
                 updatePetDto.file = formik.values.file;
             }
-            console.log(updatePetDto);
             await petService.updatePet(params.id, updatePetDto);
             router.back();
             Toast("Update pet successfully.", "success");
@@ -72,7 +69,7 @@ export default function EditPet({ params }: {
 
             const response2 = await petService.getBreeds();
             setBreeds(response2);
-            console.log(response2);
+            ;
 
             formik.setFieldValue("animalTypeId", response1[0].id);
         }
@@ -90,7 +87,7 @@ export default function EditPet({ params }: {
                 formik.setFieldValue("personality", response.personality);
                 formik.setFieldValue("allergy", response.allergy);
                 formik.setFieldValue("otherDetail", response.otherDetail);
-                console.log(response);
+                ;
             } catch (error) {
 
             }

@@ -6,38 +6,49 @@ import Image from "next/image";
 import { ActivityModelResponse } from "@/types/response.type";
 import { activityService } from "@/services/activity.service";
 
-
 export default function FeedPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activities, setActivities] = useState<ActivityModelResponse[]>([]);
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value); // Update search query state when the user types
-  };
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearchQuery(searchQuery);
+    }, 300);
 
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchQuery]);
 
   useEffect(() => {
     const fetchActivities = async () => {
       try {
         const response = await activityService.getActivities();
-        setActivities(response.filter((activity) => activity.state == "PENDING"));
-        console.log(response);
-      } catch(error) {
-
+        setActivities(response.filter((activity) => activity.state === "PENDING"));
+      } catch (error) {
+        console.error("Failed to fetch activities:", error);
       }
-    }
+    };
 
     fetchActivities();
   }, []);
 
+  const filteredActivities = activities.filter((activity) => {
+    return activity.pickupPoint.toLowerCase().includes(debouncedSearchQuery.toLowerCase());
+  });
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
   return (
     <div>
-     
       <div className="w-full pb-9">
         <div className="flex justify-center">
           <div className="w-[680px]">
             <div className="flex items-center gap-4">
-              <div className="bg-white flex border-2 border-bright-blue rounded-md w-full ">
+              <div className="bg-white flex border-2 border-bright-blue rounded-md w-full">
                 <Image
                   src="/search.svg"
                   width={16}
@@ -50,7 +61,7 @@ export default function FeedPage() {
                   className="w-full p-3 rounded-md focus:outline-none text-black bg-white"
                   placeholder="Search"
                   value={searchQuery}
-                  onChange={handleSearch} // Capture user input
+                  onChange={handleSearch}
                 />
               </div>
               <button className="w-fit h-fit">
@@ -63,23 +74,26 @@ export default function FeedPage() {
               </button>
             </div>
 
-            <div className="mt-8 grid gap-8"> 
-              {activities.map((activity, index) => (
-                <FeedCard key={index} activity={activity}/>
+            <div className="mt-8 grid gap-8">
+              {filteredActivities.map((activity, index) => (
+                <FeedCard key={index} activity={activity} />
               ))}
             </div>
-            {
-                activities.length == 0 &&
-                <div className="pt-[56px] w-full flex flex-col items-center gap-6">
-                    <Image 
-                        src={"/match-not-found.svg"}
-                        width={300}
-                        height={300}
-                        alt={"not found"}
-                    />
-                    <p className="text-center text-soft-gray text-body-paragraph">{"Looks like it's quiet here."}<br/>{"We'll update this feed when new activities are posted."}</p>
-                </div>
-            }
+            {filteredActivities.length === 0 && (
+              <div className="pt-[56px] w-full flex flex-col items-center gap-6">
+                <Image
+                  src={"/match-not-found.svg"}
+                  width={300}
+                  height={300}
+                  alt={"not found"}
+                />
+                <p className="text-center text-soft-gray text-body-paragraph">
+                  {"Looks like it's quiet here."}
+                  <br />
+                  {"We'll update this feed when new activities are posted."}
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>

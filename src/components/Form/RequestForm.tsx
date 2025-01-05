@@ -24,7 +24,7 @@ export default function RequestForm({activityId}: {activityId: string}){
             const response = await requestService.createRequest(
                 formik.values
             )
-            console.log(response);
+            ;
             window.location.reload();
         } catch (error) {
             if(error) {

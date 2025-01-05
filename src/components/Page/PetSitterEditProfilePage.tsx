@@ -98,7 +98,7 @@ export default function PetSitterEditProfilePage() {
       if (response) {
         dispatch(setAuthUser(response));
       }
-      console.log(response);
+      ;
       Toast("Your profile has been updated.", "success");
       router.push(`/profile/${userData?.id}`);
     } catch (error) {

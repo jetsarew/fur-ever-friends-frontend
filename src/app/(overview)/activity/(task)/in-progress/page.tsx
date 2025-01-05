@@ -23,7 +23,7 @@ export default function InProgressActivitiesPage(){
                 response = await activityService.getActivitiesByPetSitter();
             }
             
-            console.log(response);
+            ;
             setActivities(response.filter((activity) => {
                 return activity.state == "IN_PROGRESS";
             }));

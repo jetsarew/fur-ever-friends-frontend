@@ -27,7 +27,7 @@ export async function apiController<T>(
 ): Promise<T> {
   try {
     const response = await axiosInstance.request({ url, method, data, withCredentials: true });
-    console.log(response);
+    ;
     if (url == "/reports") {
       return response.data.data.reports;
     }

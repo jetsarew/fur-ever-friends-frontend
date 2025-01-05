@@ -23,7 +23,7 @@ export default function ReturningActivitiesPage(){
                 response = await activityService.getActivitiesByPetSitter();
             }
             
-            console.log(response);
+            ;
             setActivities(response.filter((activity) => {
                 return activity.state == "RETURNING";
             }));

@@ -23,7 +23,6 @@ export default function AssignedActivitiesPage(){
                 response = await activityService.getActivitiesByPetSitter();
             }
             
-            console.log(response);
             setActivities(response.filter((activity) => {
                 return activity.state == "ASSIGNED";
             }));

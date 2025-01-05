@@ -11,7 +11,7 @@ export default function FavoritePage(){
     const getFavorites = async () => {
         try {
             const response:FavoriteModelResponse[] = await favoriteService.getMyFavorite();
-            console.log(response);
+            ;
             setFavorites(response);
         } catch (error) {
             

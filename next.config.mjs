@@ -2,11 +2,16 @@
 const nextConfig = {
   images: {
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'api.f4th.dev',
-        pathname: '**',
-      },
+      // {
+      //   protocol: 'https',
+      //   hostname: 'api.f4th.dev',
+      //   pathname: '**',
+      // },
+    {
+      protocol: 'http',
+      hostname: 'localhost',
+      pathname: '**',
+    }
     ],
   },
   output: "standalone",

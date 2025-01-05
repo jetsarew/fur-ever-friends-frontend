@@ -1,1 +1,1 @@
-export const getAttachmentSrc = (filename: string) => `https://api.f4th.dev/attachments/${filename}`;
+export const getAttachmentSrc = (filename: string) => `${process.env.NEXT_PUBLIC_ENV}/attachments/${filename}`;

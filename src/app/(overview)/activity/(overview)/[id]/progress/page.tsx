@@ -31,15 +31,12 @@ export default function ActivityProgressPage({ params }: {
 
     const fetchActivity = async () => {
         const response = await activityService.getActivityById(params.id);
-        console.log(response);
         setActivity(response);
         setPreviousActivity(response);
     }
 
     const fetchProgress = async () => {
         const response = await activityService.getProgressesByActivityId(params.id)
-        console.log(response)
-        // setProgress(response);
     }
 
     const onFileUploaded = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,7 +87,6 @@ export default function ActivityProgressPage({ params }: {
                 status: task.status
             }
         )
-        console.log(response);
     }
 
     const onSaveTaskStatusButtonClicked = async() => {

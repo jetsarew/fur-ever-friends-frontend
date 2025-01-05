@@ -32,7 +32,6 @@ export const useUser = () => {
     if (userListQueryData) {
       dispatch(setUser(userListQueryData));
       setHasFetched(true);
-      console.log(hasFetched);
     }
   }, [userListQueryData, dispatch]);
 

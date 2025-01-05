@@ -35,7 +35,7 @@ const UploadCertificate = () => {
         phone: phone,
         file: file,
       });
-      console.log(response);
+      ;
       resetStateStore();
       router.push("/auth/signup/upload-done");
     } catch (error) {

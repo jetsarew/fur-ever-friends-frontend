@@ -23,7 +23,6 @@ export default function CreatePet() {
     const  { createPet } = usePets();
 
     const onFileUploaded = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e);
         const files = e.target.files;
         if (files?.length) {
           formik.setFieldValue("file", files[0]);
@@ -36,7 +35,6 @@ export default function CreatePet() {
             return ;
         }
         try {
-            console.log(formik.values);
             await createPet({
                 ...formik.values,
                 file: formik.values.file as File,
@@ -78,7 +76,7 @@ export default function CreatePet() {
 
             const response2 = await petService.getBreeds();
             setBreeds(response2);
-            console.log(response2);
+            ;
 
             formik.setFieldValue("animalTypeId", response1[0].id);
         }
